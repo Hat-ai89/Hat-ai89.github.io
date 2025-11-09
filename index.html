@@ -265,14 +265,7 @@
             align-items: center;
             margin-bottom: 0.5rem;
         }
-        .feedback-section {
-            font-weight: bold;
-            color: #003F5C;
-            font-size: 1.1rem;
-        }
-        .feedback-time {
-            font-size: 0.8rem;
-            color: #6c757d;
+        .
         }
         .feedback-user {
             font-size: 0.8rem;
@@ -434,7 +427,7 @@
           margin: 0;
           padding: 0;
         }
-        .author-image {
+        .author-image {   /* Kích thước ảnh logo - đã tăng lên 80px */   width: 80px;  /* Bạn có thể thay đổi số 80 này nếu muốn ảnh lớn hơn/nhỏ hơn */   height: 80px; /* Bạn có thể thay đổi số 80 này nếu muốn ảnh lớn hơn/nhỏ hơn */    /* Xóa bo tròn 50% và thay bằng bo góc 8px cho ảnh vuông */   border-radius: 8px;     /* Hiển thị toàn bộ ảnh, không bị cắt xén, giữ nguyên tỷ lệ */   object-fit: contain;     /* (Tùy chọn) Thêm một đường viền mỏng xung quanh ảnh cho đẹp */   border: 1px solid #ddd;     /* (Tùy chọn) Tạo nền trắng cho ảnh nếu ảnh có nền trong suốt, giúp nhìn rõ hơn */   background-color: white;     /* (Tùy chọn) Thêm đổ bóng nhẹ cho ảnh nổi bật */   box-shadow: 0 2px 4px rgba(0,0,0,0.1); } {
           /* Kích thước ảnh logo */
           width: 50px;  /* Bạn có thể thay đổi số 50 này */
           height: 50px; /* Bạn có thể thay đổi số 50 này */
@@ -1221,7 +1214,7 @@
             document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = true);
             
             try {
-                const apiKey = ""; // API key sẽ được tự động cung cấp
+                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // API key sẽ được tự động cung cấp
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
                 const payload = {
@@ -1783,7 +1776,8 @@
          */
         const callChatbotAPI = async (userMessage) => {
             try {
-                const apiKey = ""; // API key sẽ được tự động cung cấp
+                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // API key sẽ được tự động cung cấp
+            
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
                 const payload = {
@@ -1831,3 +1825,4 @@
     </script>
 </body>
 </html>
+
