@@ -175,7 +175,6 @@
             font-weight: bold;
             color: #003F5C;
         }
-
         /* --- CSS CHO MODAL --- */
         .modal-overlay {
             position: fixed;
@@ -237,7 +236,6 @@
             cursor: pointer;
             font-weight: bold;
         }
-
         /* --- CSS GÓP Ý --- */
         .feedback-input {
             width: 100%;
@@ -265,7 +263,14 @@
             align-items: center;
             margin-bottom: 0.5rem;
         }
-        .
+        .feedback-section {
+            font-weight: bold;
+            color: #003F5C;
+            font-size: 1.1rem;
+        }
+        .feedback-time {
+            font-size: 0.8rem;
+            color: #6c757d;
         }
         .feedback-user {
             font-size: 0.8rem;
@@ -280,7 +285,6 @@
             line-height: 1.6;
             white-space: pre-wrap;
         }
-
         /* --- CSS CHATBOT --- */
         .chat-fab {
             position: fixed;
@@ -407,27 +411,36 @@
             border-radius: 0 0.25rem 0.25rem 0;
             font-size: 1.25rem;
         }
-
-        /* --- CSS CHO PHẦN TÁC GIẢ MÀ BẠN YÊU CẦU --- */
+        
+        /* ===== CSS PHẦN TÁC GIẢ ĐÃ SỬA (BƯỚC 1) ===== */
         .author-box {
-         .author-box {
-  /* Dùng để xếp chữ và ảnh */
-  display: flex;
-
-  /* *** THAY ĐỔI QUAN TRỌNG: Xếp theo chiều dọc (chữ trên, ảnh dưới) */
-  flex-direction: column; 
-
-  /* Căn cho chữ và ảnh thẳng hàng nhau (theo chiều dọc) */
-  align-items: center; 
-
-  /* Đẩy cả cụm (chữ + ảnh) ra giữa trang */
-  justify-content: center;
-
-  /* Tạo một khoảng cách nhỏ giữa chữ và ảnh */
-  gap: 15px; 
-}
-}
-        /* --- KẾT THÚC CSS CHO PHẦN TÁC GIẢ --- */
+          display: flex;
+          /* Xếp theo chiều dọc (chữ trên, ảnh dưới) */
+          flex-direction: column; 
+          align-items: center; 
+          justify-content: center;
+          /* Khoảng cách giữa chữ và ảnh */
+          gap: 15px; 
+          /* Thêm khoảng cách cho chữ "Người phụng sự" */
+          text-sm text-gray-500 mt-4 font-medium;
+        }
+        .author-text {
+          margin: 0;
+          padding: 0;
+        }
+        .author-image {
+          /* Kích thước ảnh 150px (Bạn có thể đổi số này) */
+          width: 150px; 
+          /* Chiều cao tự động để giữ nguyên ảnh gốc */
+          height: auto; 
+          max-width: 100%; 
+          /* Bo góc nhẹ cho đẹp */
+          border-radius: 8px; 
+          /* Thêm đổ bóng */
+          box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+          border: none;
+        }
+        /* ===== KẾT THÚC CSS PHẦN TÁC GIẢ ===== */
 
     </style>
 </head>
@@ -442,7 +455,7 @@
                 “Định hướng chiến lược 360° từ truyền thống đến AI, dẫn lối giấc ngủ Việt ra tầm quốc tế.”
             </p>
             
-            <div class="author-box text-sm text-gray-500 mt-4 font-medium">
+            <div class="author-box">
                 <p class="author-text">Người phụng sự: Hat.ai – Nhà Khởi Nghiệp Smart Up</p>
                 <img src="z7206684397874_e07693fe70d5bbb7b9356011f7a0e249.jpg" alt="Logo Smart Up" class="author-image">
             </div>
@@ -497,7 +510,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -577,7 +590,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -631,7 +644,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý Sáng Tạo Slogan
+                        Hat Support: Sáng Tạo Slogan
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các khẩu hiệu mới dựa trên định vị "Bền Bỉ Từ 1980".</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -644,7 +657,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -704,7 +717,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý Viết Mô Tả Sản Phẩm
+                        Hat Support: Viết Mô Tả Sản Phẩm
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Chọn 1 phân khúc và để AI tạo mô tả sản phẩm (chuẩn SEO) cho website.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -724,7 +737,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -789,7 +802,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý Soạn Thảo Chính Sách
+                        Hat Support: Soạn Thảo Chính Sách
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI soạn thảo một email thông báo chuyên nghiệp về chính sách MAP (Giá quảng cáo tối thiểu) để gửi cho đại lý.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -802,7 +815,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -869,7 +882,7 @@
                     </div>
 
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
-                        <label for="contentSelect" class="block text-md font-semibold mb-2" style="color: #665191;">2. Trợ Lý Sáng Tạo Nội Dung (VEO & Community)</label>
+                        <label for="contentSelect" class="block text-md font-semibold mb-2" style="color: #665191;">2. Hat Support: Sáng Tạo Nội Dung (VEO & Community)</label>
                         <p class="text-sm text-gray-600 mb-4">Chọn một loại nội dung và để AI gợi ý ý tưởng.</p>
                         <div class="flex flex-col sm:flex-row sm:space-x-4">
                             <select id="contentSelect" class="feedback-input mb-4 sm:mb-0 flex-1">
@@ -886,7 +899,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -930,7 +943,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý Phát Triển Gói Combo
+                        Hat Support: Phát Triển Gói Combo
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Chọn một loại combo và để AI phác thảo chi tiết (sản phẩm, thông điệp) cho gói đó.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -950,7 +963,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -1059,7 +1072,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý Báo Cáo KPI
+                        Hat Support: Báo Cáo KPI
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI phác thảo một email báo cáo tiến độ (dựa trên KPIs) để gửi cho ban lãnh đạo.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -1072,7 +1085,7 @@
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
-                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
                     </h4>
                     <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
@@ -1119,14 +1132,14 @@
         <span>&#129302;</span> </div>
     <div id="chatWindow" class="chat-window">
         <div class="chat-header">
-            <span>Trợ Lý Kế Hoạch AI</span>
+            <span>Hat AI</span>
             <button id="chatClose" class="chat-close">&times;</button>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="chat-message model">Xin chào! Tôi có thể giúp gì cho bạn về kế hoạch marketing này?</div>
+            <div class="chat-message model">Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" class="chat-input" placeholder="Hỏi tôi bất cứ điều gì...">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Hỏi tôi bất cứ điều gì..."><br>
             <button id="chatSend" class="chat-send">&#10148;</button> </div>
     </div>
     <script type="module">
@@ -1205,6 +1218,7 @@
             document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = true);
             
             try {
+                // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 1) =====
                 const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // API key sẽ được tự động cung cấp
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
@@ -1505,7 +1519,7 @@
                 });
             }
 
-            // 3.5. Nút "Báo Cáo KPI" (Mục 8)
+            // 3.5. Nút "Báo Cáo KPI" (MỤC 8)
             if (generateKPIReportButton) {
                 generateKPIReportButton.addEventListener('click', () => {
                     const systemPrompt = "Bạn là một Marketing Manager. Hãy viết một email báo cáo tiến độ ngắn gọn, chuyên nghiệp cho Ban Lãnh Đạo. Tập trung vào dữ liệu và hành động tiếp theo.";
@@ -1514,7 +1528,7 @@
                 });
             }
 
-            // 3.6. Nút "Mô Tả Sản Phẩm" (Mục 4)
+            // 3.6. Nút "Mô Tả Sản Phẩm" (MỤC 4)
             if (generateProductDescButton) {
                 generateProductDescButton.addEventListener('click', () => {
                     const tier = document.getElementById('productTierSelect').value;
@@ -1531,7 +1545,7 @@
                 });
             }
 
-            // 3.7. Nút "Soạn Thảo Email MAP" (Mục 5)
+            // 3.7. Nút "Soạn Thảo Email MAP" (MỤC 5)
             if (generateMAPEmailButton) {
                 generateMAPEmailButton.addEventListener('click', () => {
                     const systemPrompt = "Bạn là Trưởng phòng Kinh doanh. Hãy viết một email thông báo cho đại lý với giọng điệu vừa nghiêm túc (về chế tài) vừa mang tính hợp tác (vì lợi ích chung).";
@@ -1547,7 +1561,7 @@
                     const sectionContent = button.dataset.sectionContent;
                     const resultElement = document.getElementById(`brainstormResult-${sectionId}`);
 
-                    const systemPrompt = "Bạn là một nhà tư vấn chiến lược cấp cao (Strategic Consultant) đang họp review kế hoạch marketing. Nhiệm vụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này. Đừng hỏi câu hỏi 'có/không', hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'.";
+                    const systemPrompt = "Bạn là một nhà tư vấn chiến lược cấp cao (Strategic Consultant) đang họp review kế hoạch marketing. Nhiệmvụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này. Đừng hỏi câu hỏi 'có/không', hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'.";
                     const userPrompt = `Dựa trên nội dung của mục này: "${sectionContent}", hãy tạo ra 3 câu hỏi/vấn đề thảo luận mở rộng.`;
                     
                     callGeminiAPI(systemPrompt, userPrompt, resultElement);
@@ -1694,28 +1708,20 @@
 
         // --- LOGIC RIÊNG CỦA CHATBOT ---
 
-        // Bối cảnh cho chatbot
-        const CHATBOT_SYSTEM_PROMPT = `Bạn là Trợ lý AI chuyên nghiệp, được tích hợp vào một trang web báo cáo chiến lược marketing cho Nệm Vạn Thành.
-        Bối cảnh của kế hoạch này là: Vạn Thành đang gặp 3 vấn đề lớn:
-        1. 'Loạn Giá' (do 1000+ đại lý tự phá giá).
-        2. 'Xung Đột Kênh' (giữa đại lý và 44 showroom).
-        3. 'Điểm Yếu Kỹ Thuật Số' (website, fanpage yếu).
-        
-        Mục tiêu chiến lược là:
-        - Tái định vị: 'VẠN THÀNH - BỀN BỈ TỪ 1980'.
-        - Giải pháp kênh: Áp dụng chính sách MAP (Giá quảng cáo tối thiểu), xây dựng O2O, và mở 1 Official Mall duy nhất.
-        - Giải pháp truyền thông: Tập trung vào SEO Local (GMB), AEO (Answer Engine), VEO (Video), và Community.
-        - Cơ hội mới: Dùng showroom làm 'One-Stop-Shop' (bán thêm nội thất).
-
+        // ===== "BỘ NÃO" CHATBOT ĐÃ SỬA (BƯỚC 4) =====
+        const CHATBOT_SYSTEM_PROMPT = `Bạn là Hat AI, một trợ lý tư vấn khiêm hạ. Bạn đang hỗ trợ một đối tác xem xét kế hoạch marketing cho Nệm Vạn Thành.
         Nhiệm vụ của bạn:
-        - Trả lời các câu hỏi của người dùng về bản kế hoạch này.
-        - Tóm tắt các mục nếu được yêu cầu.
-        - Gợi ý, brainstorm các ý tưởng mới dựa trên bối cảnh đã cho.
-        - Hãy luôn thân thiện, chuyên nghiệp và trả lời ngắn gọn, tập trung vào chiến lược.`;
+        - Luôn xưng hô với người dùng là "thân chủ" (ví dụ: "Dạ thưa thân chủ", "Thân chủ cần hỗ trợ gì ạ?").
+        - Sử dụng giọng điệu khiêm tốn, lễ phép, tư vấn (ví dụ: "dạ", "thưa", "xin phép được...").
+        - Trả lời các câu hỏi của "thân chủ" về bản kế hoạch này (Bối cảnh: Loạn giá, Xung đột kênh; Giải pháp: Tái định vị 'Bền Bỉ 1980', áp dụng MAP, O2O, SEO Local, One-Stop-Shop).
+        - Tóm tắt các mục nếu "thân chủ" yêu cầu.
+        - Gợi ý, brainstorm các ý tưởng mới một cách khiêm hạ.
+        - Luôn giữ thái độ chuyên nghiệp, hỗ trợ và không được trả lời các chủ đề không liên quan đến kế hoạch marketing này.`;
 
+        // ===== LỊCH SỬ CHAT ĐÃ SỬA (BƯỚC 4) =====
         let chatHistory = [
             { role: "user", parts: [{ text: "Bắt đầu cuộc trò chuyện" }] },
-            { role: "model", parts: [{ text: "Xin chào! Tôi có thể giúp gì cho bạn về kế hoạch marketing này?" }] }
+            { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?" }] }
         ];
 
         /**
@@ -1767,8 +1773,8 @@
          */
         const callChatbotAPI = async (userMessage) => {
             try {
+                // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 2) =====
                 const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // API key sẽ được tự động cung cấp
-            
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
                 const payload = {
@@ -1816,8 +1822,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
