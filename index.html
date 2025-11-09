@@ -427,15 +427,26 @@
           margin: 0;
           padding: 0;
         }
-        .author-image {   /* Kích thước ảnh logo - Tăng lên 100px để ảnh lớn hơn */   width: 100px;   height: 100px;    /* Biến ảnh thành hình tròn hoàn hảo */   border-radius: 50%;     /* Cắt ảnh để lấp đầy khung hình tròn, đảm bảo không có nền trắng */   object-fit: cover;     /* Căn giữa ảnh trong khung */   object-position: center;     /* Thêm một đường viền mỏng màu xám nhạt */   border: 2px solid #e0e0e0;     /* Thêm đổ bóng nhẹ để ảnh nổi bật hơn */   box-shadow: 0 4px 8px rgba(0,0,0,0.15); } {   /* Kích thước ảnh logo - đã tăng lên 80px */   width: 80px;  /* Bạn có thể thay đổi số 80 này nếu muốn ảnh lớn hơn/nhỏ hơn */   height: 80px; /* Bạn có thể thay đổi số 80 này nếu muốn ảnh lớn hơn/nhỏ hơn */    /* Xóa bo tròn 50% và thay bằng bo góc 8px cho ảnh vuông */   border-radius: 8px;     /* Hiển thị toàn bộ ảnh, không bị cắt xén, giữ nguyên tỷ lệ */   object-fit: contain;     /* (Tùy chọn) Thêm một đường viền mỏng xung quanh ảnh cho đẹp */   border: 1px solid #ddd;     /* (Tùy chọn) Tạo nền trắng cho ảnh nếu ảnh có nền trong suốt, giúp nhìn rõ hơn */   background-color: white;     /* (Tùy chọn) Thêm đổ bóng nhẹ cho ảnh nổi bật */   box-shadow: 0 2px 4px rgba(0,0,0,0.1); } {
-          /* Kích thước ảnh logo */
-          width: 50px;  /* Bạn có thể thay đổi số 50 này */
-          height: 50px; /* Bạn có thể thay đổi số 50 này */
-          
-          /* (Tùy chọn) Biến ảnh thành hình tròn */
-          border-radius: 50%;
-          object-fit: cover;
-        }
+      .author-image {
+      /* Kích thước ảnh logo - Tăng lên 150px để ảnh lớn hơn đáng kể */
+      width: 150px; 
+      height: 150px; 
+      
+      /* Biến ảnh thành hình tròn hoàn hảo */
+      border-radius: 50%; 
+      
+      /* Cắt ảnh để lấp đầy khung hình tròn, đảm bảo không có nền trắng */
+      object-fit: cover; 
+      
+      /* Căn giữa ảnh trong khung */
+      object-position: center; 
+      
+      /* Thêm một đường viền mỏng màu xám nhạt */
+      border: 3px solid #e0e0e0; /* Tăng độ dày viền lên một chút */
+      
+      /* Thêm đổ bóng nhẹ để ảnh nổi bật hơn */
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Tăng độ đổ bóng */
+    }
         /* --- KẾT THÚC CSS CHO PHẦN TÁC GIẢ --- */
 
     </style>
@@ -1825,5 +1836,6 @@
     </script>
 </body>
 </html>
+
 
 
