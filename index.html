@@ -414,6 +414,37 @@
             border-radius: 0 0.25rem 0.25rem 0;
             font-size: 1.25rem;
         }
+
+        /* --- CSS CHO PHẦN TÁC GIẢ MÀ BẠN YÊU CẦU --- */
+        .author-box {
+          /* Dùng để xếp chữ và ảnh nằm ngang */
+          display: flex;
+          
+          /* Căn cho chữ và ảnh thẳng hàng nhau (theo chiều dọc) */
+          align-items: center; 
+          
+          /* Đẩy cả cụm (chữ + ảnh) ra giữa trang */
+          justify-content: center;
+          
+          /* Tạo một khoảng cách nhỏ giữa chữ và ảnh */
+          gap: 15px; 
+        }
+        .author-text {
+          /* Xóa lề mặc định của thẻ <p> */
+          margin: 0;
+          padding: 0;
+        }
+        .author-image {
+          /* Kích thước ảnh logo */
+          width: 50px;  /* Bạn có thể thay đổi số 50 này */
+          height: 50px; /* Bạn có thể thay đổi số 50 này */
+          
+          /* (Tùy chọn) Biến ảnh thành hình tròn */
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        /* --- KẾT THÚC CSS CHO PHẦN TÁC GIẢ --- */
+
     </style>
 </head>
 <body class="text-gray-800">
@@ -423,20 +454,20 @@
         <header class="mb-10 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-2" style="color: #003F5C;">Bản Đồ Marketing Toàn Diện</h1>
             <h2 class="text-2xl md:text-3xl font-semibold" style="color: #665191;">Nệm Vạn Thành 2025–2030</h2>
-            <!-- Thêm Tagline và Tác giả -->
             <p class="text-lg italic text-gray-600 mt-4 max-w-3xl mx-auto">
                 “Định hướng chiến lược 360° từ truyền thống đến AI, dẫn lối giấc ngủ Việt ra tầm quốc tế.”
             </p>
-            <p class="text-sm text-gray-500 mt-4 font-medium">
-                Người phụng sự: Hat.ai – Nhà Khởi Nghiệp Smart Up
-            </p>
-        </header>
+            
+            <div class="author-box text-sm text-gray-500 mt-4 font-medium">
+                <p class="author-text">Người phụng sự: Hat.ai – Nhà Khởi Nghiệp Smart Up</p>
+                <img src="z7206684397874_e07693fe70d5bbb7b9356011f7a0e249.jpg" alt="Logo Smart Up" class="author-image">
+            </div>
+            </header>
         
         <button class="accordion">1. Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển, đặc biệt trên mặt trận kỹ thuật số, gây ra xung đột kênh và làm suy giảm giá trị thương hiệu. 
-                Nội dung chi tiết dưới đây được trích từ file Word (.docx).</p>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển, đặc biệt trên mặt trận kỹ thuật số, gây ra xung đột kênh và làm suy giảm giá trị thương hiệu. <br>                Nội dung chi tiết dưới đây được trích từ file Word (.docx).</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white rounded-lg shadow-xl p-6 flex flex-col justify-center items-center border-l-4 border-red-500">
                         <div class="text-5xl mb-3">&#9888;</div>
@@ -479,7 +510,6 @@
                     <li><strong>HOW (Hậu quả):</strong> Khách hàng mất niềm tin, đại lý trung thành bị trừng phạt, Vạn Thành mất quyền định giá.</li>
                 </ul>
 
-                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 1) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -493,9 +523,6 @@
                         <pre id="brainstormResult-muc-1" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
-
-                <!-- --- GÓP Ý TỪNG PHẦN --- -->
                 <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
                     <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 1</h4>
                     <textarea class="feedback-input" id="feedback-muc-1" rows="3" placeholder="Nhập góp ý của bạn cho Mục 1..."></textarea>
@@ -503,16 +530,13 @@
                         Gửi Góp Ý
                     </button>
                 </div>
-                <!-- --- KẾT THÚC GÓP Ý --- -->
-
-            </div>
+                </div>
         </div>
 
         <button class="accordion">2. Phân Tích Định Vị Thị Trường</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính. Vị thế của Vạn Thành là "Chất Lượng Bền Bỉ - Giá Hợp Lý", nhưng cần củng cố nhận diện này.
-                Nội dung chi tiết dưới đây (Ma trận) được trích từ file Word (.docx).</p>
+                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính. Vị thế của Vạn Thành là "Chất Lượng Bền Bỉ - Giá Hợp Lý", nhưng cần củng cố nhận diện này.<br>                Nội dung chi tiết dưới đây (Ma trận) được trích từ file Word (.docx).</p>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2">
                         <div class="chart-container-tall">
@@ -566,7 +590,6 @@
                     </div>
                 </div>
 
-                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 2) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -580,9 +603,6 @@
                         <pre id="brainstormResult-muc-2" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
-
-                <!-- --- GÓP Ý TỪNG PHẦN --- -->
                 <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
                     <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 2</h4>
                     <textarea class="feedback-input" id="feedback-muc-2" rows="3" placeholder="Nhập góp ý của bạn cho Mục 2..."></textarea>
@@ -590,9 +610,7 @@
                         Gửi Góp Ý
                     </button>
                 </div>
-                <!-- --- KẾT THÚC GÓP Ý --- -->
-
-            </div>
+                </div>
         </div>
 
         <button class="accordion">3. Chiến Lược Thương Hiệu (Tái định vị)</button>
@@ -626,7 +644,6 @@
                     </div>
                 </div>
 
-                <!-- --- TÍNH NĂNG MỚI (MỤC 3) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -640,9 +657,6 @@
                         <pre id="sloganResultBox" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG MỚI (MỤC 3) --- -->
-
-                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 3) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -656,9 +670,6 @@
                         <pre id="brainstormResult-muc-3" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
-
-                <!-- --- GÓP Ý TỪNG PHẦN --- -->
                 <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
                     <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 3</h4>
                     <textarea class="feedback-input" id="feedback-muc-3" rows="3" placeholder="Nhập góp ý của bạn cho Mục 3..."></textarea>
@@ -666,8 +677,7 @@
                         Gửi Góp Ý
                     </button>
                 </div>
-                <!-- --- KẾT THÚC GÓP Ý --- -->
-            </div>
+                </div>
         </div>
 
         <button class="accordion">4. Chiến Lược Marketing Sản Phẩm (Good-Better-Best)</button>
@@ -707,7 +717,6 @@
                     </div>
                 </div>
 
-                <!-- --- TÍNH NĂNG MỚI (MỤC 4) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -728,9 +737,6 @@
                         <pre id="productDescResult" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG MỚI (MỤC 4) --- -->
-
-                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 4) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -744,9 +750,6 @@
                         <pre id="brainstormResult-muc-4" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
-
-                <!-- --- GÓP Ý TỪNG PHẦN --- -->
                 <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
                     <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 4</h4>
                     <textarea class="feedback-input" id="feedback-muc-4" rows="3" placeholder="Nhập góp ý của bạn cho Mục 4..."></textarea>
@@ -754,8 +757,7 @@
                         Gửi Góp Ý
                     </button>
                 </div>
-                <!-- --- KẾT THÚC GÓP Ý --- -->
-            </div>
+                </div>
         </div>
 
         <button class="accordion">5. Giải Pháp Cốt Lõi: Kênh Phân Phối (MAP, O2O & TMĐT)</button>
@@ -800,7 +802,6 @@
                     </div>
                 </div>
 
-                <!-- --- TÍNH NĂNG MỚI (MỤC 5) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -814,9 +815,6 @@
                         <pre id="mapEmailResult" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG MỚI (MỤC 5) --- -->
-
-                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 5) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -830,9 +828,6 @@
                         <pre id="brainstormResult-muc-5" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
-
-                <!-- --- GÓP Ý TỪNG PHẦN --- -->
                 <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
                     <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 5</h4>
                     <textarea class="feedback-input" id="feedback-muc-5" rows="3" placeholder="Nhập góp ý của bạn cho Mục 5..."></textarea>
@@ -840,8 +835,7 @@
                         Gửi Góp Ý
                     </button>
                 </div>
-                <!-- --- KẾT THÚC GÓP Ý --- -->
-            </div>
+                </div>
         </div>
 
         <button class="accordion">6. Kênh Truyền Thông & Tối Ưu Hóa (Digital Footprint)</button>
@@ -872,14 +866,12 @@
                     </div>
                 </div>
 
-                <!-- --- TÍNH NĂNG GEMINI API (MỤC 6) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
                         Mô Phỏng AEO & Sáng Tạo Nội Dung
                     </h4>
                     
-                    <!-- Mô Phỏng AEO -->
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 mb-6">
                         <label for="aeoQueryInput" class="block text-md font-semibold mb-2" style="color: #665191;">1. Mô Phỏng AEO (Answer Engine)</label>
                         <p class="text-sm text-gray-600 mb-4">Đặt câu hỏi so sánh (ví dụ: "so sánh nệm Vạn Thành và Kymdan") để xem AI trả lời thế nào.</p>
@@ -892,7 +884,6 @@
                         <pre id="aeoQueryResult" class="result-box prose"></pre>
                     </div>
 
-                    <!-- Sáng Tạo Nội Dung -->
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
                         <label for="contentSelect" class="block text-md font-semibold mb-2" style="color: #665191;">2. Trợ Lý Sáng Tạo Nội Dung (VEO & Community)</label>
                         <p class="text-sm text-gray-600 mb-4">Chọn một loại nội dung và để AI gợi ý ý tưởng.</p>
@@ -908,9 +899,6 @@
                         <pre id="contentResult" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- TÍNH NĂNG GEMINI API KẾT THÚC --- -->
-
-                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 6) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -924,9 +912,6 @@
                         <pre id="brainstormResult-muc-6" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
-
-                <!-- --- GÓP Ý TỪNG PHẦN --- -->
                 <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
                     <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 6</h4>
                     <textarea class="feedback-input" id="feedback-muc-6" rows="3" placeholder="Nhập góp ý của bạn cho Mục 6..."></textarea>
@@ -934,8 +919,7 @@
                         Gửi Góp Ý
                     </button>
                 </div>
-                <!-- --- KẾT THÚC GÓP Ý --- -->
-            </div>
+                </div>
         </div>
 
         <button class="accordion">7. Cơ Hội Tăng Trưởng Mới (One-Stop-Shop)</button>
@@ -959,7 +943,6 @@
                     </div>
                 </div>
 
-                <!-- --- TÍNH NĂNG MỚI --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -980,9 +963,6 @@
                         <pre id="comboResultBox" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG MỚI --- -->
-
-                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 7) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -996,9 +976,6 @@
                         <pre id="brainstormResult-muc-7" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
-
-                <!-- --- GÓP Ý TỪNG PHẦN --- -->
                 <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
                     <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 7</h4>
                     <textarea class="feedback-input" id="feedback-muc-7" rows="3" placeholder="Nhập góp ý của bạn cho Mục 7..."></textarea>
@@ -1006,8 +983,7 @@
                         Gửi Góp Ý
                     </button>
                 </div>
-                <!-- --- KẾT THÚC GÓP Ý --- -->
-            </div>
+                </div>
         </div>
 
         <button class="accordion">8. Lộ Trình Thực Thi & KPIs (Chi tiết)</button>
@@ -1023,7 +999,7 @@
                             <li><strong>Tháng 2:</strong> Khởi động dự án GMB (Google My Business) cho 100 đại lý chủ lực. Tối ưu lại website với câu chuyện di sản.</li>
                             <li><strong>Tháng 3:</strong> Ra mắt Kênh TikTok và Facebook Group. Triển khai nền tảng Affiliate. Ra mắt Official Mall (Giai đoạn 1).</li>
                         </ul>
-                        
+                        <br>
                         <h4>Kế hoạch 1 năm ("Tăng trưởng & Chuyển đổi")</h4>
                         <ul>
                             <li><strong>Quý 2:</strong> Hoàn thành 80% GMB cho hệ thống. Vận hành chiến lược GBB (Good-Better-Best).</li>
@@ -1096,7 +1072,6 @@
                     </table>
                 </div>
 
-                <!-- --- TÍNH NĂNG MỚI (MỤC 8) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -1110,9 +1085,6 @@
                         <pre id="kpiReportResult" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG MỚI (MỤC 8) --- -->
-
-                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 8) --- -->
                 <div class="mt-10 pt-6 border-t border-gray-200">
                     <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
@@ -1126,9 +1098,6 @@
                         <pre id="brainstormResult-muc-8" class="result-box prose"></pre>
                     </div>
                 </div>
-                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
-
-                <!-- --- GÓP Ý TỪNG PHẦN --- -->
                 <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
                     <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 8</h4>
                     <textarea class="feedback-input" id="feedback-muc-8" rows="3" placeholder="Nhập góp ý của bạn cho Mục 8..."></textarea>
@@ -1136,12 +1105,9 @@
                         Gửi Góp Ý
                     </button>
                 </div>
-                <!-- --- KẾT THÚC GÓP Ý --- -->
-
-            </div>
+                </div>
         </div>
 
-        <!-- --- MỤC GÓP Ý MỚI (ĐÃ CHUYỂN XUỐNG CUỐI) --- -->
         <button class="accordion" id="feedbackAccordionButton" style="background-color: #FFA600; color: #003F5C; margin-top: 2rem;">
             Xem Góp Ý Chung (0)
         </button>
@@ -1150,15 +1116,12 @@
                 <p class="text-gray-600">Đang tải góp ý...</p>
             </div>
         </div>
-        <!-- --- KẾT THÚC MỤC GÓP Ý --- -->
-
-    </main>
+        </main>
     
     <footer class="text-center p-6 mt-8 text-sm text-gray-500 border-t border-gray-200">
         Báo cáo Chiến lược Marketing - Nệm Vạn Thành (Bản gộp tương tác).
     </footer>
 
-    <!-- Modal cho Loading / Error -->
     <div id="loadingModal" class="modal-overlay">
         <div class="modal-content">
             <div id="modalContent">
@@ -1168,12 +1131,8 @@
             <button id="modalCloseButton" class="modal-close-btn" style="display: none;">Đóng</button>
         </div>
     </div>
-    <!-- Kết thúc Modal -->
-
-    <!-- Chatbot UI -->
     <div id="chatFab" class="chat-fab">
-        <span>&#129302;</span> <!-- Robot emoji -->
-    </div>
+        <span>&#129302;</span> </div>
     <div id="chatWindow" class="chat-window">
         <div class="chat-header">
             <span>Trợ Lý Kế Hoạch AI</span>
@@ -1184,12 +1143,8 @@
         </div>
         <div class="chat-input-area">
             <input type="text" id="chatInput" class="chat-input" placeholder="Hỏi tôi bất cứ điều gì...">
-            <button id="chatSend" class="chat-send">&#10148;</button> <!-- Send icon -->
-        </div>
+            <button id="chatSend" class="chat-send">&#10148;</button> </div>
     </div>
-    <!-- Kết thúc Chatbot UI -->
-
-
     <script type="module">
         // --- IMPORT FIREBASE ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
