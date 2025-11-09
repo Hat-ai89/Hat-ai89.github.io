@@ -410,48 +410,23 @@
 
         /* --- CSS CHO PHẦN TÁC GIẢ MÀ BẠN YÊU CẦU --- */
         .author-box {
-          /* Dùng để xếp chữ và ảnh nằm ngang */
-          display: flex;
-          
-          /* Căn cho chữ và ảnh thẳng hàng nhau (theo chiều dọc) */
-          align-items: center; 
-          
-          /* Đẩy cả cụm (chữ + ảnh) ra giữa trang */
-          justify-content: center;
-          
-          /* Tạo một khoảng cách nhỏ giữa chữ và ảnh */
-          gap: 15px; 
-        }
-        .author-text {
-          /* Xóa lề mặc định của thẻ <p> */
-          margin: 0;
-          padding: 0;
-        }
-     .author-image {
-  /* Kích thước ảnh logo - Tăng lên 180px để ảnh lớn hơn đáng kể */
-  width: 180px; 
-  height: auto; /* Thay đổi: Để chiều cao tự động theo tỷ lệ ảnh gốc */
-  max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng của phần chứa nó */
+         .author-box {
+  /* Dùng để xếp chữ và ảnh */
+  display: flex;
 
-  /* Giữ hình dạng ảnh là hình tròn */
-  border-radius: 50%; 
+  /* *** THAY ĐỔI QUAN TRỌNG: Xếp theo chiều dọc (chữ trên, ảnh dưới) */
+  flex-direction: column; 
 
-  /* Quan trọng: Thay đổi thành "contain" để hiển thị TOÀN BỘ ảnh, không bị cắt */
-  object-fit: contain; 
+  /* Căn cho chữ và ảnh thẳng hàng nhau (theo chiều dọc) */
+  align-items: center; 
 
-  /* Căn giữa ảnh trong khung */
-  object-position: center; 
+  /* Đẩy cả cụm (chữ + ảnh) ra giữa trang */
+  justify-content: center;
 
-  /* Xóa viền để ảnh trông tự nhiên hơn */
-  border: none; 
-
-  /* Xóa đổ bóng hoặc giảm bớt để trông mềm mại hơn */
-  box-shadow: none; /* Hoặc có thể dùng: box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
-
-  /* Đặt nền của khung chứa ảnh là màu của website để "giả" là ảnh không nền */
-  background-color: #f0f4f8; /* Đây là màu nền của phần body, bạn có thể kiểm tra lại */
+  /* Tạo một khoảng cách nhỏ giữa chữ và ảnh */
+  gap: 15px; 
 }
-    }
+}
         /* --- KẾT THÚC CSS CHO PHẦN TÁC GIẢ --- */
 
     </style>
@@ -1841,6 +1816,7 @@
     </script>
 </body>
 </html>
+
 
 
 
