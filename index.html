@@ -427,25 +427,30 @@
           margin: 0;
           padding: 0;
         }
-      .author-image {
-      /* Kích thước ảnh logo - Tăng lên 150px để ảnh lớn hơn đáng kể */
-      width: 150px; 
-      height: 150px; 
-      
-      /* Biến ảnh thành hình tròn hoàn hảo */
-      border-radius: 50%; 
-      
-      /* Cắt ảnh để lấp đầy khung hình tròn, đảm bảo không có nền trắng */
-      object-fit: cover; 
-      
-      /* Căn giữa ảnh trong khung */
-      object-position: center; 
-      
-      /* Thêm một đường viền mỏng màu xám nhạt */
-      border: 3px solid #e0e0e0; /* Tăng độ dày viền lên một chút */
-      
-      /* Thêm đổ bóng nhẹ để ảnh nổi bật hơn */
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Tăng độ đổ bóng */
+     .author-image {
+  /* Kích thước ảnh logo - Tăng lên 180px để ảnh lớn hơn đáng kể */
+  width: 180px; 
+  height: auto; /* Thay đổi: Để chiều cao tự động theo tỷ lệ ảnh gốc */
+  max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng của phần chứa nó */
+
+  /* Giữ hình dạng ảnh là hình tròn */
+  border-radius: 50%; 
+
+  /* Quan trọng: Thay đổi thành "contain" để hiển thị TOÀN BỘ ảnh, không bị cắt */
+  object-fit: contain; 
+
+  /* Căn giữa ảnh trong khung */
+  object-position: center; 
+
+  /* Xóa viền để ảnh trông tự nhiên hơn */
+  border: none; 
+
+  /* Xóa đổ bóng hoặc giảm bớt để trông mềm mại hơn */
+  box-shadow: none; /* Hoặc có thể dùng: box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+
+  /* Đặt nền của khung chứa ảnh là màu của website để "giả" là ảnh không nền */
+  background-color: #f0f4f8; /* Đây là màu nền của phần body, bạn có thể kiểm tra lại */
+}
     }
         /* --- KẾT THÚC CSS CHO PHẦN TÁC GIẢ --- */
 
@@ -1836,6 +1841,7 @@
     </script>
 </body>
 </html>
+
 
 
 
