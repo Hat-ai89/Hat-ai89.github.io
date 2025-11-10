@@ -162,6 +162,7 @@
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
             font-size: 1rem;
             line-height: 1.6;
+            text-align: left; /* Đảm bảo text trong prose căn trái */
         }
         .prose ul {
             list-style-type: disc;
@@ -412,33 +413,40 @@
             font-size: 1.25rem;
         }
         
-        /* ===== CSS PHẦN TÁC GIẢ ĐÃ SỬA (BƯỚC 1) ===== */
+        /* ===== CSS PHẦN TÁC GIẢ ĐÃ SỬA (THEO YÊU CẦU MỚI NHẤT) ===== */
         .author-box {
-          display: flex;
-          /* Xếp theo chiều dọc (chữ trên, ảnh dưới) */
-          flex-direction: column; 
-          align-items: center; 
-          justify-content: center;
-          /* Khoảng cách giữa chữ và ảnh */
-          gap: 15px; 
-          /* Thêm khoảng cách cho chữ "Người phụng sự" */
-          text-sm text-gray-500 mt-4 font-medium;
+            display: flex;
+            flex-direction: column; /* Chữ trên, ảnh dưới */
+            align-items: center; /* Căn giữa cho cả cụm */
+            justify-content: center;
+            gap: 15px; /* Khoảng cách giữa chữ và ảnh */
+            margin-top: 1.5rem; /* Thêm khoảng cách với dòng tagline */
         }
         .author-text {
-          margin: 0;
-          padding: 0;
+            /* Dòng chữ "Người phụng sự" */
+            text-align: center; /* Căn giữa (theo yêu cầu) */
+            font-size: 0.95rem; /* Kích thước nhỏ hơn một chút */
+            color: #555;
+            font-weight: 500;
+            margin: 0;
+            padding: 0;
         }
         .author-image {
-          /* Kích thước ảnh 150px (Bạn có thể đổi số này) */
-          width: 150px; 
-          /* Chiều cao tự động để giữ nguyên ảnh gốc */
-          height: auto; 
-          max-width: 100%; 
-          /* Bo góc nhẹ cho đẹp */
-          border-radius: 8px; 
-          /* Thêm đổ bóng */
-          box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-          border: none;
+            /* Kích thước cân bằng */
+            width: 150px; /* Cân bằng lại (không quá bự) */
+            height: auto; /* Giữ tỷ lệ */
+            max-height: 220px; /* Ngắn lại (để thấy rõ chữ) */
+            max-width: 100%;
+            
+            /* Hình chữ nhật */
+            border-radius: 8px; 
+            
+            /* Hiển thị toàn bộ ảnh */
+            object-fit: contain;
+            object-position: center; 
+            
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border: none;
         }
         /* ===== KẾT THÚC CSS PHẦN TÁC GIẢ ===== */
 
@@ -464,7 +472,7 @@
         <button class="accordion">1. Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển, đặc biệt trên mặt trận kỹ thuật số, gây ra xung đột kênh và làm suy giảm giá trị thương hiệu. <br>                Nội dung chi tiết dưới đây được trích từ file Word (.docx).</p>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển... <br>                Nội dung chi tiết dưới đây được trích từ ` (Phân tích chi tiết)`.</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white rounded-lg shadow-xl p-6 flex flex-col justify-center items-center border-l-4 border-red-500">
                         <div class="text-5xl mb-3">&#9888;</div>
@@ -533,7 +541,7 @@
         <button class="accordion">2. Phân Tích Định Vị Thị Trường</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính. Vị thế của Vạn Thành là "Chất Lượng Bền Bỉ - Giá Hợp Lý", nhưng cần củng cố nhận diện này.<br>                Nội dung chi tiết dưới đây (Ma trận) được trích từ file Word (.docx).</p>
+                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính...<br>                Nội dung chi tiết dưới đây (Ma trận) được trích từ ` (Phân tích chi tiết)`.</p>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2">
                         <div class="chart-container-tall">
@@ -613,10 +621,10 @@
         <button class="accordion">3. Chiến Lược Thương Hiệu (Tái định vị)</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-6">File HTML đề xuất "Giấc Ngủ Bền Vững, Giá Trị Thật". File Word đề xuất một USP cụ thể hơn để giải quyết khủng hoảng niềm tin, tập trung vào di sản 40+ năm.</p>
+                <p class="text-gray-600 mb-6">Đề xuất "Giấc Ngủ Bền Vững, Giá Trị Thật" ` (Bản trực quan)` và một USP cụ thể hơn ` (Phân tích chi tiết)` để giải quyết khủng hoảng niềm tin.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="brand-card rounded-lg p-6 shadow-lg text-center">
-                        <h4 class="text-xl font-bold mb-3">Đề xuất (File HTML)</h4>
+                        <h4 class="text-xl font-bold mb-3">Đề xuất ` (Bản trực quan)`</h4>
                         <p class="text-lg mb-4 italic">"Giấc Ngủ Bền Vững, Giá Trị Thật"</p>
                         <div class="brand-card-inner rounded-lg p-4 mb-4">
                             <h5 class="text-md font-semibold mb-2">Giá Trị Cốt Lõi</h5>
@@ -629,7 +637,7 @@
                     </div>
                     
                     <div class="bg-white rounded-lg p-6 shadow-lg text-center border-4 border-amber-500">
-                        <h4 class="text-xl font-bold mb-3" style="color: #003F5C;">Đề xuất Tái định vị (File Word)</h4>
+                        <h4 class="text-xl font-bold mb-3" style="color: #003F5C;">Đề xuất Tái định vị ` (Phân tích chi tiết)`</h4>
                         <p class="text-lg mb-4 italic font-bold" style="color: #D45087;">"VẠN THÀNH - BỀN BỈ TỪ 1980"</p>
                         <div class="bg-gray-100 rounded-lg p-4 mb-4">
                             <h5 class="text-md font-semibold mb-2" style="color: #003F5C;">Chiến lược Kép</h5>
@@ -680,17 +688,17 @@
         <button class="accordion">4. Chiến Lược Marketing Sản Phẩm (Good-Better-Best)</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-8 max-w-3xl mx-auto">File Word đề xuất tái cấu trúc danh mục sản phẩm theo mô hình "Good-Better-Best" (thay vì các tên gọi kỹ thuật) để định vị giá trị rõ ràng và áp dụng chiến thuật marketing riêng cho từng phân khúc.</p>
+                <p class="text-gray-600 mb-8 max-w-3xl mx-auto">Đề xuất tái cấu trúc danh mục sản phẩm ` (Phân tích chi tiết)` theo mô hình "Good-Better-Best" để định vị giá trị rõ ràng.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                     <div class="md:col-span-1">
-                        <h4 style="color: #003F5C;">Tỷ Trọng Danh Mục (File HTML)</h4>
+                        <h4 style="color: #003F5C;">Tỷ Trọng Danh Mục ` (Bản trực quan)`</h4>
                         <div class="chart-container">
                             <canvas id="productMixChart"></canvas>
                         </div>
                     </div>
                     <div class="md:col-span-2">
-                        <h4>Tái cấu trúc Good-Better-Best (File Word)</h4>
+                        <h4>Tái cấu trúc Good-Better-Best ` (Phân tích chi tiết)`</h4>
                         <div class="space-y-4">
                             <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 shadow-sm">
                                 <h5 class="text-lg font-bold mb-2" style="color: #D45087;">1. GOOD (Tốt - Phân khúc Giá trị)</h5>
@@ -760,9 +768,9 @@
         <button class="accordion">5. Giải Pháp Cốt Lõi: Kênh Phân Phối (MAP, O2O & TMĐT)</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-8 max-w-3xl mx-auto text-center">Đây là giải pháp trung tâm để giải quyết "loạn giá" (Nỗi đau 1). Sơ đồ O2O (từ file HTML) cho thấy luồng điều phối. Chi tiết về luật chơi (MAP, Sàn TMĐT) được bổ sung từ file Word.</p>
+                <p class="text-gray-600 mb-8 max-w-3xl mx-auto text-center">Đây là giải pháp trung tâm để giải quyết "loạn giá". Sơ đồ O2O ` (Bản trực quan)` và chi tiết về luật chơi ` (Phân tích chi tiết)`.</p>
                 
-                <h4>Luồng điều phối O2O (File HTML)</h4>
+                <h4>Luồng điều phối O2O ` (Bản trực quan)`</h4>
                 <div class="flex flex-col md:flex-row justify-between items-center flex-wrap px-4 mb-6">
                     <div class="flex flex-col items-center mb-4 md:mb-0"><div class="flow-step">Khách Hàng Online<br>(Web, TMĐT, Affiliate)</div></div>
                     <div class="flow-arrow">&#8595;</div>
@@ -773,7 +781,7 @@
                     <div class="flex flex-col items-center"><div class="flow-step" style="background-color: #003F5C; color: white;">Giao Hàng & CSKH<br>(Khách Hàng Hài Lòng)</div></div>
                 </div>
 
-                <h4>Giải pháp chi tiết (File Word)</h4>
+                <h4>Giải pháp chi tiết ` (Phân tích chi tiết)`</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <h5>Giải pháp 1: Áp dụng chính sách MAP (Giá quảng cáo tối thiểu)</h5>
@@ -838,16 +846,16 @@
         <button class="accordion">6. Kênh Truyền Thông & Tối Ưu Hóa (Digital Footprint)</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-6">Chuyển dịch ngân sách từ quảng cáo ngắn hạn sang xây dựng tài sản thương hiệu dài hạn (SEO, AEO, VEO). Đây là giải pháp cho "Nỗi đau 2" (Khủng hoảng Tài sản số).</p>
+                <p class="text-gray-600 mb-6">Chuyển dịch ngân sách từ quảng cáo ngắn hạn sang xây dựng tài sản thương hiệu dài hạn (SEO, AEO, VEO).</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <h4 style="color: #003F5C;">Phân Bổ Nguồn Lực (File HTML)</h4>
+                        <h4 style="color: #003F5C;">Phân Bổ Nguồn Lực ` (Bản trực quan)`</h4>
                         <div class="chart-container">
                             <canvas id="channelStrategyChart"></canvas>
                         </div>
                     </div>
                     <div>
-                        <h4>Chiến lược Tối ưu hóa Toàn diện (File Word)</h4>
+                        <h4>Chiến lược Tối ưu hóa Toàn diện ` (Phân tích chi tiết)`</h4>
                         <ul>
                             <li><strong>Khắc phục Khủng hoảng (Tuần 1):</strong> Lấy lại Fanpage chính thức, gửi xác thực "tick xanh". Sửa lỗi chatbot trên website.</li>
                             <li><strong>SEO & SEO Local:</strong> Tạo và xác thực Google My Business (GMB) cho TẤT CẢ 1000+ đại lý. Khi khách tìm "nệm Vạn Thành gần đây", GMB của đại lý sẽ xuất hiện.</li>
@@ -922,16 +930,16 @@
         <button class="accordion">7. Cơ Hội Tăng Trưởng Mới (One-Stop-Shop)</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-700 mb-6">Tận dụng không gian trống (tầng 2, 3, 4) tại 44 showroom để phát triển mảng kinh doanh mới, tạo ra hệ sinh thái bổ trợ và gia tăng doanh thu trên mỗi điểm bán (AOV).</p>
+                <p class="text-gray-700 mb-6">Tận dụng không gian trống (tầng 2, 3, 4) tại 44 showroom để phát triển mảng kinh doanh mới, tạo ra hệ sinh thái bổ trợ.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                     <div class="border-2 rounded-lg p-6 text-center" style="border-color: #FFA600; border-style: dashed; background-color: #fef9e7;">
                         <div class="text-6xl mb-4">&#128719;</div>
-                        <h4 class="text-2xl font-bold mb-3" style="color: #003F5C;">Mô Hình Showroom Tích Hợp (File HTML)</h4>
-                        <p class="text-lg text-gray-700">Phát triển công ty con chuyên về <strong>Thiết Kế & Thi Công Nội Thất Phòng Ngủ</strong>, tận dụng không gian showroom làm nơi trưng bày và văn phòng tư vấn.</p>
+                        <h4 class="text-2xl font-bold mb-3" style="color: #003F5C;">Mô Hình Showroom Tích Hợp ` (Bản trực quan)`</h4>
+                        <p class="text-lg text-gray-700">Phát triển công ty con chuyên về <strong>Thiết Kế & Thi Công Nội Thất Phòng Ngủ</strong>, tận dụng không gian showroom làm nơi trưng bày.</p>
                         <p class="text-base font-semibold mt-4" style="color: #665191;">(Tạo phễu bán chéo: Nệm + Nội Thất)</p>
                     </div>
                     <div>
-                        <h4>Lộ trình triển khai (File Word)</h4>
+                        <h4>Lộ trình triển khai ` (Phân tích chi tiết)`</h4>
                         <ul>
                             <li><strong>Giai đoạn 1 (Cross-sell):</strong> Bổ sung ngay các sản phẩm liên quan trực tiếp (giường, tủ đầu giường, chăn ga gối) vào danh mục.</li>
                             <li><strong>Giai đoạn 2 (Co-location):</strong> Tận dụng tầng trống để mời các thương hiệu nội thất khác (đèn, rèm cửa) vào cùng trưng bày, chia sẻ lợi nhuận.</li>
@@ -986,7 +994,7 @@
         <button class="accordion">8. Lộ Trình Thực Thi & KPIs (Chi tiết)</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-6">Phần này được bổ sung hoàn toàn từ file Word (.docx) để cung cấp một kế hoạch hành động và ma trận đo lường rõ ràng.</p>
+                <p class="text-gray-600 mb-6">Phần này được bổ sung hoàn toàn từ ` (Phân tích chi tiết)` để cung cấp một kế hoạch hành động và ma trận đo lường rõ ràng.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -1219,7 +1227,7 @@
             
             try {
                 // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 1) =====
-                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // API key sẽ được tự động cung cấp
+                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // DÁN API KEY CỦA BẠN VÀO ĐÂY
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
                 const payload = {
@@ -1319,7 +1327,7 @@
 
             // 1. Khởi tạo Accordion
             try {
-                for (let i = 0; i < acc.length; i++) {
+                for (let i = 0; i< acc.length; i++) {
                     acc[i].addEventListener("click", function() {
                         this.classList.toggle("active");
                         const panel = this.nextElementSibling;
@@ -1479,7 +1487,7 @@
             if (aeoQueryButton) {
                 aeoQueryButton.addEventListener('click', () => {
                     const query = aeoQueryInput.value || "So sánh nệm Vạn Thành và Kymdan";
-                    const systemPrompt = "Bạn là một chuyên gia về nệm. Hãy trả lời câu hỏi của người dùng một cách khách quan, công bằng, nêu bật điểm mạnh của Vạn Thành (Bền bỉ, Giá hợp lý) nhưng cũng thừa nhận điểm mạnh của đối thủ (ví dụ: Kymdan về sự cao cấp).";
+                    const systemPrompt = "Bạn là Hat Support, một chuyên gia phân tích khiêm hạ. Hãy trả lời câu hỏi của người dùng. **Trình bày kết quả** một cách rõ ràng, dùng **in đậm** và gạch đầu dòng để so sánh điểm mạnh/yếu khách quan. Luôn thể hiện sự khiêm hạ.";
                     const userPrompt = query;
                     callGeminiAPI(systemPrompt, userPrompt, aeoQueryResult);
                 });
@@ -1489,10 +1497,10 @@
             if (generateContentButton) {
                 generateContentButton.addEventListener('click', () => {
                     const type = contentSelect.value;
-                    const systemPrompt = "Bạn là một chuyên gia sáng tạo nội dung (Content Creator) cho ngành hàng nệm. Hãy tạo ra các ý tưởng ngắn gọn, hấp dẫn, dễ thực thi.";
+                    const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo nội dung khiêm hạ. **Trình bày ý tưởng** dưới dạng danh sách, dùng **in đậm** cho tiêu đề kịch bản/bài đăng. Giọng điệu khiêm tốn.";
                     let userPrompt = '';
                     if (type === 'tiktok') {
-                        userPrompt = "Tạo 3 ý tưởng kịch bản TikTok (dưới 30 giây) để thể hiện độ bền hoặc sự êm ái của nệm Vạn Thành. Định dạng: [Ý Tưởng 1], [Cảnh Quay], [Thông Điệp].";
+                        userPrompt = "Tạo 3 ý tưởng kịch bản TikTok (dưới 30 giây) để thể hiện độ bền hoặc sự êm ái của nệm Vạn Thành. Định dạng: **[Ý Tưởng 1]**, [Cảnh Quay], [Thông Điệp].";
                     } else {
                         userPrompt = "Tạo 1 bài đăng cho Facebook Group 'Hội Yêu Giấc Ngủ Việt' với mục tiêu thu thập khảo sát (Zero-Party Data) về thói quen ngủ của người dùng. Bài đăng phải thân thiện, đặt câu hỏi tương tác.";
                     }
@@ -1504,8 +1512,8 @@
             if (generateComboButton) {
                 generateComboButton.addEventListener('click', () => {
                     const comboType = comboTypeSelect.value;
-                    const systemPrompt = "Bạn là Giám đốc Phát triển Sản phẩm. Hãy phác thảo chi tiết một gói combo phòng ngủ cho Nệm Vạn Thành. Tập trung vào giá trị mang lại cho khách hàng.";
-                    const userPrompt = `Hãy phác thảo Gói Combo: "${comboType}". Nêu rõ: \n1. Tên Gói Hấp Dẫn: \n2. Đối Tượng Khách Hàng: \n3. Các Sản Phẩm Bao Gồm (Nệm Vạn Thành + 2-3 sản phẩm khác): \n4. Thông Điệp Marketing Chính:`;
+                    const systemPrompt = "Bạn là Hat Support, một trợ lý phát triển sản phẩm khiêm hạ. **Trình bày phác thảo** một cách rõ ràng, chuyên nghiệp, dùng **in đậm** cho các đề mục (Tên Gói, Đối Tượng...).";
+                    const userPrompt = `Hãy phác thảo Gói Combo: "${comboType}". Nêu rõ: \n1. **Tên Gói Hấp Dẫn:** \n2. **Đối Tượng Khách Hàng:** \n3. **Các Sản Phẩm Bao Gồm (Nệm Vạn Thành + 2-3 sản phẩm khác):** \n4. **Thông Điệp Marketing Chính:**`;
                     callGeminiAPI(systemPrompt, userPrompt, comboResultBox);
                 });
             }
@@ -1513,7 +1521,7 @@
             // 3.4. Nút "Sáng Tạo Slogan" (Mục 3)
             if (generateSloganButton) {
                 generateSloganButton.addEventListener('click', () => {
-                    const systemPrompt = "Bạn là một Copywriter chuyên nghiệp. Hãy tạo ra các slogan ngắn gọn, mạnh mẽ, và dễ nhớ.";
+                    const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo khiêm hạ. Hãy tạo ra 5 slogan. **Trình bày kết quả** dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.";
                     const userPrompt = "Tạo 5 slogan cho Nệm Vạn Thành dựa trên định vị cốt lõi: 'BỀN BỈ TỪ 1980'. Các slogan phải gợi lên sự tin cậy, chất lượng vượt thời gian và di sản.";
                     callGeminiAPI(systemPrompt, userPrompt, sloganResultBox);
                 });
@@ -1522,8 +1530,8 @@
             // 3.5. Nút "Báo Cáo KPI" (MỤC 8)
             if (generateKPIReportButton) {
                 generateKPIReportButton.addEventListener('click', () => {
-                    const systemPrompt = "Bạn là một Marketing Manager. Hãy viết một email báo cáo tiến độ ngắn gọn, chuyên nghiệp cho Ban Lãnh Đạo. Tập trung vào dữ liệu và hành động tiếp theo.";
-                    const userPrompt = "Soạn thảo một email báo cáo tiến độ (dạng gạch đầu dòng) dựa trên các KPI giả định sau: \n- Tỷ lệ vi phạm MAP: Giảm 90% (Thành công). \n- Số leads O2O: Tăng 150% (Vượt mong đợi). \n- Doanh thu Affiliate: Đang xây dựng (Cần theo dõi). \n- Hành động tiếp theo: Triển khai GMB cho 100 đại lý tiếp theo.";
+                    const systemPrompt = "Bạn là Hat Support, một trợ lý phân tích khiêm hạ. Hãy soạn thảo một email báo cáo. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, dùng gạch đầu dòng cho các KPI.";
+                    const userPrompt = "Soạn thảo một email báo cáo tiến độ (dạng gạch đầu dòng) dựa trên các KPI giả định sau: \n- **Tỷ lệ vi phạm MAP:** Giảm 90% (Thành công). \n- **Số leads O2O:** Tăng 150% (Vượt mong đợi). \n- **Doanh thu Affiliate:** Đang xây dựng (Cần theo dõi). \n- **Hành động tiếp theo:** Triển khai GMB cho 100 đại lý tiếp theo.";
                     callGeminiAPI(systemPrompt, userPrompt, kpiReportResultBox);
                 });
             }
@@ -1532,7 +1540,7 @@
             if (generateProductDescButton) {
                 generateProductDescButton.addEventListener('click', () => {
                     const tier = document.getElementById('productTierSelect').value;
-                    const systemPrompt = "Bạn là một chuyên gia SEO-Copywriting. Hãy viết mô tả sản phẩm hấp dẫn, tập trung vào lợi ích khách hàng và chứa các từ khóa liên quan.";
+                    const systemPrompt = "Bạn là Hat Support, một trợ lý copywriter khiêm hạ. **Trình bày kết quả** rõ ràng, chuyên nghiệp, có thể dùng **in đậm** cho tiêu đề và gạch đầu dòng cho lợi ích.";
                     let userPrompt = `Viết một mô tả sản phẩm (khoảng 100 từ) cho website Nệm Vạn Thành, phân khúc ${tier}.`;
                     if (tier === 'GOOD') {
                         userPrompt += " Tập trung vào: 'giá rẻ', 'tiết kiệm', 'bền bỉ', 'gấp 3 tiện lợi'.";
@@ -1548,8 +1556,8 @@
             // 3.7. Nút "Soạn Thảo Email MAP" (MỤC 5)
             if (generateMAPEmailButton) {
                 generateMAPEmailButton.addEventListener('click', () => {
-                    const systemPrompt = "Bạn là Trưởng phòng Kinh doanh. Hãy viết một email thông báo cho đại lý với giọng điệu vừa nghiêm túc (về chế tài) vừa mang tính hợp tác (vì lợi ích chung).";
-                    const userPrompt = "Soạn thảo một email trang trọng gửi toàn bộ 1000 đại lý của Nệm Vạn Thành, thông báo về việc áp dụng 'Chính Sách Giá Quảng Cáo Tối Thiểu (MAP)' từ tháng tới. Nêu rõ: \n1. Lý do: Bảo vệ giá trị thương hiệu và sự công bằng cho đại lý. \n2. Quy định: Cấm quảng cáo chiết khấu X% (ví dụ: 15%) trên mọi kênh online. \n3. Chế tài: Nêu rõ 3 cấp độ (Cảnh cáo, Cắt chiết khấu, Ngừng cung cấp). \n4. Kêu gọi hợp tác vì mục tiêu chung.";
+                    const systemPrompt = "Bạn là Hat Support, một trợ lý truyền thông khiêm hạ. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, rõ ràng, có tiêu đề, nội dung và kết thư. Giọng điệu vừa nghiêm túc (về chế tài) vừa mang tính hợp tác (vì lợi ích chung).";
+                    const userPrompt = "Soạn thảo một email trang trọng gửi toàn bộ 1000 đại lý của Nệm Vạn Thành, thông báo về việc áp dụng 'Chính Sách Giá Quảng Cáo Tối Thiểu (MAP)' từ tháng tới. Nêu rõ: \n1. **Lý do:** Bảo vệ giá trị thương hiệu và sự công bằng cho đại lý. \n2. **Quy định:** Cấm quảng cáo chiết khấu X% (ví dụ: 15%) trên mọi kênh online. \n3. **Chế tài:** Nêu rõ 3 cấp độ (Cảnh cáo, Cắt chiết khấu, Ngừng cung cấp). \n4. **Kêu gọi hợp tác:** vì mục tiêu chung.";
                     callGeminiAPI(systemPrompt, userPrompt, mapEmailResult);
                 });
             }
@@ -1560,8 +1568,9 @@
                     const sectionId = button.dataset.sectionId;
                     const sectionContent = button.dataset.sectionContent;
                     const resultElement = document.getElementById(`brainstormResult-${sectionId}`);
-
-                    const systemPrompt = "Bạn là một nhà tư vấn chiến lược cấp cao (Strategic Consultant) đang họp review kế hoạch marketing. Nhiệmvụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này. Đừng hỏi câu hỏi 'có/không', hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'.";
+                    
+                    // ===== BỘ NÃO CỦA NÚT "GỢI Ý CÂU HỎI" ĐÃ SỬA =====
+                    const systemPrompt = "Bạn là Hat Support, một trợ lý tư vấn chiến lược khiêm hạ. Nhiệm vụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này.\n**Yêu cầu:**\n1. **Định dạng:** Trình bày 3 câu hỏi dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.\n2. **Giọng điệu:** Chuyên nghiệp, khiêm tốn.\n3. **Chất lượng:** Đừng hỏi câu hỏi 'có/không'. Hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'.";
                     const userPrompt = `Dựa trên nội dung của mục này: "${sectionContent}", hãy tạo ra 3 câu hỏi/vấn đề thảo luận mở rộng.`;
                     
                     callGeminiAPI(systemPrompt, userPrompt, resultElement);
@@ -1708,17 +1717,19 @@
 
         // --- LOGIC RIÊNG CỦA CHATBOT ---
 
-        // ===== "BỘ NÃO" CHATBOT ĐÃ SỬA (BƯỚC 4) =====
-        const CHATBOT_SYSTEM_PROMPT = `Bạn là Hat AI, một trợ lý tư vấn khiêm hạ. Bạn đang hỗ trợ một đối tác xem xét kế hoạch marketing cho Nệm Vạn Thành.
-        Nhiệm vụ của bạn:
-        - Luôn xưng hô với người dùng là "thân chủ" (ví dụ: "Dạ thưa thân chủ", "Thân chủ cần hỗ trợ gì ạ?").
-        - Sử dụng giọng điệu khiêm tốn, lễ phép, tư vấn (ví dụ: "dạ", "thưa", "xin phép được...").
-        - Trả lời các câu hỏi của "thân chủ" về bản kế hoạch này (Bối cảnh: Loạn giá, Xung đột kênh; Giải pháp: Tái định vị 'Bền Bỉ 1980', áp dụng MAP, O2O, SEO Local, One-Stop-Shop).
-        - Tóm tắt các mục nếu "thân chủ" yêu cầu.
-        - Gợi ý, brainstorm các ý tưởng mới một cách khiêm hạ.
-        - Luôn giữ thái độ chuyên nghiệp, hỗ trợ và không được trả lời các chủ đề không liên quan đến kế hoạch marketing này.`;
+        // ===== "BỘ NÃO" CHATBOT ĐÃ SỬA (THEO YÊU CẦU MỚI NHẤT) =====
+        const CHATBOT_SYSTEM_PROMPT = `Bạn là Hat AI, một trợ lý tư vấn chuyên nghiệp, khiêm hạ. Bạn đang hỗ trợ một đối tác (thân chủ) xem xét kế hoạch marketing cho Nệm Vạn Thành.
+        PHONG CÁCH PHẢN HỒI:
+        1. Xưng Hô: Luôn gọi người dùng là "thân chủ" và xưng "Hat AI" hoặc "tôi". Giọng điệu luôn khiêm tốn, lễ phép, tư vấn (dạ, thưa, xin phép).
+        2. Bố Cục Rõ Ràng: Khi trả lời, hãy dùng Markdown để định dạng. Sử dụng **in đậm** cho tiêu đề, gạch đầu dòng ('-') cho danh sách, và xuống dòng hợp lý để câu trả lời rõ ràng, chuyên nghiệp và đẹp mắt.
+        3. Thái Độ: Luôn thể hiện sự chuyên nghiệp, khiêm hạ và "đón nhận sự góp ý xây dựng".
+        4. Thông Minh & Dẫn Dắt: Sau mỗi câu trả lời, hãy chủ động đặt 1 "câu hỏi thông minh" để dẫn dắt, gợi ý hoặc phản hồi lại (ví dụ: "Thân chủ có muốn tôi phân tích sâu hơn về mục...?", "Thân chủ đánh giá rủi ro của giải pháp MAP này như thế nào ạ?").
+        NỘI DUNG PHẢN HỒI:
+        - Trả lời các câu hỏi của "thân chủ" về bản kế hoạch (Bối cảnh: Loạn giá; Giải pháp: Tái định vị 'Bền Bỉ 1980', MAP, O2O, SEO Local).
+        - Nếu thông tin không có trong bối cảnh, hãy "tự tạo sinh theo bối cảnh" (dùng kiến thức marketing chung) để tư vấn, nhưng phải nói rõ đây là "gợi ý mở rộng".
+        - Luôn giữ thái độ hỗ trợ và không trả lời các chủ đề không liên quan đến kế hoạch marketing.`;
 
-        // ===== LỊCH SỬ CHAT ĐÃ SỬA (BƯỚC 4) =====
+        // ===== LỊCH SỬ CHAT ĐÃ SỬA =====
         let chatHistory = [
             { role: "user", parts: [{ text: "Bắt đầu cuộc trò chuyện" }] },
             { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?" }] }
@@ -1737,7 +1748,16 @@
 
             const messageElement = document.createElement('div');
             messageElement.classList.add('chat-message', sender);
-            messageElement.textContent = message;
+            
+            // Xử lý Markdown đơn giản (in đậm, xuống dòng)
+            let formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // In đậm
+            formattedMessage = formattedMessage.replace(/\n/g, '<br>'); // Xuống dòng
+            // Thêm xử lý cho gạch đầu dòng (nếu cần)
+            formattedMessage = formattedMessage.replace(/(\<br\>|^)\s*-\s/g, '<br>• '); 
+            formattedMessage = formattedMessage.replace(/^\s*-\s/g, '• ');
+
+            messageElement.innerHTML = formattedMessage;
+            
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight; // Tự động cuộn xuống
         };
@@ -1752,7 +1772,7 @@
             const userMessage = chatInput.value.trim();
             if (!userMessage) return;
 
-            addMessageToChatUI(userMessage, 'user');
+            addMessageToChatUI(userMessage, 'user'); // Hiển thị tin nhắn người dùng (plain text)
             chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
             chatInput.value = '';
 
@@ -1774,7 +1794,7 @@
         const callChatbotAPI = async (userMessage) => {
             try {
                 // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 2) =====
-                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // API key sẽ được tự động cung cấp
+                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // DÁN API KEY CỦA BẠN VÀO ĐÂY
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
                 const payload = {
@@ -1799,7 +1819,7 @@
 
                 if (candidate && candidate.content?.parts?.[0]?.text) {
                     const modelMessage = candidate.content.parts[0].text;
-                    addMessageToChatUI(modelMessage, 'model');
+                    addMessageToChatUI(modelMessage, 'model'); // Thêm tin nhắn (đã xử lý Markdown)
                     chatHistory.push({ role: "model", parts: [{ text: modelMessage }] });
                 } else {
                     throw new Error('Phản hồi từ AI không hợp lệ.');
