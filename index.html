@@ -1126,7 +1126,7 @@
                         <h5>📝 Góp ý cho Mục 8</h5>
                         <input type="hidden" name="section" value="Mục 8: Lộ Trình Thực Thi & KPIs">
                         <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
-                        <button type="submit" class="feedback-button">Gửi Góp Ý</button>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
                     </form>
                 </div>
                 </div>
@@ -1601,7 +1601,7 @@
                     const resultElement = document.getElementById(`brainstormResult-${sectionId}`);
                     
                     // ===== BỘ NÃO CỦA NÚT "GỢI Ý CÂU HỎI" ĐÃ SỬA =====
-                    const systemPrompt = "Bạn là Hat Support, một trợ lý tư vấn chiến lược khiêm hạ. Nhiệmvụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này.\n**Yêu cầu:**\n1. **Định dạng:** Trình bày 3 câu hỏi dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.\n2. **Giọng điệu:** Chuyên nghiệp, khiêm tốn.\n3. **Chất lượng:** Đừng hỏi câu hỏi 'có/không'. Hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'.";
+                    const systemPrompt = "Bạn là Hat Support, một trợ lý tư vấn chiến lược khiêm hạ. Nhiệm vụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này.\n**Yêu cầu:**\n1. **Định dạng:** Trình bày 3 câu hỏi dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.\n2. **Giọng điệu:** Chuyên nghiệp, khiêm tốn.\n3. **Chất lượng:** Đừng hỏi câu hỏi 'có/không'. Hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'.";
                     const userPrompt = `Dựa trên nội dung của mục này: "${sectionContent}", hãy tạo ra 3 câu hỏi/vấn đề thảo luận mở rộng.`;
                     
                     callGeminiAPI(systemPrompt, userPrompt, resultElement);
@@ -1759,7 +1759,7 @@
 
             } catch (error) {
                 console.error('Lỗi gọi Chatbot API:', error);
-                addMessageToChatUI(`Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố kết nối. ${error.message}. Xin vui lòng thử lại sau ạ.`, 'model');
+                addMessageToChatUI(`Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố kết nối. ${error.message}. Xin thân chủ vui lòng thử lại sau ạ.`, 'model');
             }
         };
 
