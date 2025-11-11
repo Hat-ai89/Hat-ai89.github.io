@@ -1168,9 +1168,10 @@
         <div class="chat-messages" id="chatMessages">
             <div class="chat-message model">Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?</div>
         </div>
-        <div class="chat-input-area">
+       <div class="chat-input-area">
             <input type="text" id="chatInput" class="chat-input" placeholder="Hỏi tôi bất cứ điều gì..."><br>
-            <button id="chatSend" class="chat-send">&#10148;</button> </div>
+            <button id="chatMic" class="chat-mic" title="Nhấn để nói">&#127908;</button> <button id="chatSend" class="chat-send">&#10148;</button> 
+        </div></button> </div>
     </div>
 <script type="module">
         // --- CÁC BIẾN TOÀN CỤC ---
@@ -1756,4 +1757,26 @@
 
     </script>
 </body>
-</html>
+</html>/* --- CSS MỚI CHO NÚT MICRO --- */
+        .chat-mic {
+            background-color: #f0f4f8;
+            color: #665191;
+            border: 1px solid #ccc;
+            border-left: none;
+            padding: 0 0.75rem;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+        .chat-mic.recording {
+            background-color: #D45087; /* Màu đỏ khi đang thu âm */
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 80, 135, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 80, 135, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 80, 135, 0); }
+        }
+
