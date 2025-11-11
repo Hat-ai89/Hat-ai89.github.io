@@ -1273,11 +1273,10 @@
             const form = event.target;
             const button = form.querySelector('.feedback-button');
             
-            // ===== BẮT BUỘC: THAY THẾ URL NÀY =====
-            // HƯỚNG DẪN LẤY URL NÀY SẼ Ở PHẦN 2 CỦA CÂU TRẢ LỜI
+            // ===== URL ĐÃ ĐƯỢC CẬP NHẬT TỪ NGƯỜI DÙNG =====
             const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwHUYZX8_pemkgxeY3XWlCINRmanJk_f1cDlxWNavCwwAmHf3jk81pG3srY8TNGJKv6/exec"; 
             
-            if (GOOGLE_SHEET_WEB_APP_URL === "https://script.google.com/macros/s/AKfycbwHUYZX8_pemkgxeY3XWlCINRmanJk_f1cDlxWNavCwwAmHf3jk81pG3srY8TNGJKv6/exec") {
+            if (GOOGLE_SHEET_WEB_APP_URL === "DÁN_URL_APPS_SCRIPT_CỦA_BẠN_VÀO_ĐÂY") {
                 showModal("Lỗi Cấu Hình: Vui lòng dán URL Google Apps Script vào file JS (biến GOOGLE_SHEET_WEB_APP_URL) để tính năng này hoạt động.", false);
                 return;
             }
@@ -1660,7 +1659,7 @@
         // ===== LỊCH SỬ CHAT ĐÃ SỬA =====
         let chatHistory = [
             { role: "user", parts: [{ text: "Bắt đầu cuộc trò chuyện" }] },
-            { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗti tư vấn gì về kế hoạch này ạ?" }] }
+            { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?" }] }
         ];
 
         /**
