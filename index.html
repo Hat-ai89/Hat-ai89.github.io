@@ -238,7 +238,55 @@
             font-weight: bold;
         }
         
-        /* --- CSS GÓP Ý (ĐÃ BỊ XÓA) --- */
+        /* ===== CSS MỚI: CHO FORM GÓP Ý ===== */
+        .feedback-input { /* Dùng chung cho input/select */
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+        }
+        .feedback-form-container {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed #FFA600;
+            background-color: #fdfaf4; /* Màu nền vàng nhạt */
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .feedback-form-container h5 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #003F5C;
+            margin-bottom: 0.75rem;
+        }
+        .feedback-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+            min-height: 100px;
+            margin-bottom: 0.75rem;
+        }
+        .feedback-button {
+            background-color: #FFA600;
+            color: #003F5C;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 0.25rem;
+            transition: opacity 0.3s;
+        }
+        .feedback-button:hover {
+            opacity: 0.8;
+        }
+        .feedback-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        /* ===== KẾT THÚC CSS MỚI ===== */
         
         /* --- CSS CHATBOT --- */
         .chat-fab {
@@ -367,7 +415,7 @@
             font-size: 1.25rem;
         }
         
-        /* ===== CSS PHẦN TÁC GIẢ ĐÃ SỬA (THEO YÊU CẦU MỚI NHẤT) ===== */
+        /* ===== CSS PHẦN TÁC GIẢ ===== */
         .author-box {
             display: flex;
             flex-direction: column; /* Chữ trên, ảnh dưới */
@@ -377,32 +425,47 @@
             margin-top: 1.5rem; /* Thêm khoảng cách với dòng tagline */
         }
         .author-text {
-            /* Dòng chữ "Người phụng sự" */
-            text-align: center; /* Căn giữa (theo yêu cầu) */
-            font-size: 0.95rem; /* Kích thước nhỏ hơn một chút */
+            text-align: center; 
+            font-size: 0.95rem; 
             color: #555;
             font-weight: 500;
             margin: 0;
             padding: 0;
         }
         .author-image {
-            /* Kích thước cân bằng */
-            width: 150px; /* Cân bằng lại (không quá bự) */
-            height: auto; /* Giữ tỷ lệ */
-            max-height: 220px; /* Ngắn lại (để thấy rõ chữ) */
+            width: 150px; 
+            height: auto; 
+            max-height: 220px; 
             max-width: 100%;
-            
-            /* Hình chữ nhật */
             border-radius: 8px; 
-            
-            /* Hiển thị toàn bộ ảnh */
             object-fit: contain;
             object-position: center; 
-            
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             border: none;
         }
-        /* ===== KẾT THÚC CSS PHẦN TÁC GIẢ ===== */
+
+        /* --- CSS MỚI CHO NÚT MICRO --- */
+        .chat-mic {
+            background-color: #f0f4f8;
+            color: #665191;
+            border: 1px solid #ccc;
+            border-left: none;
+            padding: 0 0.75rem;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+        .chat-mic.recording {
+            background-color: #D45087; /* Màu đỏ khi đang thu âm */
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 80, 135, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 80, 135, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 80, 135, 0); }
+        }
 
     </style>
 </head>
@@ -426,7 +489,7 @@
         <button class="accordion">1. Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển... <br>                Nội dung chi tiết dưới đây được trích từ ` (Phân tích chi tiết)`.</p>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển... <br>    Nội dung chi tiết dưới đây được trích từ ` (Phân tích chi tiết)`.</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white rounded-lg shadow-xl p-6 flex flex-col justify-center items-center border-l-4 border-red-500">
                         <div class="text-5xl mb-3">&#9888;</div>
@@ -483,13 +546,22 @@
                         <pre id="brainstormResult-muc-1" class="result-box prose"></pre>
                     </div>
                 </div>
+                
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 1</h5>
+                        <input type="hidden" name="section" value="Mục 1: Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
         <button class="accordion">2. Phân Tích Định Vị Thị Trường</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính...<br>                Nội dung chi tiết dưới đây (Ma trận) được trích từ ` (Phân tích chi tiết)`.</p>
+                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính...<br>    Nội dung chi tiết dưới đây (Ma trận) được trích từ ` (Phân tích chi tiết)`.</p>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2">
                         <div class="chart-container-tall">
@@ -556,6 +628,15 @@
                         <pre id="brainstormResult-muc-2" class="result-box prose"></pre>
                     </div>
                 </div>
+                
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 2</h5>
+                        <input type="hidden" name="section" value="Mục 2: Phân Tích Định Vị Thị Trường">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -615,6 +696,15 @@
                         </button>
                         <pre id="brainstormResult-muc-3" class="result-box prose"></pre>
                     </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 3</h5>
+                        <input type="hidden" name="section" value="Mục 3: Chiến Lược Thương Hiệu (Tái định vị)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -689,6 +779,15 @@
                         <pre id="brainstormResult-muc-4" class="result-box prose"></pre>
                     </div>
                 </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 4</h5>
+                        <input type="hidden" name="section" value="Mục 4: Chiến Lược Marketing Sản Phẩm (Good-Better-Best)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -759,6 +858,15 @@
                         </button>
                         <pre id="brainstormResult-muc-5" class="result-box prose"></pre>
                     </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 5</h5>
+                        <input type="hidden" name="section" value="Mục 5: Giải Pháp Kênh Phân Phối (MAP, O2O & TMĐT)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -837,6 +945,15 @@
                         <pre id="brainstormResult-muc-6" class="result-box prose"></pre>
                     </div>
                 </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 6</h5>
+                        <input type="hidden" name="section" value="Mục 6: Kênh Truyền Thông & Tối Ưu Hóa">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -893,6 +1010,15 @@
                         </button>
                         <pre id="brainstormResult-muc-7" class="result-box prose"></pre>
                     </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 7</h5>
+                        <input type="hidden" name="section" value="Mục 7: Cơ Hội Tăng Trưởng Mới (One-Stop-Shop)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -1009,10 +1135,30 @@
                         <pre id="brainstormResult-muc-8" class="result-box prose"></pre>
                     </div>
                 </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 8</h5>
+                        <input type="hidden" name="section" value="Mục 8: Lộ Trình Thực Thi & KPIs">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
-    </main>
+        <section class="mt-12 p-6 bg-white rounded-lg shadow-lg border-t-4" style="border-color: #665191;">
+            <h2 class="text-3xl font-bold mb-4 text-center" style="color: #665191;">9. Đóng Góp Ý Kiến Chung</h2>
+            <p class="text-center text-gray-600 mb-6">Bạn có bất kỳ góp ý nào cho toàn bộ kế hoạch hoặc các vấn đề khác không được đề cập? Xin vui lòng chia sẻ tại đây.</p>
+            <div class="feedback-form-container" style="border-top: none; background-color: transparent; padding: 0;">
+                <form class="feedback-form">
+                    <input type="hidden" name="section" value="Đóng Góp Chung">
+                    <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý chung của bạn..." required style="min-height: 150px;"></textarea>
+                    <button type-submit" class="feedback-button w-full sm:w-auto" style="background-color: #665191; color: white;">Gửi Góp Ý Chung</button>
+                </form>
+            </div>
+        </section>
+        </main>
     
     <footer class="text-center p-6 mt-8 text-sm text-gray-500 border-t border-gray-200">
         Báo cáo Chiến lược Marketing - Nệm Vạn Thành (Bản gộp tương tác).
@@ -1039,12 +1185,19 @@
         </div>
         <div class="chat-input-area">
             <input type="text" id="chatInput" class="chat-input" placeholder="Hỏi tôi bất cứ điều gì..."><br>
-            <button id="chatSend" class="chat-send">&#10148;</button> </div>
+            <button id="chatMic" class="chat-mic" title="Nhấn để nói">&#127908;</button> <button id="chatSend" class="chat-send">&#10148;</button> 
+        </div>
     </div>
-    <script type="module">
-        // --- CÁC BIẾN TOÀN CỤC (ĐÃ XÓA FIREBASE) ---
-        let userId = null;
-        let isAuthReady = false; 
+    
+<script type="module">
+        // --- CÁC BIẾN TOÀN CỤC ---
+        
+        // ===== URL APPS SCRIPT MỚI CỦA BẠN ĐÃ ĐƯỢC DÁN VÀO ĐÂY =====
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyc9NwDoPQ7q1RbKFoC2pZaSA3G6xlHPt2lWakkc5JSHFY1sY6XBhAr5GuouanFovE_/exec";
+        
+        // Biến toàn cục cho giọng nói
+        let recognition = null;  // Giữ bộ nhận diện giọng nói (Tai)
+        let synthesizer = window.speechSynthesis; // Giữ bộ đọc (Loa)
 
         // --- HÀM TIỆN ÍCH ---
 
@@ -1077,76 +1230,83 @@
         };
 
         /**
-         * Gọi Gemini API (Cho các nút trong mục)
+         * === HÀM GỌI AI (CHO CÁC NÚT TRÊN TRANG) ===
+         * Gọi Apps Script (Groq), chỉ nhận về TEXT
          */
         const callGeminiAPI = async (systemPrompt, userPrompt, resultElement) => {
             showModal('AI đang suy nghĩ...', true);
-            
-            // Vô hiệu hóa tất cả các nút AI
             document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = true);
             
+            const formData = new FormData();
+            formData.append('action', 'callGemini'); // Gọi action chỉ-text
+            formData.append('systemPrompt', systemPrompt);
+            formData.append('userPrompt', userPrompt);
+
             try {
-                // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 1) =====
-                const apiKey = ""; // DÁN API KEY CỦA BẠN VÀO ĐÂY
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-                
-                const payload = {
-                    contents: [{ parts: [{ text: userPrompt }] }],
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    },
-                };
-
-                const response = await fetch(apiUrl, {
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: formData
                 });
-
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    console.error("API Error Body:", errorBody);
-                    throw new Error(`API call failed with status: ${response.status}`);
-                }
-
+                if (!response.ok) throw new Error(`Lỗi máy chủ Apps Script: ${response.status}`);
                 const result = await response.json();
-                const candidate = result.candidates?.[0];
-
-                if (candidate && candidate.content?.parts?.[0]?.text) {
-                    const text = candidate.content.parts[0].text;
-                    resultElement.innerHTML = text; // Dùng innerHTML để render Markdown (nếu có)
+                if (result.status === 'success') {
+                    resultElement.innerHTML = result.text;
                     showModal('Đã nhận được phản hồi!', false);
                 } else {
-                    console.error("Invalid AI Response:", result);
-                    throw new Error('Phản hồi từ AI không hợp lệ.');
+                    throw new Error(result.message);
                 }
-
             } catch (error) {
-                console.error('Lỗi gọi Gemini API:', error);
+                console.error('Lỗi gọi Apps Script (callGeminiAPI):', error);
                 resultElement.textContent = 'Đã xảy ra lỗi khi gọi AI. Vui lòng thử lại.';
                 showModal(`Lỗi: ${error.message}`, false);
             } finally {
-                // Mở lại tất cả các nút AI
                 document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = false);
+            }
+        };
+
+        /**
+         * === HÀM GỬI GÓP Ý ===
+         * Gọi Apps Script, action 'feedback'
+         */
+        const handleFeedbackSubmit = async (event) => {
+            event.preventDefault(); 
+            const form = event.target;
+            const button = form.querySelector('.feedback-button');
+            
+            button.disabled = true;
+            showModal('Đang gửi góp ý...', true);
+
+            try {
+                const formData = new FormData(form);
+                formData.append('action', 'feedback'); 
+
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) throw new Error('Phản hồi từ máy chủ không hợp lệ.');
+                const result = await response.json(); 
+                if (result.status === 'success') {
+                    showModal('Cảm ơn bạn đã góp ý! Góp ý của bạn đã được ghi nhận.', false);
+                    form.reset(); 
+                } else {
+                    throw new Error(result.message || 'Lỗi không xác định từ Apps Script.');
+                }
+            } catch (error) {
+                console.error('Lỗi gửi góp ý:', error);
+                showModal(`Lỗi: ${error.message}. Không thể gửi góp ý. Xin vui lòng thử lại.`, false);
+            } finally {
+                button.disabled = false;
             }
         };
 
         // --- HÀM KHỞI TẠO CHÍNH ---
 
-        /**
-         * Ưu tiên 1: Khởi tạo giao diện (UI)
-         * Chạy ngay lập tức
-         */
         const initializeUI = () => {
             console.log("Bắt đầu khởi tạo UI...");
 
-            // --- Lấy các phần tử UI (Modal) ---
+            // (Lấy các phần tử UI)
             const modalCloseButton = document.getElementById('modalCloseButton');
-            if (modalCloseButton) {
-                modalCloseButton.addEventListener('click', closeModal);
-            }
-
-            // --- Lấy các phần tử UI (AI) ---
             const acc = document.getElementsByClassName("accordion");
             const aeoQueryInput = document.getElementById('aeoQueryInput');
             const aeoQueryButton = document.getElementById('aeoQueryButton');
@@ -1172,8 +1332,16 @@
             const chatClose = document.getElementById('chatClose');
             const chatInput = document.getElementById('chatInput');
             const chatSend = document.getElementById('chatSend');
+            
+            // (NÚT MỚI) Lấy nút micro
+            const chatMicButton = document.getElementById('chatMic');
 
-            // 1. Khởi tạo Accordion
+            // 1. Khởi tạo Modal
+            if (modalCloseButton) {
+                modalCloseButton.addEventListener('click', closeModal);
+            }
+
+            // 2. Khởi tạo Accordion
             try {
                 for (let i = 0; i< acc.length; i++) {
                     acc[i].addEventListener("click", function() {
@@ -1186,55 +1354,9 @@
                         }
                     });
                 }
-            } catch (e) {
-                console.error("Lỗi khởi tạo Accordion:", e);
-            }
+            } catch (e) { console.error("Lỗi khởi tạo Accordion:", e); }
 
-            // 2. Khởi tạo Biểu đồ (với try...catch)
-            const wrapLabels = (label, maxWidth) => {
-                if (typeof label !== 'string' || label.length <= maxWidth) { return label; }
-                const words = label.split(' ');
-                const lines = [];
-                let currentLine = '';
-                words.forEach((word) => {
-                    if (currentLine === '') {
-                        currentLine = word;
-                    } else if ((currentLine + ' ' + word).length <= maxWidth) {
-                        currentLine += ' ' + word;
-                    } else {
-                        lines.push(currentLine);
-                        currentLine = word;
-                    }
-                });
-                lines.push(currentLine);
-                return lines;
-            };
-
-            const tooltipCallbacks = {
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            title: function(tooltipItems) {
-                                const item = tooltipItems[0];
-                                let label = item.chart.data.labels[item.dataIndex];
-                                if (Array.isArray(label)) { return label.join(' '); } 
-                                else { return label; }
-                            }
-                        }
-                    }
-                }
-            };
-            
-            const CHART_COLORS = {
-                primary: '#003F5C',
-                secondary: '#665191',
-                accent1: '#FFA600',
-                accent2: '#D45087',
-                accent3: '#A05195',
-                accent4: '#F95D6A',
-                lightGray: '#DDDDDD'
-            };
-
+            // 3. Khởi tạo Biểu đồ (Code không đổi)
             try {
                 const positioningCtx = document.getElementById('positioningChart');
                 if (positioningCtx) {
@@ -1242,215 +1364,95 @@
                         type: 'bubble',
                         data: {
                             datasets: [
-                                { label: 'Nệm Vạn Thành', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: CHART_COLORS.primary, borderColor: CHART_COLORS.primary },
-                                { label: 'Kymdan', data: [{ x: 10, y: 10, r: 20 }], backgroundColor: CHART_COLORS.accent2 },
-                                { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: CHART_COLORS.secondary },
-                                { label: 'Kim Cương', data: [{ x: 6, y: 7, r: 10 }], backgroundColor: CHART_COLORS.accent1 },
-                                { label: 'Dunlopillo', data: [{ x: 9, y: 9, r: 8 }], backgroundColor: CHART_COLORS.accent3 },
-                                { label: 'Everon', data: [{ x: 7, y: 6, r: 7 }], backgroundColor: CHART_COLORS.accent4 }
+                                { label: 'Nệm Vạn Thành', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: '#003F5C' },
+                                { label: 'Kymdan', data: [{ x: 10, y: 10, r: 20 }], backgroundColor: '#D45087' },
+                                { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: '#665191' },
+                                { label: 'Kim Cương', data: [{ x: 6, y: 7, r: 10 }], backgroundColor: '#FFA600' },
+                                { label: 'Dunlopillo', data: [{ x: 9, y: 9, r: 8 }], backgroundColor: '#A05195' },
+                                { label: 'Everon', data: [{ x: 7, y: 6, r: 7 }], backgroundColor: '#F95D6A' }
                             ]
                         },
-                        options: {
-                            ...tooltipCallbacks,
-                            maintainAspectRatio: false,
-                            responsive: true,
-                            scales: {
-                                x: { title: { display: true, text: 'Giá Bán (Thấp -> Cao)' }, min: 3, max: 11 },
-                                y: { title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)' }, min: 4, max: 11 }
-                            },
-                            plugins: { ...tooltipCallbacks.plugins, legend: { position: 'bottom' }, title: { display: false } }
-                        }
+                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { title: { display: true, text: 'Giá Bán (Thấp -> Cao)' }, min: 3, max: 11 }, y: { title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)' }, min: 4, max: 11 } }, plugins: { legend: { position: 'bottom' } } }
                     });
                 }
-            } catch (e) {
-                console.error("Lỗi tải Biểu đồ Định vị (Chart.js có thể chưa tải):", e);
-                const positioningCtx = document.getElementById('positioningChart');
-                if (positioningCtx) positioningCtx.parentElement.innerHTML = "<p class='text-red-500 text-center'>Không thể tải biểu đồ.</p>";
-            }
+            } catch (e) { console.error("Lỗi tải Biểu đồ Định vị:", e); }
             
             try {
                 const productMixCtx = document.getElementById('productMixChart');
                 if (productMixCtx) {
-                    const rawLabels = ['Cao su Thiên nhiên', 'Nệm Lò xo', 'Nệm Mouse (Foam)', 'Nệm Gòn'];
-                    const wrappedLabels = rawLabels.map(label => wrapLabels(label, 16));
                     new Chart(productMixCtx, {
                         type: 'doughnut',
                         data: {
-                            labels: wrappedLabels,
+                            labels: ['Cao su Thiên nhiên', 'Nệm Lò xo', 'Nệm Mouse (Foam)', 'Nệm Gòn'],
                             datasets: [{
                                 label: 'Tỷ Trọng Sản Phẩm',
                                 data: [45, 30, 15, 10],
-                                backgroundColor: [ CHART_COLORS.primary, CHART_COLORS.secondary, CHART_COLORS.accent1, CHART_COLORS.accent2 ],
+                                backgroundColor: [ '#003F5C', '#665191', '#FFA600', '#D45087' ],
                                 hoverOffset: 4
                             }]
                         },
-                        options: {
-                                ...tooltipCallbacks,
-                            maintainAspectRatio: false,
-                            responsive: true,
-                            plugins: { ...tooltipCallbacks.plugins, legend: { position: 'bottom', labels: { font: { size: 11 } } } }
-                        }
+                        options: { maintainAspectRatio: false, responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } } }
                     });
                 }
-            } catch (e) {
-                console.error("Lỗi tải Biểu đồ Sản phẩm (Chart.js có thể chưa tải):", e);
-                const productMixCtx = document.getElementById('productMixChart');
-                if (productMixCtx) productMixCtx.parentElement.innerHTML = "<p class='text-red-500 text-center'>Không thể tải biểu đồ.</p>";
-            }
-
+            } catch (e) { console.error("Lỗi tải Biểu đồ Sản phẩm:", e); }
+    
             try {
                 const channelStrategyCtx = document.getElementById('channelStrategyChart');
                 if (channelStrategyCtx) {
-                    const rawLabels = ['Hiện tại (Ước tính)', 'Mục tiêu (1 Năm)'];
-                    const wrappedLabels = rawLabels.map(label => wrapLabels(label, 16));
                     new Chart(channelStrategyCtx, {
                         type: 'bar',
                         data: {
-                            labels: wrappedLabels,
+                            labels: ['Hiện tại (Ước tính)', 'Mục tiêu (1 Năm)'],
                             datasets: [
-                                { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: CHART_COLORS.accent4, stack: 'strategy' },
-                                { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: CHART_COLORS.primary, stack: 'strategy' },
-                                { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: CHART_COLORS.accent1, stack: 'strategy' },
-                                { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: CHART_COLORS.secondary, stack: 'strategy' }
+                                { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: '#F95D6A', stack: 'strategy' },
+                                { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: '#003F5C', stack: 'strategy' },
+                                { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: '#FFA600', stack: 'strategy' },
+                                { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: '#665191', stack: 'strategy' }
                             ]
                         },
-                        options: {
-                            ...tooltipCallbacks,
-                            maintainAspectRatio: false,
-                            responsive: true,
-                            scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Phân Bổ Nguồn Lực (%)' } } },
-                            plugins: { ...tooltipCallbacks.plugins, title: { display: false }, legend: { position: 'bottom' } }
-                        }
+                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Phân Bổ Nguồn Lực (%)' } } }, plugins: { legend: { position: 'bottom' } } }
                     });
                 }
-            } catch (e) {
-                console.error("Lỗi tải Biểu đồ Kênh (Chart.js có thể chưa tải):", e);
-                const channelStrategyCtx = document.getElementById('channelStrategyChart');
-                if (channelStrategyCtx) channelStrategyCtx.parentElement.innerHTML = "<p class='text-red-500 text-center'>Không thể tải biểu đồ.</p>";
-            }
-
-            // 3. Khởi tạo Gắn Event Listeners cho các nút AI
+            } catch (e) { console.error("Lỗi tải Biểu đồ Kênh:", e); }
             
-            // 3.1. Nút "Mô Phỏng AEO" (Mục 6)
-            if (aeoQueryButton) {
-                aeoQueryButton.addEventListener('click', () => {
-                    const query = aeoQueryInput.value || "So sánh nệm Vạn Thành và Kymdan";
-                    const systemPrompt = "Bạn là Hat Support, một chuyên gia phân tích khiêm hạ. Hãy trả lời câu hỏi của người dùng. **Trình bày kết quả** một cách rõ ràng, dùng **in đậm** và gạch đầu dòng để so sánh điểm mạnh/yếu khách quan. Luôn thể hiện sự khiêm hạ.";
-                    const userPrompt = query;
-                    callGeminiAPI(systemPrompt, userPrompt, aeoQueryResult);
-                });
-            }
+    
+            // 4. Khởi tạo Gắn Event Listeners cho các nút AI (Không đổi)
+            if (aeoQueryButton) { aeoQueryButton.addEventListener('click', () => { const query = aeoQueryInput.value || "So sánh nệm Vạn Thành và Kymdan"; const systemPrompt = "Bạn là Hat Support, một chuyên gia phân tích khiêm hạ. Hãy trả lời câu hỏi của người dùng. **Trình bày kết quả** một cách rõ ràng, dùng **in đậm** và gạch đầu dòng để so sánh điểm mạnh/yếu khách quan. Luôn thể hiện sự khiêm hạ."; const userPrompt = query; callGeminiAPI(systemPrompt, userPrompt, aeoQueryResult); }); }
+            if (generateContentButton) { generateContentButton.addEventListener('click', () => { const type = contentSelect.value; const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo nội dung khiêm hạ. **Trình bày ý tưởng** dưới dạng danh sách, dùng **in đậm** cho tiêu đề kịch bản/bài đăng. Giọng điệu khiêm tốn."; let userPrompt = ''; if (type === 'tiktok') { userPrompt = "Tạo 3 ý tưởng kịch bản TikTok (dưới 30 giây) để thể hiện độ bền hoặc sự êm ái của nệm Vạn Thành. Định dạng: **[Ý Tưởng 1]**, [Cảnh Quay], [Thông Điệp]."; } else { userPrompt = "Tạo 1 bài đăng cho Facebook Group 'Hội Yêu Giấc Ngủ Việt' với mục tiêu thu thập khảo sát (Zero-Party Data) về thói quen ngủ của người dùng. Bài đăng phải thân thiện, đặt câu hỏi tương tác."; } callGeminiAPI(systemPrompt, userPrompt, contentResult); }); }
+            if (generateComboButton) { generateComboButton.addEventListener('click', () => { const comboType = comboTypeSelect.value; const systemPrompt = "Bạn là Hat Support, một trợ lý phát triển sản phẩm khiêm hạ. **Trình bày phác thảo** một cách rõ ràng, chuyên nghiệp, dùng **in đậm** cho các đề mục (Tên Gói, Đối Tượng...)."; const userPrompt = `Hãy phác thảo Gói Combo: "${comboType}". Nêu rõ: \n1. **Tên Gói Hấp Dẫn:** \n2. **Đối Tượng Khách Hàng:** \n3. **Các Sản Phẩm Bao Gồm (Nệm Vạn Thành + 2-3 sản phẩm khác):** \n4. **Thông Điệp Marketing Chính:**`; callGeminiAPI(systemPrompt, userPrompt, comboResultBox); }); }
+            if (generateSloganButton) { generateSloganButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo khiêm hạ. Hãy tạo ra 5 slogan. **Trình bày kết quả** dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt."; const userPrompt = "Tạo 5 slogan cho Nệm Vạn Thành dựa trên định vị cốt lõi: 'BỀN BỈ TỪ 1980'. Các slogan phải gợi lên sự tin cậy, chất lượng vượt thời gian và di sản."; callGeminiAPI(systemPrompt, userPrompt, sloganResultBox); }); }
+            if (generateKPIReportButton) { generateKPIReportButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý phân tích khiêm hạ. Hãy soạn thảo một email báo cáo. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, dùng gạch đầu dòng cho các KPI."; const userPrompt = "Soạn thảo một email báo cáo tiến độ (dạng gạch đầu dòng) dựa trên các KPI giả định sau: \n- **Tỷ lệ vi phạm MAP:** Giảm 90% (Thành công). \n- **Số leads O2O:** Tăng 150% (Vượt mong đợi). \n- **Doanh thu Affiliate:** Đang xây dựng (Cần theo dõi). \n- **Hành động tiếp theo:** Triển khai GMB cho 100 đại lý tiếp theo."; callGeminiAPI(systemPrompt, userPrompt, kpiReportResultBox); }); }
+            if (generateProductDescButton) { generateProductDescButton.addEventListener('click', () => { const tier = document.getElementById('productTierSelect').value; const systemPrompt = "Bạn là Hat Support, một trợ lý copywriter khiêm hạ. **Trình bày kết quả** rõ ràng, chuyên nghiệp, có thể dùng **in đậm** cho tiêu đề và gạch đầu dòng cho lợi ích."; let userPrompt = `Viết một mô tả sản phẩm (khoảng 100 từ) cho website Nệm Vạn Thành, phân khúc ${tier}.`; if (tier === 'GOOD') { userPrompt += " Tập trung vào: 'giá rẻ', 'tiết kiệm', 'bền bỉ', 'gấp 3 tiện lợi'."; } else if (tier === 'BETTER') { userPrompt += " Tập trung vào: 'cân bằng', 'nâng đỡ', 'êm ái', 'cao su thiên nhiên', 'lò xo túi'."; } else { userPrompt += " Tập trung vào: 'cao cấp', 'sang trọng', 'di sản', 'nguyên liệu tinh khiết', 'giấc ngủ chuyên sâu'."; } callGeminiAPI(systemPrompt, userPrompt, productDescResult); }); }
+            if (generateMAPEmailButton) { generateMAPEmailButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý truyền thông khiêm hạ. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, rõ ràng, có tiêu đề, nội dung và kết thư. Giọng điệu vừa nghiêm túc (về chế tài) vừa mang tính hợp tác (vì lợi ích chung)."; const userPrompt = "Soạn thảo một email trang trọng gửi toàn bộ 1000 đại lý của Nệm Vạn Thành, thông báo về việc áp dụng 'Chính Sách Giá Quảng Cáo Tối Thiểu (MAP)' từ tháng tới. Nêu rõ: \n1. **Lý do:** Bảo vệ giá trị thương hiệu và sự công bằng cho đại lý. \n2. **Quy định:** Cấm quảng cáo chiết khấu X% (ví dụ: 15%) trên mọi kênh online. \n3. **Chế tài:** Nêu rõ 3 cấp độ (Cảnh cáo, Cắt chiết khấu, Ngừng cung cấp). \n4. **Kêu gọi hợp tác:** vì mục tiêu chung."; callGeminiAPI(systemPrompt, userPrompt, mapEmailResult); }); }
+            document.querySelectorAll('.brainstorm-button').forEach(button => { button.addEventListener('click', () => { const sectionId = button.dataset.sectionId; const sectionContent = button.dataset.sectionContent; const resultElement = document.getElementById(`brainstormResult-${sectionId}`); const systemPrompt = "Bạn là Hat Support, một trợ lý tư vấn chiến lược khiêm hạ. Nhiệm vụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này.\n**Yêu cầu:**\n1. **Định dạng:** Trình bày 3 câu hỏi dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.\n2. **Giọng điệu:** Chuyên nghiệp, khiêm tốn.\n3. **Chất lượng:** Đừng hỏi câu hỏi 'có/không'. Hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'."; const userPrompt = `Dựa trên nội dung của mục này: "${sectionContent}", hãy tạo ra 3 câu hỏi/vấn đề thảo luận mở rộng.`; callGeminiAPI(systemPrompt, userPrompt, resultElement); }); });
 
-            // 3.2. Nút "Sáng Tạo Nội Dung" (Mục 6)
-            if (generateContentButton) {
-                generateContentButton.addEventListener('click', () => {
-                    const type = contentSelect.value;
-                    const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo nội dung khiêm hạ. **Trình bày ý tưởng** dưới dạng danh sách, dùng **in đậm** cho tiêu đề kịch bản/bài đăng. Giọng điệu khiêm tốn.";
-                    let userPrompt = '';
-                    if (type === 'tiktok') {
-                        userPrompt = "Tạo 3 ý tưởng kịch bản TikTok (dưới 30 giây) để thể hiện độ bền hoặc sự êm ái của nệm Vạn Thành. Định dạng: **[Ý Tưởng 1]**, [Cảnh Quay], [Thông Điệp].";
-                    } else {
-                        userPrompt = "Tạo 1 bài đăng cho Facebook Group 'Hội Yêu Giấc Ngủ Việt' với mục tiêu thu thập khảo sát (Zero-Party Data) về thói quen ngủ của người dùng. Bài đăng phải thân thiện, đặt câu hỏi tương tác.";
-                    }
-                    callGeminiAPI(systemPrompt, userPrompt, contentResult);
-                });
-            }
-
-            // 3.3. Nút "Phát Triển Gói Combo" (Mục 7)
-            if (generateComboButton) {
-                generateComboButton.addEventListener('click', () => {
-                    const comboType = comboTypeSelect.value;
-                    const systemPrompt = "Bạn là Hat Support, một trợ lý phát triển sản phẩm khiêm hạ. **Trình bày phác thảo** một cách rõ ràng, chuyên nghiệp, dùng **in đậm** cho các đề mục (Tên Gói, Đối Tượng...).";
-                    const userPrompt = `Hãy phác thảo Gói Combo: "${comboType}". Nêu rõ: \n1. **Tên Gói Hấp Dẫn:** \n2. **Đối Tượng Khách Hàng:** \n3. **Các Sản Phẩm Bao Gồm (Nệm Vạn Thành + 2-3 sản phẩm khác):** \n4. **Thông Điệp Marketing Chính:**`;
-                    callGeminiAPI(systemPrompt, userPrompt, comboResultBox);
-                });
-            }
+            // 5. Khởi tạo Chatbot
+            if (chatFab) { chatFab.addEventListener('click', () => chatWindow.classList.toggle('visible')); }
+            if (chatClose) { chatClose.addEventListener('click', () => {
+                synthesizer.cancel(); // Tắt giọng nói khi đóng chat
+                chatWindow.classList.remove('visible'); 
+            }); }
+            if (chatSend) { chatSend.addEventListener('click', handleChatSend); }
+            if (chatInput) { chatInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatSend(); }); }
             
-            // 3.4. Nút "Sáng Tạo Slogan" (Mục 3)
-            if (generateSloganButton) {
-                generateSloganButton.addEventListener('click', () => {
-                    const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo khiêm hạ. Hãy tạo ra 5 slogan. **Trình bày kết quả** dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.";
-                    const userPrompt = "Tạo 5 slogan cho Nệm Vạn Thành dựa trên định vị cốt lõi: 'BỀN BỈ TỪ 1980'. Các slogan phải gợi lên sự tin cậy, chất lượng vượt thời gian và di sản.";
-                    callGeminiAPI(systemPrompt, userPrompt, sloganResultBox);
+            // 6. Khởi tạo Gắn Event Listeners cho các Form Góp Ý
+            try {
+                document.querySelectorAll('.feedback-form').forEach(form => {
+                    form.addEventListener('submit', handleFeedbackSubmit);
                 });
-            }
+                console.log("Khởi tạo Form Góp Ý thành công.");
+            } catch (e) { console.error("Lỗi khởi tạo Form Góp Ý:", e); }
 
-            // 3.5. Nút "Báo Cáo KPI" (MỤC 8)
-            if (generateKPIReportButton) {
-                generateKPIReportButton.addEventListener('click', () => {
-                    const systemPrompt = "Bạn là Hat Support, một trợ lý phân tích khiêm hạ. Hãy soạn thảo một email báo cáo. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, dùng gạch đầu dòng cho các KPI.";
-                    const userPrompt = "Soạn thảo một email báo cáo tiến độ (dạng gạch đầu dòng) dựa trên các KPI giả định sau: \n- **Tỷ lệ vi phạm MAP:** Giảm 90% (Thành công). \n- **Số leads O2O:** Tăng 150% (Vượt mong đợi). \n- **Doanh thu Affiliate:** Đang xây dựng (Cần theo dõi). \n- **Hành động tiếp theo:** Triển khai GMB cho 100 đại lý tiếp theo.";
-                    callGeminiAPI(systemPrompt, userPrompt, kpiReportResultBox);
-                });
-            }
-
-            // 3.6. Nút "Mô Tả Sản Phẩm" (MỤC 4)
-            if (generateProductDescButton) {
-                generateProductDescButton.addEventListener('click', () => {
-                    const tier = document.getElementById('productTierSelect').value;
-                    const systemPrompt = "Bạn là Hat Support, một trợ lý copywriter khiêm hạ. **Trình bày kết quả** rõ ràng, chuyên nghiệp, có thể dùng **in đậm** cho tiêu đề và gạch đầu dòng cho lợi ích.";
-                    let userPrompt = `Viết một mô tả sản phẩm (khoảng 100 từ) cho website Nệm Vạn Thành, phân khúc ${tier}.`;
-                    if (tier === 'GOOD') {
-                        userPrompt += " Tập trung vào: 'giá rẻ', 'tiết kiệm', 'bền bỉ', 'gấp 3 tiện lợi'.";
-                    } else if (tier === 'BETTER') {
-                        userPrompt += " Tập trung vào: 'cân bằng', 'nâng đỡ', 'êm ái', 'cao su thiên nhiên', 'lò xo túi'.";
-                    } else {
-                        userPrompt += " Tập trung vào: 'cao cấp', 'sang trọng', 'di sản', 'nguyên liệu tinh khiết', 'giấc ngủ chuyên sâu'.";
-                    }
-                    callGeminiAPI(systemPrompt, userPrompt, productDescResult);
-                });
-            }
-
-            // 3.7. Nút "Soạn Thảo Email MAP" (MỤC 5)
-            if (generateMAPEmailButton) {
-                generateMAPEmailButton.addEventListener('click', () => {
-                    const systemPrompt = "Bạn là Hat Support, một trợ lý truyền thông khiêm hạ. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, rõ ràng, có tiêu đề, nội dung và kết thư. Giọng điệu vừa nghiêm túc (về chế tài) vừa mang tính hợp tác (vì lợi ích chung).";
-                    const userPrompt = "Soạn thảo một email trang trọng gửi toàn bộ 1000 đại lý của Nệm Vạn Thành, thông báo về việc áp dụng 'Chính Sách Giá Quảng Cáo Tối Thiểu (MAP)' từ tháng tới. Nêu rõ: \n1. **Lý do:** Bảo vệ giá trị thương hiệu và sự công bằng cho đại lý. \n2. **Quy định:** Cấm quảng cáo chiết khấu X% (ví dụ: 15%) trên mọi kênh online. \n3. **Chế tài:** Nêu rõ 3 cấp độ (Cảnh cáo, Cắt chiết khấu, Ngừng cung cấp). \n4. **Kêu gọi hợp tác:** vì mục tiêu chung.";
-                    callGeminiAPI(systemPrompt, userPrompt, mapEmailResult);
-                });
-            }
-            
-            // 3.8. Nút "Gợi Ý Câu Hỏi" (Tất cả các mục)
-            document.querySelectorAll('.brainstorm-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    const sectionId = button.dataset.sectionId;
-                    const sectionContent = button.dataset.sectionContent;
-                    const resultElement = document.getElementById(`brainstormResult-${sectionId}`);
-                    
-                    // ===== BỘ NÃO CỦA NÚT "GỢI Ý CÂU HỎI" ĐÃ SỬA =====
-                    const systemPrompt = "Bạn là Hat Support, một trợ lý tư vấn chiến lược khiêm hạ. Nhiệm vụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này.\n**Yêu cầu:**\n1. **Định dạng:** Trình bày 3 câu hỏi dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.\n2. **Giọng điệu:** Chuyên nghiệp, khiêm tốn.\n3. **Chất lượng:** Đừng hỏi câu hỏi 'có/không'. Hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'.";
-                    const userPrompt = `Dựa trên nội dung của mục này: "${sectionContent}", hãy tạo ra 3 câu hỏi/vấn đề thảo luận mở rộng.`;
-                    
-                    callGeminiAPI(systemPrompt, userPrompt, resultElement);
-                });
-            });
-
-            // 4. Khởi tạo Gắn Event Listeners cho các nút Góp Ý (ĐÃ BỊ XÓA)
-
-            // 5. Khởi tạo Gắn Event Listeners cho Chatbot
-            if (chatFab) {
-                chatFab.addEventListener('click', () => chatWindow.classList.toggle('visible'));
-            }
-            if (chatClose) {
-                chatClose.addEventListener('click', () => chatWindow.classList.remove('visible'));
-            }
-            if (chatSend) {
-                chatSend.addEventListener('click', handleChatSend);
-            }
-            if (chatInput) {
-                chatInput.addEventListener('keyup', (e) => {
-                    if (e.key === 'Enter') handleChatSend();
-                });
+            // 7. (MỚI) Khởi tạo Nhận diện Giọng nói (Micro)
+            if (chatMicButton) {
+                initializeSpeechRecognition(chatMicButton, chatInput);
             }
 
             console.log("Khởi tạo UI thành công.");
         };
 
-        // --- KHỞI TẠO FIREBASE (ĐÃ BỊ XÓA) ---
-        
-        // --- LOGIC RIÊNG CỦA CHATBOT ---
+        // --- LOGIC RIÊNG CỦA CHATBOT (ĐÃ NÂNG CẤP) ---
 
-        // ===== "BỘ NÃO" CHATBOT ĐÃ SỬA (THEO YÊU CẦU MỚI NHẤT) =====
         const CHATBOT_SYSTEM_PROMPT = `Bạn là Hat AI, một trợ lý tư vấn chuyên nghiệp, khiêm hạ. Bạn đang hỗ trợ một đối tác (thân chủ) xem xét kế hoạch marketing cho Nệm Vạn Thành.
         PHONG CÁCH PHẢN HỒI:
         1. Xưng Hô: Luôn gọi người dùng là "thân chủ" và xưng "Hat AI" hoặc "tôi". Giọng điệu luôn khiêm tốn, lễ phép, tư vấn (dạ, thưa, xin phép).
@@ -1462,56 +1464,66 @@
         - Nếu thông tin không có trong bối cảnh, hãy "tự tạo sinh theo bối cảnh" (dùng kiến thức marketing chung) để tư vấn, nhưng phải nói rõ đây là "gợi ý mở rộng".
         - Luôn giữ thái độ hỗ trợ và không trả lời các chủ đề không liên quan đến kế hoạch marketing.`;
 
-        // ===== LỊCH SỬ CHAT ĐÃ SỬA =====
         let chatHistory = [
             { role: "user", parts: [{ text: "Bắt đầu cuộc trò chuyện" }] },
             { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?" }] }
         ];
 
         /**
-         * Thêm tin nhắn vào UI của chat
+         * (MỚI) Hàm phát âm thanh bằng trình duyệt (TTS)
          */
+        const speakText = (textToSpeak) => {
+            synthesizer.cancel(); // Dừng bất cứ gì đang nói dở
+
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            
+            // Cố gắng tìm giọng Tiếng Việt
+            let vietnameseVoice = synthesizer.getVoices().find(voice => voice.lang === 'vi-VN');
+            
+            if (vietnameseVoice) {
+                utterance.voice = vietnameseVoice;
+            } else {
+                // Nếu không có giọng 'vi-VN' (ví dụ Firefox), dùng giọng mặc định
+                console.warn("Không tìm thấy giọng 'vi-VN'. Dùng giọng mặc định.");
+            }
+            
+            utterance.pitch = 1; // Giữ tông giọng
+            utterance.rate = 1;  // Tốc độ đọc
+            
+            synthesizer.speak(utterance);
+        };
+
         const addMessageToChatUI = (message, sender) => {
             const chatMessages = document.getElementById('chatMessages');
             if (!chatMessages) return;
-
-            // Xóa "đang suy nghĩ" nếu có
             const thinking = chatMessages.querySelector('.thinking');
             if (thinking) thinking.remove();
-
             const messageElement = document.createElement('div');
             messageElement.classList.add('chat-message', sender);
-            
             if (sender === 'model') {
-                // Xử lý Markdown đơn giản (in đậm, xuống dòng, gạch đầu dòng)
-                let formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // In đậm
-                formattedMessage = formattedMessage.replace(/\n/g, '<br>'); // Xuống dòng
+                let formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
+                formattedMessage = formattedMessage.replace(/\n/g, '<br>'); 
                 formattedMessage = formattedMessage.replace(/(\<br\>|^)\s*-\s/g, '<br>• '); 
                 formattedMessage = formattedMessage.replace(/^\s*-\s/g, '• ');
                 messageElement.innerHTML = formattedMessage;
             } else {
-                messageElement.textContent = message; // Giữ nguyên text của user
+                messageElement.textContent = message; 
             }
-            
             chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Tự động cuộn xuống
+            chatMessages.scrollTop = chatMessages.scrollHeight; 
         };
 
-        /**
-         * Xử lý khi người dùng gửi tin nhắn
-         */
         const handleChatSend = () => {
+            synthesizer.cancel(); // Dừng giọng nói nếu đang nói
             const chatInput = document.getElementById('chatInput');
             if (!chatInput) return;
-            
             const userMessage = chatInput.value.trim();
             if (!userMessage) return;
 
-            addMessageToChatUI(userMessage, 'user'); // Hiển thị tin nhắn người dùng (plain text)
+            addMessageToChatUI(userMessage, 'user'); 
             chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
             chatInput.value = '';
 
-            // Thêm "đang suy nghĩ"
             const chatMessages = document.getElementById('chatMessages');
             const thinkingElement = document.createElement('div');
             thinkingElement.classList.add('chat-message', 'model', 'thinking');
@@ -1519,63 +1531,110 @@
             chatMessages.appendChild(thinkingElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Gọi API Chatbot
             callChatbotAPI(userMessage);
         };
 
         /**
-         * Gọi Gemini API (Cho Chatbot)
+         * === HÀM CHATBOT ĐÃ NÂNG CẤP (GỌI TEXT + TỰ ĐỌC) ===
          */
         const callChatbotAPI = async (userMessage) => {
+            
+            const formData = new FormData();
+            formData.append('action', 'callChatbot');
+            formData.append('systemPrompt', CHATBOT_SYSTEM_PROMPT);
+            formData.append('chatHistory', JSON.stringify(chatHistory));
+
             try {
-                // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 2) =====
-                const apiKey = ""; // DÁN API KEY CỦA BẠN VÀO ĐÂY
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-                
-                const payload = {
-                    contents: chatHistory,
-                    systemInstruction: {
-                        parts: [{ text: CHATBOT_SYSTEM_PROMPT }]
-                    },
-                };
-
-                const response = await fetch(apiUrl, {
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: formData
                 });
+                if (!response.ok) throw new Error(`Lỗi máy chủ Apps Script: ${response.status}`);
+                const result = await response.json(); 
 
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    console.error("API Error Body:", errorBody);
-                    throw new Error(`API call failed with status: ${response.status}`);
-                }
-
-                const result = await response.json();
-                const candidate = result.candidates?.[0];
-
-                if (candidate && candidate.content?.parts?.[0]?.text) {
-                    const modelMessage = candidate.content.parts[0].text;
-                    addMessageToChatUI(modelMessage, 'model'); // Thêm tin nhắn (đã xử lý Markdown)
+                if (result.status === 'success') {
+                    const modelMessage = result.text;
+                    addMessageToChatUI(modelMessage, 'model'); 
                     chatHistory.push({ role: "model", parts: [{ text: modelMessage }] });
-                } else {
-                    console.error("Invalid AI Response:", result);
-					addMessageToChatUI(`Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố về định dạng phản hồi. Xin thân chủ vui lòng thử lại sau ạ.`, 'model');
-                }
 
+                    // (MỚI) Tự động đọc câu trả lời
+                    speakText(modelMessage);
+
+                } else {
+                    throw new Error(result.message);
+                }
             } catch (error) {
-                console.error('Lỗi gọi Chatbot API:', error);
-                addMessageToChatUI(`Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố kết nối. ${error.message}. Xin thân chủ vui lòng thử lại sau ạ.`, 'model');
+                console.error('Lỗi gọi Apps Script (callChatbotAPI):', error);
+                const errorMsg = `Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố kết nối. ${error.message}. Xin thân chủ vui lòng thử lại sau ạ.`;
+                addMessageToChatUI(errorMsg, 'model');
+                speakText(errorMsg); // Đọc thông báo lỗi
             }
         };
 
+        /**
+         * === HÀM MỚI (CHO MICROPHONE - STT) ===
+         * Khởi tạo Web Speech API (STT)
+         */
+        const initializeSpeechRecognition = (micButton, inputElement) => {
+            // Kiểm tra xem trình duyệt có hỗ trợ không (chỉ Chrome/Edge)
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                console.warn("Trình duyệt này không hỗ trợ Web Speech API.");
+                micButton.style.display = 'none'; // Ẩn nút micro nếu không hỗ trợ
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = false; // Chỉ nghe 1 câu
+            recognition.lang = 'vi-VN';      // Nghe Tiếng Việt
+            recognition.interimResults = false; // Chỉ trả về kết quả cuối cùng
+
+            // Khi bắt đầu nghe
+            recognition.onstart = () => {
+                micButton.classList.add('recording');
+                micButton.title = "Đang nghe...";
+                synthesizer.cancel(); // Tắt loa nếu đang nói
+            };
+
+            // Khi có kết quả
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                inputElement.value = transcript; // Đưa kết quả vào ô chat
+                handleChatSend(); // Tự động gửi
+            };
+
+            // Khi kết thúc nghe (dù có kết quả hay không)
+            recognition.onend = () => {
+                micButton.classList.remove('recording');
+                micButton.title = "Nhấn để nói";
+            };
+
+            // Khi có lỗi
+            recognition.onerror = (event) => {
+                console.error("Lỗi nhận diện giọng nói:", event.error);
+                micButton.classList.remove('recording');
+                micButton.title = "Nhấn để nói";
+            };
+
+            // Gắn sự kiện click
+            micButton.addEventListener('click', () => {
+                if (micButton.classList.contains('recording')) {
+                    recognition.stop(); // Nhấn lần nữa để dừng
+                } else {
+                    recognition.start(); // Nhấn để bắt đầu nghe
+                }
+            });
+        };
 
         // --- KHỞI CHẠY ---
-        // Ưu tiên 1: Khởi tạo giao diện ngay lập tức
+        // Phải tải danh sách giọng nói trước
+        synthesizer.getVoices(); 
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => synthesizer.getVoices();
+        }
+        
         initializeUI();
         
-        // Ưu tiên 2: (ĐÃ BỊ XÓA)
-
     </script>
 </body>
 </html>
