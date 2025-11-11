@@ -237,55 +237,9 @@
             cursor: pointer;
             font-weight: bold;
         }
-        /* --- CSS GÓP Ý --- */
-        .feedback-input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 0.375rem;
-            margin-bottom: 0.75rem;
-            font-size: 0.9rem;
-        }
-        .feedback-button {
-            background-image: linear-gradient(to right, #FFA600 0%, #D45087 51%, #FFA600 100%);
-            padding: 10px 20px;
-        }
-        .feedback-item {
-            background-color: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .feedback-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        .feedback-section {
-            font-weight: bold;
-            color: #003F5C;
-            font-size: 1.1rem;
-        }
-        .feedback-time {
-            font-size: 0.8rem;
-            color: #6c757d;
-        }
-        .feedback-user {
-            font-size: 0.8rem;
-            color: #6c757d;
-            font-style: italic;
-            margin-top: 0.25rem;
-            word-break: break-all;
-        }
-        .feedback-content {
-            font-size: 1rem;
-            color: #333;
-            line-height: 1.6;
-            white-space: pre-wrap;
-        }
+        
+        /* --- CSS GÓP Ý (ĐÃ BỊ XÓA) --- */
+        
         /* --- CSS CHATBOT --- */
         .chat-fab {
             position: fixed;
@@ -495,16 +449,17 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="bg-white rounded-lg shadow-xl p-6 border-l-4" style="border-color: #665191;">
                         <h4 class="text-xl font-semibold mb-3 text-center" style="color: #003F5C;">Điểm Yếu Kỹ Thuật Số</h4>
                         <p class="text-gray-600 mb-4 text-center">Các kênh online chính thức thiếu chuyên nghiệp và không khai thác được dữ liệu người dùng.</p>
                         <ul class="list-none space-y-2">
-                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Fanpage chính thức "không thể truy cập".</li>
-                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Chatbot không hoạt động.</li>
-                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Không có dữ liệu 5W1H ("Hố đen dữ liệu").</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Fanpage chính thức "không có tick xanh (chính chủ)".</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Chatbot không hoạt động (website).</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Nhiều fanpage và website giả gây hiểu lầm và mất niềm tin khách hàng</li>
                         </ul>
                     </div>
-                </div>
+                    </div>
                 
                 <h4>Phân tích 5W1H (Giải phẫu "Loạn giá")</h4>
                 <ul>
@@ -527,13 +482,6 @@
                         </button>
                         <pre id="brainstormResult-muc-1" class="result-box prose"></pre>
                     </div>
-                </div>
-                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
-                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 1</h4>
-                    <textarea class="feedback-input" id="feedback-muc-1" rows="3" placeholder="Nhập góp ý của bạn cho Mục 1..."></textarea>
-                    <button class="gemini-button feedback-button" data-section-name="1. Bối Cảnh" data-section-id="muc-1">
-                        Gửi Góp Ý
-                    </button>
                 </div>
                 </div>
         </div>
@@ -608,13 +556,6 @@
                         <pre id="brainstormResult-muc-2" class="result-box prose"></pre>
                     </div>
                 </div>
-                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
-                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 2</h4>
-                    <textarea class="feedback-input" id="feedback-muc-2" rows="3" placeholder="Nhập góp ý của bạn cho Mục 2..."></textarea>
-                    <button class="gemini-button feedback-button" data-section-name="2. Phân Tích Thị Trường" data-section-id="muc-2">
-                        Gửi Góp Ý
-                    </button>
-                </div>
                 </div>
         </div>
 
@@ -674,13 +615,6 @@
                         </button>
                         <pre id="brainstormResult-muc-3" class="result-box prose"></pre>
                     </div>
-                </div>
-                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
-                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 3</h4>
-                    <textarea class="feedback-input" id="feedback-muc-3" rows="3" placeholder="Nhập góp ý của bạn cho Mục 3..."></textarea>
-                    <button class="gemini-button feedback-button" data-section-name="3. Chiến Lược Thương Hiệu" data-section-id="muc-3">
-                        Gửi Góp Ý
-                    </button>
                 </div>
                 </div>
         </div>
@@ -755,13 +689,6 @@
                         <pre id="brainstormResult-muc-4" class="result-box prose"></pre>
                     </div>
                 </div>
-                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
-                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 4</h4>
-                    <textarea class="feedback-input" id="feedback-muc-4" rows="3" placeholder="Nhập góp ý của bạn cho Mục 4..."></textarea>
-                    <button class="gemini-button feedback-button" data-section-name="4. Chiến Lược Sản Phẩm" data-section-id="muc-4">
-                        Gửi Góp Ý
-                    </button>
-                </div>
                 </div>
         </div>
 
@@ -832,13 +759,6 @@
                         </button>
                         <pre id="brainstormResult-muc-5" class="result-box prose"></pre>
                     </div>
-                </div>
-                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
-                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 5</h4>
-                    <textarea class="feedback-input" id="feedback-muc-5" rows="3" placeholder="Nhập góp ý của bạn cho Mục 5..."></textarea>
-                    <button class="gemini-button feedback-button" data-section-name="5. Giải Pháp Kênh" data-section-id="muc-5">
-                        Gửi Góp Ý
-                    </button>
                 </div>
                 </div>
         </div>
@@ -917,13 +837,6 @@
                         <pre id="brainstormResult-muc-6" class="result-box prose"></pre>
                     </div>
                 </div>
-                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
-                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 6</h4>
-                    <textarea class="feedback-input" id="feedback-muc-6" rows="3" placeholder="Nhập góp ý của bạn cho Mục 6..."></textarea>
-                    <button class="gemini-button feedback-button" data-section-name="6. Kênh Truyền Thông" data-section-id="muc-6">
-                        Gửi Góp Ý
-                    </button>
-                </div>
                 </div>
         </div>
 
@@ -980,13 +893,6 @@
                         </button>
                         <pre id="brainstormResult-muc-7" class="result-box prose"></pre>
                     </div>
-                </div>
-                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
-                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 7</h4>
-                    <textarea class="feedback-input" id="feedback-muc-7" rows="3" placeholder="Nhập góp ý của bạn cho Mục 7..."></textarea>
-                    <button class="gemini-button feedback-button" data-section-name="7. Cơ Hội Tăng Trưởng" data-section-id="muc-7">
-                        Gửi Góp Ý
-                    </button>
                 </div>
                 </div>
         </div>
@@ -1103,25 +1009,10 @@
                         <pre id="brainstormResult-muc-8" class="result-box prose"></pre>
                     </div>
                 </div>
-                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
-                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 8</h4>
-                    <textarea class="feedback-input" id="feedback-muc-8" rows="3" placeholder="Nhập góp ý của bạn cho Mục 8..."></textarea>
-                    <button class="gemini-button feedback-button" data-section-name="8. Lộ Trình & KPIs" data-section-id="muc-8">
-                        Gửi Góp Ý
-                    </button>
-                </div>
                 </div>
         </div>
 
-        <button class="accordion" id="feedbackAccordionButton" style="background-color: #FFA600; color: #003F5C; margin-top: 2rem;">
-            Xem Góp Ý Chung (0)
-        </button>
-        <div class="panel">
-            <div class="panel-content" id="feedbackDisplayArea">
-                <p class="text-gray-600">Đang tải góp ý...</p>
-            </div>
-        </div>
-        </main>
+    </main>
     
     <footer class="text-center p-6 mt-8 text-sm text-gray-500 border-t border-gray-200">
         Báo cáo Chiến lược Marketing - Nệm Vạn Thành (Bản gộp tương tác).
@@ -1151,40 +1042,9 @@
             <button id="chatSend" class="chat-send">&#10148;</button> </div>
     </div>
     <script type="module">
-        // --- IMPORT FIREBASE ---
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { 
-            getAuth, 
-            signInAnonymously, 
-            signInWithCustomToken, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { 
-            getFirestore, 
-            doc, 
-            addDoc, 
-            onSnapshot, 
-            collection, 
-            query, 
-            serverTimestamp 
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-        // --- CẤU HÌNH FIREBASE & BIẾN TOÀN CỤC ---
-        const firebaseConfig = (typeof __firebase_config !== 'undefined' && __firebase_config)
-            ? JSON.parse(__firebase_config)
-            : { apiKey: "FALLBACK_API_KEY", authDomain: "FALLBACK_AUTH_DOMAIN", projectId: "FALLBACK_PROJECT_ID" }; // Fallback
-        
-        const appId = (typeof __app_id !== 'undefined' && __app_id) ? __app_id : 'default-app-id';
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-
-        const feedbackCollectionName = `artifacts/${appId}/public/data/marketing-feedback`;
-        const feedbackCollection = collection(db, feedbackCollectionName);
-        
+        // --- CÁC BIẾN TOÀN CỤC (ĐÃ XÓA FIREBASE) ---
         let userId = null;
-        let isAuthReady = false;
+        let isAuthReady = false; 
 
         // --- HÀM TIỆN ÍCH ---
 
@@ -1227,7 +1087,7 @@
             
             try {
                 // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 1) =====
-                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // DÁN API KEY CỦA BẠN VÀO ĐÂY
+                const apiKey = ""; // DÁN API KEY CỦA BẠN VÀO ĐÂY
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
                 const payload = {
@@ -1244,6 +1104,8 @@
                 });
 
                 if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("API Error Body:", errorBody);
                     throw new Error(`API call failed with status: ${response.status}`);
                 }
 
@@ -1255,6 +1117,7 @@
                     resultElement.innerHTML = text; // Dùng innerHTML để render Markdown (nếu có)
                     showModal('Đã nhận được phản hồi!', false);
                 } else {
+                    console.error("Invalid AI Response:", result);
                     throw new Error('Phản hồi từ AI không hợp lệ.');
                 }
 
@@ -1268,26 +1131,11 @@
             }
         };
 
-        /**
-         * Định dạng thời gian
-         */
-        const formatTimestamp = (timestamp) => {
-            if (!timestamp) return 'Vừa xong';
-            const date = timestamp.toDate();
-            return date.toLocaleString('vi-VN', { 
-                day: '2-digit', 
-                month: '2-digit', 
-                year: 'numeric', 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-        };
-
         // --- HÀM KHỞI TẠO CHÍNH ---
 
         /**
          * Ưu tiên 1: Khởi tạo giao diện (UI)
-         * Chạy ngay lập tức, không chờ Firebase
+         * Chạy ngay lập tức
          */
         const initializeUI = () => {
             console.log("Bắt đầu khởi tạo UI...");
@@ -1577,41 +1425,7 @@
                 });
             });
 
-            // 4. Khởi tạo Gắn Event Listeners cho các nút Góp Ý
-            document.querySelectorAll('.feedback-button').forEach(button => {
-                button.addEventListener('click', async () => {
-                    if (!isAuthReady || !userId) {
-                        showModal("Lỗi: Chưa kết nối được với máy chủ góp ý. Vui lòng thử lại sau.", false);
-                        return;
-                    }
-
-                    const sectionId = button.dataset.sectionId;
-                    const sectionName = button.dataset.sectionName;
-                    const textarea = document.getElementById(`feedback-${sectionId}`);
-                    const content = textarea.value.trim();
-
-                    if (!content) {
-                        showModal("Lỗi: Vui lòng nhập nội dung góp ý.", false);
-                        return;
-                    }
-
-                    showModal("Đang gửi góp ý...", true);
-                    try {
-                        await addDoc(feedbackCollection, {
-                            sectionId: sectionId,
-                            sectionName: sectionName,
-                            content: content,
-                            userId: userId,
-                            createdAt: serverTimestamp()
-                        });
-                        textarea.value = ''; // Xóa nội dung sau khi gửi
-                        showModal("Đã gửi góp ý thành công!", false);
-                    } catch (error) {
-                        console.error("Lỗi khi gửi góp ý:", error);
-                        showModal(`Lỗi: Không thể gửi góp ý. ${error.message}`, false);
-                    }
-                });
-            });
+            // 4. Khởi tạo Gắn Event Listeners cho các nút Góp Ý (ĐÃ BỊ XÓA)
 
             // 5. Khởi tạo Gắn Event Listeners cho Chatbot
             if (chatFab) {
@@ -1632,89 +1446,8 @@
             console.log("Khởi tạo UI thành công.");
         };
 
-
-        /**
-         * Ưu tiên 2: Khởi tạo Firebase
-         * Chạy song song, không chặn UI
-         */
-        const initializeFirebaseAndComments = async () => {
-            console.log("Bắt đầu khởi tạo Firebase...");
-
-            // 1. Xác thực Firebase
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    console.log("Firebase Auth State Changed. UserID:", user.uid);
-                    userId = user.uid;
-                    isAuthReady = true;
-                }
-            });
-
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-                // onAuthStateChanged sẽ tự động cập nhật userId và isAuthReady
-            } catch (error) {
-                console.error("Lỗi xác thực Firebase:", error);
-                showModal("Lỗi: Không thể kết nối với máy chủ xác thực. Tính năng góp ý sẽ bị tắt.", false);
-            }
-
-            // 2. Lắng nghe Góp ý (Real-time)
-            const feedbackDisplayArea = document.getElementById('feedbackDisplayArea');
-            const feedbackAccordionButton = document.getElementById('feedbackAccordionButton');
-            if (!feedbackDisplayArea || !feedbackAccordionButton) {
-                 console.error("Không tìm thấy khu vực hiển thị góp ý.");
-                 return;
-            }
-
-            const q = query(feedbackCollection); // Sửa lỗi: Không dùng orderBy để tránh lỗi index
-
-            onSnapshot(q, (snapshot) => {
-                console.log("Nhận được cập nhật góp ý...");
-                if (snapshot.empty) {
-                    feedbackDisplayArea.innerHTML = '<p class="text-gray-600">Chưa có góp ý nào. Hãy là người đầu tiên!</p>';
-                    feedbackAccordionButton.textContent = "Xem Góp Ý Chung (0)";
-                    return;
-                }
-
-                let feedbackHTML = '';
-                let feedbackCount = 0;
-                
-                // Sắp xếp thủ công vì đã bỏ orderBy
-                const docs = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-                docs.sort((a, b) => {
-                    const timeA = a.createdAt ? a.createdAt.toMillis() : 0;
-                    const timeB = b.createdAt ? b.createdAt.toMillis() : 0;
-                    return timeB - timeA; // Sắp xếp mới nhất lên đầu
-                });
-
-                docs.forEach(data => {
-                    feedbackCount++;
-                    feedbackHTML += `
-                        <div class="feedback-item">
-                            <div class="feedback-header">
-                                <span class="feedback-section">${data.sectionName || 'Góp ý chung'}</span>
-                                <span class="feedback-time">${formatTimestamp(data.createdAt)}</span>
-                            </div>
-                            <p class="feedback-content">${data.content}</p>
-                            <p class="feedback-user">UserID: ${data.userId.substring(0, 10)}...</p>
-                        </div>
-                    `;
-                });
-
-                feedbackDisplayArea.innerHTML = feedbackHTML;
-                feedbackAccordionButton.textContent = `Xem Góp Ý Chung (${feedbackCount})`;
-
-            }, (error) => {
-                console.error("Lỗi khi lắng nghe góp ý:", error);
-                feedbackDisplayArea.innerHTML = `<p class="text-red-500">Lỗi: Không thể tải được các góp ý. ${error.message}</p>`;
-            });
-
-            console.log("Khởi tạo Firebase thành công.");
-        };
-
+        // --- KHỞI TẠO FIREBASE (ĐÃ BỊ XÓA) ---
+        
         // --- LOGIC RIÊNG CỦA CHATBOT ---
 
         // ===== "BỘ NÃO" CHATBOT ĐÃ SỬA (THEO YÊU CẦU MỚI NHẤT) =====
@@ -1749,14 +1482,16 @@
             const messageElement = document.createElement('div');
             messageElement.classList.add('chat-message', sender);
             
-            // Xử lý Markdown đơn giản (in đậm, xuống dòng)
-            let formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // In đậm
-            formattedMessage = formattedMessage.replace(/\n/g, '<br>'); // Xuống dòng
-            // Thêm xử lý cho gạch đầu dòng (nếu cần)
-            formattedMessage = formattedMessage.replace(/(\<br\>|^)\s*-\s/g, '<br>• '); 
-            formattedMessage = formattedMessage.replace(/^\s*-\s/g, '• ');
-
-            messageElement.innerHTML = formattedMessage;
+            if (sender === 'model') {
+                // Xử lý Markdown đơn giản (in đậm, xuống dòng, gạch đầu dòng)
+                let formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // In đậm
+                formattedMessage = formattedMessage.replace(/\n/g, '<br>'); // Xuống dòng
+                formattedMessage = formattedMessage.replace(/(\<br\>|^)\s*-\s/g, '<br>• '); 
+                formattedMessage = formattedMessage.replace(/^\s*-\s/g, '• ');
+                messageElement.innerHTML = formattedMessage;
+            } else {
+                messageElement.textContent = message; // Giữ nguyên text của user
+            }
             
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight; // Tự động cuộn xuống
@@ -1794,7 +1529,7 @@
         const callChatbotAPI = async (userMessage) => {
             try {
                 // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 2) =====
-                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // DÁN API KEY CỦA BẠN VÀO ĐÂY
+                const apiKey = ""; // DÁN API KEY CỦA BẠN VÀO ĐÂY
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 
                 const payload = {
@@ -1811,6 +1546,8 @@
                 });
 
                 if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("API Error Body:", errorBody);
                     throw new Error(`API call failed with status: ${response.status}`);
                 }
 
@@ -1822,12 +1559,13 @@
                     addMessageToChatUI(modelMessage, 'model'); // Thêm tin nhắn (đã xử lý Markdown)
                     chatHistory.push({ role: "model", parts: [{ text: modelMessage }] });
                 } else {
-                    throw new Error('Phản hồi từ AI không hợp lệ.');
+                    console.error("Invalid AI Response:", result);
+					addMessageToChatUI(`Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố về định dạng phản hồi. Xin thân chủ vui lòng thử lại sau ạ.`, 'model');
                 }
 
             } catch (error) {
                 console.error('Lỗi gọi Chatbot API:', error);
-                addMessageToChatUI(`Lỗi: ${error.message}`, 'model');
+                addMessageToChatUI(`Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố kết nối. ${error.message}. Xin thân chủ vui lòng thử lại sau ạ.`, 'model');
             }
         };
 
@@ -1836,8 +1574,7 @@
         // Ưu tiên 1: Khởi tạo giao diện ngay lập tức
         initializeUI();
         
-        // Ưu tiên 2: Khởi tạo Firebase và tải bình luận (chạy song song)
-        initializeFirebaseAndComments();
+        // Ưu tiên 2: (ĐÃ BỊ XÓA)
 
     </script>
 </body>
