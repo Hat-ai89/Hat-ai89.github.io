@@ -238,7 +238,55 @@
             font-weight: bold;
         }
         
-        /* --- CSS GÓP Ý (ĐÃ BỊ XÓA) --- */
+        /* ===== CSS MỚI: CHO FORM GÓP Ý ===== */
+        .feedback-input { /* Dùng chung cho input/select */
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+        }
+        .feedback-form-container {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed #FFA600;
+            background-color: #fdfaf4; /* Màu nền vàng nhạt */
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .feedback-form-container h5 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #003F5C;
+            margin-bottom: 0.75rem;
+        }
+        .feedback-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+            min-height: 100px;
+            margin-bottom: 0.75rem;
+        }
+        .feedback-button {
+            background-color: #FFA600;
+            color: #003F5C;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 0.25rem;
+            transition: opacity 0.3s;
+        }
+        .feedback-button:hover {
+            opacity: 0.8;
+        }
+        .feedback-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        /* ===== KẾT THÚC CSS MỚI ===== */
         
         /* --- CSS CHATBOT --- */
         .chat-fab {
@@ -426,7 +474,7 @@
         <button class="accordion">1. Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển... <br>                Nội dung chi tiết dưới đây được trích từ ` (Phân tích chi tiết)`.</p>
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển... <br>    Nội dung chi tiết dưới đây được trích từ ` (Phân tích chi tiết)`.</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white rounded-lg shadow-xl p-6 flex flex-col justify-center items-center border-l-4 border-red-500">
                         <div class="text-5xl mb-3">&#9888;</div>
@@ -483,13 +531,22 @@
                         <pre id="brainstormResult-muc-1" class="result-box prose"></pre>
                     </div>
                 </div>
+                
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 1</h5>
+                        <input type="hidden" name="section" value="Mục 1: Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
         <button class="accordion">2. Phân Tích Định Vị Thị Trường</button>
         <div class="panel">
             <div class="panel-content">
-                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính...<br>                Nội dung chi tiết dưới đây (Ma trận) được trích từ ` (Phân tích chi tiết)`.</p>
+                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính...<br>    Nội dung chi tiết dưới đây (Ma trận) được trích từ ` (Phân tích chi tiết)`.</p>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2">
                         <div class="chart-container-tall">
@@ -556,6 +613,15 @@
                         <pre id="brainstormResult-muc-2" class="result-box prose"></pre>
                     </div>
                 </div>
+                
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 2</h5>
+                        <input type="hidden" name="section" value="Mục 2: Phân Tích Định Vị Thị Trường">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -615,6 +681,15 @@
                         </button>
                         <pre id="brainstormResult-muc-3" class="result-box prose"></pre>
                     </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 3</h5>
+                        <input type="hidden" name="section" value="Mục 3: Chiến Lược Thương Hiệu (Tái định vị)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -689,6 +764,15 @@
                         <pre id="brainstormResult-muc-4" class="result-box prose"></pre>
                     </div>
                 </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 4</h5>
+                        <input type="hidden" name="section" value="Mục 4: Chiến Lược Marketing Sản Phẩm (Good-Better-Best)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -759,6 +843,15 @@
                         </button>
                         <pre id="brainstormResult-muc-5" class="result-box prose"></pre>
                     </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 5</h5>
+                        <input type="hidden" name="section" value="Mục 5: Giải Pháp Kênh Phân Phối (MAP, O2O & TMĐT)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -837,6 +930,15 @@
                         <pre id="brainstormResult-muc-6" class="result-box prose"></pre>
                     </div>
                 </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 6</h5>
+                        <input type="hidden" name="section" value="Mục 6: Kênh Truyền Thông & Tối Ưu Hóa">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -893,6 +995,15 @@
                         </button>
                         <pre id="brainstormResult-muc-7" class="result-box prose"></pre>
                     </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 7</h5>
+                        <input type="hidden" name="section" value="Mục 7: Cơ Hội Tăng Trưởng Mới (One-Stop-Shop)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -1009,10 +1120,30 @@
                         <pre id="brainstormResult-muc-8" class="result-box prose"></pre>
                     </div>
                 </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 8</h5>
+                        <input type="hidden" name="section" value="Mục 8: Lộ Trình Thực Thi & KPIs">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
-    </main>
+        <section class="mt-12 p-6 bg-white rounded-lg shadow-lg border-t-4" style="border-color: #665191;">
+            <h2 class="text-3xl font-bold mb-4 text-center" style="color: #665191;">9. Đóng Góp Ý Kiến Chung</h2>
+            <p class="text-center text-gray-600 mb-6">Bạn có bất kỳ góp ý nào cho toàn bộ kế hoạch hoặc các vấn đề khác không được đề cập? Xin vui lòng chia sẻ tại đây.</p>
+            <div class="feedback-form-container" style="border-top: none; background-color: transparent; padding: 0;">
+                <form class="feedback-form">
+                    <input type="hidden" name="section" value="Đóng Góp Chung">
+                    <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý chung của bạn..." required style="min-height: 150px;"></textarea>
+                    <button type="submit" class="feedback-button w-full sm:w-auto" style="background-color: #665191; color: white;">Gửi Góp Ý Chung</button>
+                </form>
+            </div>
+        </section>
+        </main>
     
     <footer class="text-center p-6 mt-8 text-sm text-gray-500 border-t border-gray-200">
         Báo cáo Chiến lược Marketing - Nệm Vạn Thành (Bản gộp tương tác).
@@ -1087,8 +1218,8 @@
             
             try {
                 // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 1) =====
-                const apiKey = ""; // DÁN API KEY CỦA BẠN VÀO ĐÂY
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // DÁN API KEY CỦA BẠN VÀO ĐÂY
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
                 
                 const payload = {
                     contents: [{ parts: [{ text: userPrompt }] }],
@@ -1128,6 +1259,59 @@
             } finally {
                 // Mở lại tất cả các nút AI
                 document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = false);
+            }
+        };
+
+        // --- HÀM MỚI: XỬ LÝ GỬI GÓP Ý LÊN GOOGLE SHEETS ---
+        
+        /**
+         * Gửi dữ liệu form góp ý đến Google Apps Script.
+         * @param {Event} event - Sự kiện submit của form
+         */
+        const handleFeedbackSubmit = async (event) => {
+            event.preventDefault(); // Ngăn trang tải lại
+            const form = event.target;
+            const button = form.querySelector('.feedback-button');
+            
+            // ===== BẮT BUỘC: THAY THẾ URL NÀY =====
+            // HƯỚNG DẪN LẤY URL NÀY SẼ Ở PHẦN 2 CỦA CÂU TRẢ LỜI
+            const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwHUYZX8_pemkgxeY3XWlCINRmanJk_f1cDlxWNavCwwAmHf3jk81pG3srY8TNGJKv6/exec"; 
+            
+            if (GOOGLE_SHEET_WEB_APP_URL === "https://script.google.com/macros/s/AKfycbwHUYZX8_pemkgxeY3XWlCINRmanJk_f1cDlxWNavCwwAmHf3jk81pG3srY8TNGJKv6/exec") {
+                showModal("Lỗi Cấu Hình: Vui lòng dán URL Google Apps Script vào file JS (biến GOOGLE_SHEET_WEB_APP_URL) để tính năng này hoạt động.", false);
+                return;
+            }
+
+            button.disabled = true;
+            showModal('Đang gửi góp ý...', true);
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Phản hồi từ máy chủ không hợp lệ.');
+                }
+                
+                const result = await response.json(); // Chờ phản hồi JSON từ Apps Script
+                
+                if (result.status === 'success') {
+                    showModal('Cảm ơn bạn đã góp ý! Góp ý của bạn đã được ghi nhận.', false);
+                    form.reset(); // Xóa nội dung form
+                } else {
+                    throw new Error(result.message || 'Lỗi không xác định từ Apps Script.');
+                }
+
+            } catch (error) {
+                console.error('Lỗi gửi góp ý:', error);
+                showModal(`Lỗi: ${error.message}. Không thể gửi góp ý. Xin vui lòng thử lại.`, false);
+            } finally {
+                // Nút sẽ tự động được đóng bởi người dùng qua modal
+                // Nhưng chúng ta nên bật lại nút submit
+                button.disabled = false;
             }
         };
 
@@ -1442,6 +1626,17 @@
                     if (e.key === 'Enter') handleChatSend();
                 });
             }
+            
+            // 6. (MỚI) Khởi tạo Gắn Event Listeners cho các Form Góp Ý
+            try {
+                document.querySelectorAll('.feedback-form').forEach(form => {
+                    form.addEventListener('submit', handleFeedbackSubmit);
+                });
+                console.log("Khởi tạo Form Góp Ý thành công.");
+            } catch (e) {
+                console.error("Lỗi khởi tạo Form Góp Ý:", e);
+            }
+
 
             console.log("Khởi tạo UI thành công.");
         };
@@ -1465,7 +1660,7 @@
         // ===== LỊCH SỬ CHAT ĐÃ SỬA =====
         let chatHistory = [
             { role: "user", parts: [{ text: "Bắt đầu cuộc trò chuyện" }] },
-            { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?" }] }
+            { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗti tư vấn gì về kế hoạch này ạ?" }] }
         ];
 
         /**
@@ -1529,8 +1724,8 @@
         const callChatbotAPI = async (userMessage) => {
             try {
                 // ===== THÊM API KEY CỦA BẠN VÀO ĐÂY (VỊ TRÍ 2) =====
-                const apiKey = ""; // DÁN API KEY CỦA BẠN VÀO ĐÂY
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const apiKey = "AIzaSyDjWj8kjOLn22BsJgxv2DDejiTp3bwP-lA"; // DÁN API KEY CỦA BẠN VÀO ĐÂY
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
                 
                 const payload = {
                     contents: chatHistory,
