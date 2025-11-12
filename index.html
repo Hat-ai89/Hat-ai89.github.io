@@ -119,7 +119,303 @@
             background-color: #f2f2f2;
         }
         
-        /* --- CSS PHẦN TÁC GIẢ ===== */
+        /* --- CSS CHO TÍNH NĂNG AI --- */
+        .gemini-button {
+            background-image: linear-gradient(to right, #665191 0%, #003F5C 51%, #665191 100%);
+            margin: 10px 0;
+            padding: 12px 25px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            border-radius: 0.5rem;
+            display: block;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .gemini-button:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+        }
+        .gemini-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .result-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+            min-height: 50px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+        .prose {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: left; /* Đảm bảo text trong prose căn trái */
+        }
+        .prose ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .prose li {
+            margin-bottom: 0.5rem;
+        }
+        .prose strong {
+            font-weight: bold;
+            color: #003F5C;
+        }
+        /* --- CSS CHO MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: translateY(0);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #665191;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal-message {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        .modal-close-btn {
+            background-color: #003F5C;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* ===== CSS MỚI: CHO FORM GÓP Ý ===== */
+        .feedback-input { /* Dùng chung cho input/select */
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+        }
+        .feedback-form-container {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed #FFA600;
+            background-color: #fdfaf4; /* Màu nền vàng nhạt */
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .feedback-form-container h5 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #003F5C;
+            margin-bottom: 0.75rem;
+        }
+        .feedback-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+            min-height: 100px;
+            margin-bottom: 0.75rem;
+        }
+        .feedback-button {
+            background-color: #FFA600;
+            color: #003F5C;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 0.25rem;
+            transition: opacity 0.3s;
+        }
+        .feedback-button:hover {
+            opacity: 0.8;
+        }
+        .feedback-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        /* ===== KẾT THÚC CSS MỚI ===== */
+        
+        /* --- CSS CHATBOT --- */
+        .chat-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-image: linear-gradient(to right, #665191 0%, #003F5C 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1010;
+            transition: transform 0.3s ease;
+        }
+        .chat-fab:hover {
+            transform: scale(1.1);
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            width: 90%;
+            max-width: 400px;
+            height: 500px;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            z-index: 1009;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .chat-window.visible {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .chat-header {
+            background-color: #003F5C;
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: #F0F4F8;
+        }
+        .chat-message {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+        .chat-message.user {
+            background-color: #003F5C;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .chat-message.model {
+            background-color: #e9ecef;
+            color: #333;
+            margin-right: auto;
+            text-align: left;
+        }
+        .chat-message.model.thinking {
+            display: flex;
+            align-items: center;
+        }
+        .chat-message.model.thinking .loader-dots {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #665191;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite both;
+        }
+        .chat-message.model.thinking .loader-dots:nth-child(2) { animation-delay: .2s; }
+        .chat-message.model.thinking .loader-dots:nth-child(3) { animation-delay: .4s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+        
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #ddd;
+            background-color: white;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem 0 0 0.25rem;
+            font-size: 0.9rem;
+        }
+        .chat-send {
+            background-color: #FFA600;
+            color: #003F5C;
+            border: none;
+            padding: 0 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 0 0.25rem 0.25rem 0;
+            font-size: 1.25rem;
+        }
+        
+        /* ===== CSS PHẦN TÁC GIẢ ===== */
         .author-box {
             display: flex;
             flex-direction: column; /* Chữ trên, ảnh dưới */
@@ -146,6 +442,29 @@
             object-position: center; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             border: none;
+        }
+
+        /* --- CSS MỚI CHO NÚT MICRO --- */
+        .chat-mic {
+            background-color: #f0f4f8;
+            color: #665191;
+            border: 1px solid #ccc;
+            border-left: none;
+            padding: 0 0.75rem;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+        .chat-mic.recording {
+            background-color: #D45087; /* Màu đỏ khi đang thu âm */
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 80, 135, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 80, 135, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 80, 135, 0); }
         }
 
     </style>
@@ -213,6 +532,29 @@
                     <li><strong>WHY (Gốc rễ):</strong> Xung đột kênh (Đại lý B hy sinh lợi nhuận để lấy doanh số) và "Hố đen dữ liệu" (Vạn Thành không có data khách cuối, nên công cụ duy nhất để thúc đẩy là "giảm giá").</li>
                     <li><strong>HOW (Hậu quả):</strong> Khách hàng mất niềm tin, đại lý trung thành bị trừng phạt, Vạn Thành mất quyền định giá.</li>
                 </ul>
+
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-1" data-section-content="Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi: Loạn Giá Online, Xung Đột Kênh, Điểm Yếu Kỹ Thuật Số.">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-1" class="result-box prose"></pre>
+                    </div>
+                </div>
+                
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 1</h5>
+                        <input type="hidden" name="section" value="Mục 1: Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -272,6 +614,29 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-2" data-section-content="Phân Tích Định Vị Thị Trường: So sánh Vạn Thành với Kymdan, Liên Á, Kim Cương. Vạn Thành đang 'mắc kẹt' ở giữa.">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-2" class="result-box prose"></pre>
+                    </div>
+                </div>
+                
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 2</h5>
+                        <input type="hidden" name="section" value="Mục 2: Phân Tích Định Vị Thị Trường">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -304,6 +669,42 @@
                             </ul>
                         </div>
                     </div>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Sáng Tạo Slogan
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các khẩu hiệu mới dựa trên định vị "Bền Bỉ Từ 1980".</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full" id="generateSloganButton">
+                            ✨ Tạo 5 Slogan Mới
+                        </button>
+                        <pre id="sloganResultBox" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-3" data-section-content="Chiến Lược Thương Hiệu: Tái định vị là 'VẠN THÀNH - BỀN BỈ TỪ 1980' và chiến lược kép (Brand Building & Performance).">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-3" class="result-box prose"></pre>
+                    </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 3</h5>
+                        <input type="hidden" name="section" value="Mục 3: Chiến Lược Thương Hiệu (Tái định vị)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -343,6 +744,49 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Viết Mô Tả Sản Phẩm
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Chọn 1 phân khúc và để AI tạo mô tả sản phẩm (chuẩn SEO) cho website.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <select id="productTierSelect" class="feedback-input mb-4 sm:mb-0 flex-1">
+                                <option value="GOOD">Phân khúc GOOD (Bông ép/Foam)</option>
+                                <option value="BETTER" selected>Phân khúc BETTER (Lò xo/Cao su Standard)</option>
+                                <option value="BEST">Phân khúc BEST (Cao su cao cấp)</option>
+                            </select>
+                            <button class="gemini-button w-full sm:w-auto" id="generateProductDescButton">
+                                ✨ Tạo Mô Tả
+                            </button>
+                        </div>
+                        <pre id="productDescResult" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-4" data-section-content="Chiến Lược Sản Phẩm: Tái cấu trúc danh mục theo mô hình Good-Better-Best (Giá trị, Phổ thông, Cao cấp).">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-4" class="result-box prose"></pre>
+                    </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 4</h5>
+                        <input type="hidden" name="section" value="Mục 4: Chiến Lược Marketing Sản Phẩm (Good-Better-Best)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -388,6 +832,42 @@
                         </ul>
                     </div>
                 </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Soạn Thảo Chính Sách
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI soạn thảo một email thông báo chuyên nghiệp về chính sách MAP (Giá quảng cáo tối thiểu) để gửi cho đại lý.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full" id="generateMAPEmailButton">
+                            ✨ Soạn Thảo Email Thông Báo MAP
+                        </button>
+                        <pre id="mapEmailResult" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-5" data-section-content="Giải Pháp Kênh Phân Phối: Áp dụng chính sách MAP (Giá quảng cáo tối thiểu), xây dựng O2O và Affiliate, và chỉ mở 1 Official Mall.">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-5" class="result-box prose"></pre>
+                    </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 5</h5>
+                        <input type="hidden" name="section" value="Mục 5: Giải Pháp Kênh Phân Phối (MAP, O2O & TMĐT)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -418,6 +898,62 @@
                         </ul>
                     </div>
                 </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Mô Phỏng AEO & Sáng Tạo Nội Dung
+                    </h4>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 mb-6">
+                        <label for="aeoQueryInput" class="block text-md font-semibold mb-2" style="color: #665191;">1. Mô Phỏng AEO (Answer Engine)</label>
+                        <p class="text-sm text-gray-600 mb-4">Đặt câu hỏi so sánh (ví dụ: "so sánh nệm Vạn Thành và Kymdan") để xem AI trả lời thế nào.</p>
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <input type="text" id="aeoQueryInput" class="feedback-input mb-4 sm:mb-0 flex-1" placeholder="So sánh Vạn Thành và Liên Á...">
+                            <button class="gemini-button w-full sm:w-auto" id="aeoQueryButton">
+                                ✨ Hỏi AI
+                            </button>
+                        </div>
+                        <pre id="aeoQueryResult" class="result-box prose"></pre>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <label for="contentSelect" class="block text-md font-semibold mb-2" style="color: #665191;">2. Hat Support: Sáng Tạo Nội Dung (VEO & Community)</label>
+                        <p class="text-sm text-gray-600 mb-4">Chọn một loại nội dung và để AI gợi ý ý tưởng.</p>
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <select id="contentSelect" class="feedback-input mb-4 sm:mb-0 flex-1">
+                                <option value="tiktok">Ý tưởng Kịch bản TikTok (VEO)</option>
+                                <option value="facebook">Bài đăng Facebook Group (Community)</option>
+                            </select>
+                            <button class="gemini-button w-full sm:w-auto" id="generateContentButton">
+                                ✨ Tạo Ý Tưởng
+                            </button>
+                        </div>
+                        <pre id="contentResult" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-6" data-section-content="Kênh Truyền Thông & Tối Ưu Hóa: Chuyển dịch ngân sách sang SEO Local (GMB), AEO (Answer Engine), VEO (Video), và Owned Community.">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-6" class="result-box prose"></pre>
+                    </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 6</h5>
+                        <input type="hidden" name="section" value="Mục 6: Kênh Truyền Thông & Tối Ưu Hóa">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
@@ -440,6 +976,49 @@
                             <li><strong>Giai đoạn 3 (Total Solution):</strong> Phát triển các gói "combo phòng ngủ" (Gói Cưới, Gói Chung cư) bao gồm (nệm + giường + tủ) với giá ưu đãi.</li>
                         </ul>
                     </div>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Phát Triển Gói Combo
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Chọn một loại combo và để AI phác thảo chi tiết (sản phẩm, thông điệp) cho gói đó.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <select id="comboTypeSelect" class="feedback-input mb-4 sm:mb-0 flex-1">
+                                <option value="Gói Cưới (Lãng mạn & Bền bỉ)">Gói Cưới (Lãng mạn & Bền bỉ)</option>
+                                <option value="Gói Chung cư (Tối ưu không gian)">Gói Chung cư (Tối ưu không gian)</option>
+                                <option value="Gói Sức khỏe (Cao cấp & Nâng đỡ)">Gói Sức khỏe (Cao cấp & Nâng đỡ)</option>
+                            </select>
+                            <button class="gemini-button w-full sm:w-auto" id="generateComboButton">
+                                ✨ Lên Ý Tưởng
+                            </button>
+                        </div>
+                        <pre id="comboResultBox" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-7" data-section-content="Cơ Hội Tăng Trưởng Mới: Tận dụng 44 showroom để làm 'One-Stop-Shop' (Nội thất phòng ngủ, Gói Combo).">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-7" class="result-box prose"></pre>
+                    </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 7</h5>
+                        <input type="hidden" name="section" value="Mục 7: Cơ Hội Tăng Trưởng Mới (One-Stop-Shop)">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
                 </div>
                 </div>
         </div>
@@ -529,50 +1108,255 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Báo Cáo KPI
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI phác thảo một email báo cáo tiến độ (dựa trên KPIs) để gửi cho ban lãnh đạo.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full" id="generateKPIReportButton">
+                            ✨ Soạn Thảo Email Báo Cáo Tiến Độ
+                        </button>
+                        <pre id="kpiReportResult" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Hat Support: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-8" data-section-content="Lộ Trình Thực Thi & KPIs: Kế hoạch 3 tháng 'Cầm máu & Xây móng', và KPIs (Giảm vi phạm MAP, Tăng leads O2O, Tăng AOV).">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-8" class="result-box prose"></pre>
+                    </div>
+                </div>
+
+                <div class="feedback-form-container">
+                    <form class="feedback-form">
+                        <h5>📝 Góp ý cho Mục 8</h5>
+                        <input type="hidden" name="section" value="Mục 8: Lộ Trình Thực Thi & KPIs">
+                        <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý của bạn cho mục này..." required></textarea>
+                        <button type-="submit" class="feedback-button">Gửi Góp Ý</button>
+                    </form>
+                </div>
                 </div>
         </div>
 
-    </main>
+        <section class="mt-12 p-6 bg-white rounded-lg shadow-lg border-t-4" style="border-color: #665191;">
+            <h2 class="text-3xl font-bold mb-4 text-center" style="color: #665191;">9. Đóng Góp Ý Kiến Chung</h2>
+            <p class="text-center text-gray-600 mb-6">Bạn có bất kỳ góp ý nào cho toàn bộ kế hoạch hoặc các vấn đề khác không được đề cập? Xin vui lòng chia sẻ tại đây.</p>
+            <div class="feedback-form-container" style="border-top: none; background-color: transparent; padding: 0;">
+                <form class="feedback-form">
+                    <input type="hidden" name="section" value="Đóng Góp Chung">
+                    <textarea name="feedback" class="feedback-textarea" placeholder="Xin vui lòng chia sẻ góp ý chung của bạn..." required style="min-height: 150px;"></textarea>
+                    <button type-submit" class="feedback-button w-full sm:w-auto" style="background-color: #665191; color: white;">Gửi Góp Ý Chung</button>
+                </form>
+            </div>
+        </section>
+        </main>
     
     <footer class="text-center p-6 mt-8 text-sm text-gray-500 border-t border-gray-200">
         Báo cáo Chiến lược Marketing - Nệm Vạn Thành (Bản gộp tương tác).
     </footer>
 
-<script>
+    <div id="loadingModal" class="modal-overlay">
+        <div class="modal-content">
+            <div id="modalContent">
+                <div class="loader"></div>
+                <div class="modal-message">Đang xử lý yêu cầu...</div>
+            </div>
+            <button id="modalCloseButton" class="modal-close-btn" style="display: none;">Đóng</button>
+        </div>
+    </div>
+    <div id="chatFab" class="chat-fab">
+        <span>&#129302;</span> </div>
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <span>Hat AI</span>
+            <button id="chatClose" class="chat-close">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message model">Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Hỏi tôi bất cứ điều gì..."><br>
+            <button id="chatMic" class="chat-mic" title="Nhấn để nói">&#127908;</button> <button id="chatSend" class="chat-send">&#10148;</button> 
+        </div>
+    </div>
+    
+<script type="module">
+        // --- CÁC BIẾN TOÀN CỤC ---
+        
+        // ===== URL APPS SCRIPT MỚI CỦA BẠN ĐÃ ĐƯỢC DÁN VÀO ĐÂY =====
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyc9NwDoPQ7q1RbKFoC2pZaSA3G6xlHPt2lWakkc5JSHFY1sY6XBhAr5GuouanFovE_/exec";
+        
+        // Biến toàn cục cho giọng nói
+        let recognition = null;  // Giữ bộ nhận diện giọng nói (Tai)
+        let synthesizer = window.speechSynthesis; // Giữ bộ đọc (Loa)
+
+        // --- HÀM TIỆN ÍCH ---
+
         /**
-         * 1. Khởi tạo Accordion (Menu sổ xuống)
+         * Hiển thị modal thông báo (loading hoặc lỗi)
          */
-        try {
-            const acc = document.getElementsByClassName("accordion");
-            for (let i = 0; i < acc.length; i++) {
-                acc[i].addEventListener("click", function() {
-                    this.classList.toggle("active");
-                    const panel = this.nextElementSibling;
-                    if (panel.style.maxHeight) {
-                        panel.style.maxHeight = null;
-                    } else {
-                        panel.style.maxHeight = panel.scrollHeight + "px";
-                    }
-                });
+        const showModal = (message, isLoading = false) => {
+            const loadingModal = document.getElementById('loadingModal');
+            const modalContent = document.getElementById('modalContent');
+            const modalCloseButton = document.getElementById('modalCloseButton');
+
+            if (!loadingModal || !modalContent || !modalCloseButton) return; // Bảo vệ
+
+            loadingModal.classList.add('visible');
+            if (isLoading) {
+                modalContent.innerHTML = `<div class="loader"></div><div class="modal-message">${message}</div>`;
+                modalCloseButton.style.display = 'none';
+            } else {
+                modalContent.innerHTML = `<div class="modal-message" style="color: ${message.startsWith('Lỗi') ? '#D45087' : '#003F5C'};">${message}</div>`;
+                modalCloseButton.style.display = 'block';
             }
-        } catch (e) {
-            console.error("Lỗi khởi tạo Accordion:", e);
-        }
+        };
 
         /**
-         * 2. Khởi tạo Biểu đồ (Charts)
+         * Đóng modal
          */
-        document.addEventListener("DOMContentLoaded", () => {
-            const CHART_COLORS = {
-                primary: '#003F5C',
-                secondary: '#665191',
-                accent1: '#FFA600',
-                accent2: '#D45087',
-                accent3: '#A05195',
-                accent4: '#F95D6A',
-            };
+        const closeModal = () => {
+            const loadingModal = document.getElementById('loadingModal');
+            if (loadingModal) loadingModal.classList.remove('visible');
+        };
 
-            // Biểu đồ 1: Định Vị Thị Trường
+        /**
+         * === HÀM GỌI AI (CHO CÁC NÚT TRÊN TRANG) ===
+         * Gọi Apps Script (Groq), chỉ nhận về TEXT
+         */
+        const callGeminiAPI = async (systemPrompt, userPrompt, resultElement) => {
+            showModal('AI đang suy nghĩ...', true);
+            document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = true);
+            
+            const formData = new FormData();
+            formData.append('action', 'callGemini'); // Gọi action chỉ-text
+            formData.append('systemPrompt', systemPrompt);
+            formData.append('userPrompt', userPrompt);
+
+            try {
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) throw new Error(`Lỗi máy chủ Apps Script: ${response.status}`);
+                const result = await response.json();
+                if (result.status === 'success') {
+                    resultElement.innerHTML = result.text;
+                    showModal('Đã nhận được phản hồi!', false);
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error('Lỗi gọi Apps Script (callGeminiAPI):', error);
+                resultElement.textContent = 'Đã xảy ra lỗi khi gọi AI. Vui lòng thử lại.';
+                showModal(`Lỗi: ${error.message}`, false);
+            } finally {
+                document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = false);
+            }
+        };
+
+        /**
+         * === HÀM GỬI GÓP Ý ===
+         * Gọi Apps Script, action 'feedback'
+         */
+        const handleFeedbackSubmit = async (event) => {
+            event.preventDefault(); 
+            const form = event.target;
+            const button = form.querySelector('.feedback-button');
+            
+            button.disabled = true;
+            showModal('Đang gửi góp ý...', true);
+
+            try {
+                const formData = new FormData(form);
+                formData.append('action', 'feedback'); 
+
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) throw new Error('Phản hồi từ máy chủ không hợp lệ.');
+                const result = await response.json(); 
+                if (result.status === 'success') {
+                    showModal('Cảm ơn bạn đã góp ý! Góp ý của bạn đã được ghi nhận.', false);
+                    form.reset(); 
+                } else {
+                    throw new Error(result.message || 'Lỗi không xác định từ Apps Script.');
+                }
+            } catch (error) {
+                console.error('Lỗi gửi góp ý:', error);
+                showModal(`Lỗi: ${error.message}. Không thể gửi góp ý. Xin vui lòng thử lại.`, false);
+            } finally {
+                button.disabled = false;
+            }
+        };
+
+        // --- HÀM KHỞI TẠO CHÍNH ---
+
+        const initializeUI = () => {
+            console.log("Bắt đầu khởi tạo UI...");
+
+            // (Lấy các phần tử UI)
+            const modalCloseButton = document.getElementById('modalCloseButton');
+            const acc = document.getElementsByClassName("accordion");
+            const aeoQueryInput = document.getElementById('aeoQueryInput');
+            const aeoQueryButton = document.getElementById('aeoQueryButton');
+            const aeoQueryResult = document.getElementById('aeoQueryResult');
+            const contentSelect = document.getElementById('contentSelect');
+            const generateContentButton = document.getElementById('generateContentButton');
+            const contentResult = document.getElementById('contentResult');
+            const comboTypeSelect = document.getElementById('comboTypeSelect');
+            const generateComboButton = document.getElementById('generateComboButton');
+            const comboResultBox = document.getElementById('comboResultBox');
+            const generateSloganButton = document.getElementById('generateSloganButton');
+            const sloganResultBox = document.getElementById('sloganResultBox');
+            const generateKPIReportButton = document.getElementById('generateKPIReportButton');
+            const kpiReportResultBox = document.getElementById('kpiReportResult');
+            const generateProductDescButton = document.getElementById('generateProductDescButton');
+            const productDescResult = document.getElementById('productDescResult');
+            const generateMAPEmailButton = document.getElementById('generateMAPEmailButton');
+            const mapEmailResult = document.getElementById('mapEmailResult');
+            
+            // --- Lấy các phần tử UI (Chatbot) ---
+            const chatFab = document.getElementById('chatFab');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatClose = document.getElementById('chatClose');
+            const chatInput = document.getElementById('chatInput');
+            const chatSend = document.getElementById('chatSend');
+            
+            // (NÚT MỚI) Lấy nút micro
+            const chatMicButton = document.getElementById('chatMic');
+
+            // 1. Khởi tạo Modal
+            if (modalCloseButton) {
+                modalCloseButton.addEventListener('click', closeModal);
+            }
+
+            // 2. Khởi tạo Accordion
+            try {
+                for (let i = 0; i< acc.length; i++) {
+                    acc[i].addEventListener("click", function() {
+                        this.classList.toggle("active");
+                        const panel = this.nextElementSibling;
+                        if (panel.style.maxHeight) {
+                            panel.style.maxHeight = null;
+                        } else {
+                            panel.style.maxHeight = panel.scrollHeight + "px";
+                        }
+                    });
+                }
+            } catch (e) { console.error("Lỗi khởi tạo Accordion:", e); }
+
+            // 3. Khởi tạo Biểu đồ (Code không đổi)
             try {
                 const positioningCtx = document.getElementById('positioningChart');
                 if (positioningCtx) {
@@ -580,28 +1364,19 @@
                         type: 'bubble',
                         data: {
                             datasets: [
-                                { label: 'Nệm Vạn Thành', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: CHART_COLORS.primary, borderColor: CHART_COLORS.primary },
-                                { label: 'Kymdan', data: [{ x: 10, y: 10, r: 20 }], backgroundColor: CHART_COLORS.accent2 },
-                                { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: CHART_COLORS.secondary },
-                                { label: 'Kim Cương', data: [{ x: 6, y: 7, r: 10 }], backgroundColor: CHART_COLORS.accent1 },
-                                { label: 'Dunlopillo', data: [{ x: 9, y: 9, r: 8 }], backgroundColor: CHART_COLORS.accent3 },
-                                { label: 'Everon', data: [{ x: 7, y: 6, r: 7 }], backgroundColor: CHART_COLORS.accent4 }
+                                { label: 'Nệm Vạn Thành', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: '#003F5C' },
+                                { label: 'Kymdan', data: [{ x: 10, y: 10, r: 20 }], backgroundColor: '#D45087' },
+                                { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: '#665191' },
+                                { label: 'Kim Cương', data: [{ x: 6, y: 7, r: 10 }], backgroundColor: '#FFA600' },
+                                { label: 'Dunlopillo', data: [{ x: 9, y: 9, r: 8 }], backgroundColor: '#A05195' },
+                                { label: 'Everon', data: [{ x: 7, y: 6, r: 7 }], backgroundColor: '#F95D6A' }
                             ]
                         },
-                        options: {
-                            maintainAspectRatio: false,
-                            responsive: true,
-                            scales: {
-                                x: { title: { display: true, text: 'Giá Bán (Thấp -> Cao)' }, min: 3, max: 11 },
-                                y: { title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)' }, min: 4, max: 11 }
-                            },
-                            plugins: { legend: { position: 'bottom' }, title: { display: false } }
-                        }
+                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { title: { display: true, text: 'Giá Bán (Thấp -> Cao)' }, min: 3, max: 11 }, y: { title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)' }, min: 4, max: 11 } }, plugins: { legend: { position: 'bottom' } } }
                     });
                 }
             } catch (e) { console.error("Lỗi tải Biểu đồ Định vị:", e); }
             
-            // Biểu đồ 2: Tỷ Trọng Sản Phẩm
             try {
                 const productMixCtx = document.getElementById('productMixChart');
                 if (productMixCtx) {
@@ -612,7 +1387,7 @@
                             datasets: [{
                                 label: 'Tỷ Trọng Sản Phẩm',
                                 data: [45, 30, 15, 10],
-                                backgroundColor: [ CHART_COLORS.primary, CHART_COLORS.secondary, CHART_COLORS.accent1, CHART_COLORS.accent2 ],
+                                backgroundColor: [ '#003F5C', '#665191', '#FFA600', '#D45087' ],
                                 hoverOffset: 4
                             }]
                         },
@@ -620,8 +1395,7 @@
                     });
                 }
             } catch (e) { console.error("Lỗi tải Biểu đồ Sản phẩm:", e); }
-
-            // Biểu đồ 3: Phân Bổ Nguồn Lực
+    
             try {
                 const channelStrategyCtx = document.getElementById('channelStrategyChart');
                 if (channelStrategyCtx) {
@@ -630,17 +1404,237 @@
                         data: {
                             labels: ['Hiện tại (Ước tính)', 'Mục tiêu (1 Năm)'],
                             datasets: [
-                                { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: CHART_COLORS.accent4, stack: 'strategy' },
-                                { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: CHART_COLORS.primary, stack: 'strategy' },
-                                { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: CHART_COLORS.accent1, stack: 'strategy' },
-                                { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: CHART_COLORS.secondary, stack: 'strategy' }
+                                { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: '#F95D6A', stack: 'strategy' },
+                                { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: '#003F5C', stack: 'strategy' },
+                                { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: '#FFA600', stack: 'strategy' },
+                                { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: '#665191', stack: 'strategy' }
                             ]
                         },
                         options: { maintainAspectRatio: false, responsive: true, scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Phân Bổ Nguồn Lực (%)' } } }, plugins: { legend: { position: 'bottom' } } }
                     });
                 }
             } catch (e) { console.error("Lỗi tải Biểu đồ Kênh:", e); }
-        });
+            
+    
+            // 4. Khởi tạo Gắn Event Listeners cho các nút AI (Không đổi)
+            if (aeoQueryButton) { aeoQueryButton.addEventListener('click', () => { const query = aeoQueryInput.value || "So sánh nệm Vạn Thành và Kymdan"; const systemPrompt = "Bạn là Hat Support, một chuyên gia phân tích khiêm hạ. Hãy trả lời câu hỏi của người dùng. **Trình bày kết quả** một cách rõ ràng, dùng **in đậm** và gạch đầu dòng để so sánh điểm mạnh/yếu khách quan. Luôn thể hiện sự khiêm hạ."; const userPrompt = query; callGeminiAPI(systemPrompt, userPrompt, aeoQueryResult); }); }
+            if (generateContentButton) { generateContentButton.addEventListener('click', () => { const type = contentSelect.value; const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo nội dung khiêm hạ. **Trình bày ý tưởng** dưới dạng danh sách, dùng **in đậm** cho tiêu đề kịch bản/bài đăng. Giọng điệu khiêm tốn."; let userPrompt = ''; if (type === 'tiktok') { userPrompt = "Tạo 3 ý tưởng kịch bản TikTok (dưới 30 giây) để thể hiện độ bền hoặc sự êm ái của nệm Vạn Thành. Định dạng: **[Ý Tưởng 1]**, [Cảnh Quay], [Thông Điệp]."; } else { userPrompt = "Tạo 1 bài đăng cho Facebook Group 'Hội Yêu Giấc Ngủ Việt' với mục tiêu thu thập khảo sát (Zero-Party Data) về thói quen ngủ của người dùng. Bài đăng phải thân thiện, đặt câu hỏi tương tác."; } callGeminiAPI(systemPrompt, userPrompt, contentResult); }); }
+            if (generateComboButton) { generateComboButton.addEventListener('click', () => { const comboType = comboTypeSelect.value; const systemPrompt = "Bạn là Hat Support, một trợ lý phát triển sản phẩm khiêm hạ. **Trình bày phác thảo** một cách rõ ràng, chuyên nghiệp, dùng **in đậm** cho các đề mục (Tên Gói, Đối Tượng...)."; const userPrompt = `Hãy phác thảo Gói Combo: "${comboType}". Nêu rõ: \n1. **Tên Gói Hấp Dẫn:** \n2. **Đối Tượng Khách Hàng:** \n3. **Các Sản Phẩm Bao Gồm (Nệm Vạn Thành + 2-3 sản phẩm khác):** \n4. **Thông Điệp Marketing Chính:**`; callGeminiAPI(systemPrompt, userPrompt, comboResultBox); }); }
+            if (generateSloganButton) { generateSloganButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo khiêm hạ. Hãy tạo ra 5 slogan. **Trình bày kết quả** dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt."; const userPrompt = "Tạo 5 slogan cho Nệm Vạn Thành dựa trên định vị cốt lõi: 'BỀN BỈ TỪ 1980'. Các slogan phải gợi lên sự tin cậy, chất lượng vượt thời gian và di sản."; callGeminiAPI(systemPrompt, userPrompt, sloganResultBox); }); }
+            if (generateKPIReportButton) { generateKPIReportButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý phân tích khiêm hạ. Hãy soạn thảo một email báo cáo. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, dùng gạch đầu dòng cho các KPI."; const userPrompt = "Soạn thảo một email báo cáo tiến độ (dạng gạch đầu dòng) dựa trên các KPI giả định sau: \n- **Tỷ lệ vi phạm MAP:** Giảm 90% (Thành công). \n- **Số leads O2O:** Tăng 150% (Vượt mong đợi). \n- **Doanh thu Affiliate:** Đang xây dựng (Cần theo dõi). \n- **Hành động tiếp theo:** Triển khai GMB cho 100 đại lý tiếp theo."; callGeminiAPI(systemPrompt, userPrompt, kpiReportResultBox); }); }
+            if (generateProductDescButton) { generateProductDescButton.addEventListener('click', () => { const tier = document.getElementById('productTierSelect').value; const systemPrompt = "Bạn là Hat Support, một trợ lý copywriter khiêm hạ. **Trình bày kết quả** rõ ràng, chuyên nghiệp, có thể dùng **in đậm** cho tiêu đề và gạch đầu dòng cho lợi ích."; let userPrompt = `Viết một mô tả sản phẩm (khoảng 100 từ) cho website Nệm Vạn Thành, phân khúc ${tier}.`; if (tier === 'GOOD') { userPrompt += " Tập trung vào: 'giá rẻ', 'tiết kiệm', 'bền bỉ', 'gấp 3 tiện lợi'."; } else if (tier === 'BETTER') { userPrompt += " Tập trung vào: 'cân bằng', 'nâng đỡ', 'êm ái', 'cao su thiên nhiên', 'lò xo túi'."; } else { userPrompt += " Tập trung vào: 'cao cấp', 'sang trọng', 'di sản', 'nguyên liệu tinh khiết', 'giấc ngủ chuyên sâu'."; } callGeminiAPI(systemPrompt, userPrompt, productDescResult); }); }
+            if (generateMAPEmailButton) { generateMAPEmailButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý truyền thông khiêm hạ. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, rõ ràng, có tiêu đề, nội dung và kết thư. Giọng điệu vừa nghiêm túc (về chế tài) vừa mang tính hợp tác (vì lợi ích chung)."; const userPrompt = "Soạn thảo một email trang trọng gửi toàn bộ 1000 đại lý của Nệm Vạn Thành, thông báo về việc áp dụng 'Chính Sách Giá Quảng Cáo Tối Thiểu (MAP)' từ tháng tới. Nêu rõ: \n1. **Lý do:** Bảo vệ giá trị thương hiệu và sự công bằng cho đại lý. \n2. **Quy định:** Cấm quảng cáo chiết khấu X% (ví dụ: 15%) trên mọi kênh online. \n3. **Chế tài:** Nêu rõ 3 cấp độ (Cảnh cáo, Cắt chiết khấu, Ngừng cung cấp). \n4. **Kêu gọi hợp tác:** vì mục tiêu chung."; callGeminiAPI(systemPrompt, userPrompt, mapEmailResult); }); }
+            document.querySelectorAll('.brainstorm-button').forEach(button => { button.addEventListener('click', () => { const sectionId = button.dataset.sectionId; const sectionContent = button.dataset.sectionContent; const resultElement = document.getElementById(`brainstormResult-${sectionId}`); const systemPrompt = "Bạn là Hat Support, một trợ lý tư vấn chiến lược khiêm hạ. Nhiệm vụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này.\n**Yêu cầu:**\n1. **Định dạng:** Trình bày 3 câu hỏi dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.\n2. **Giọng điệu:** Chuyên nghiệp, khiêm tốn.\n3. **Chất lượng:** Đừng hỏi câu hỏi 'có/không'. Hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'."; const userPrompt = `Dựa trên nội dung của mục này: "${sectionContent}", hãy tạo ra 3 câu hỏi/vấn đề thảo luận mở rộng.`; callGeminiAPI(systemPrompt, userPrompt, resultElement); }); });
+
+            // 5. Khởi tạo Chatbot
+            if (chatFab) { chatFab.addEventListener('click', () => chatWindow.classList.toggle('visible')); }
+            if (chatClose) { chatClose.addEventListener('click', () => {
+                synthesizer.cancel(); // Tắt giọng nói khi đóng chat
+                chatWindow.classList.remove('visible'); 
+            }); }
+            if (chatSend) { chatSend.addEventListener('click', handleChatSend); }
+            if (chatInput) { chatInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatSend(); }); }
+            
+            // 6. Khởi tạo Gắn Event Listeners cho các Form Góp Ý
+            try {
+                document.querySelectorAll('.feedback-form').forEach(form => {
+                    form.addEventListener('submit', handleFeedbackSubmit);
+                });
+                console.log("Khởi tạo Form Góp Ý thành công.");
+            } catch (e) { console.error("Lỗi khởi tạo Form Góp Ý:", e); }
+
+            // 7. (MỚI) Khởi tạo Nhận diện Giọng nói (Micro)
+            if (chatMicButton) {
+                initializeSpeechRecognition(chatMicButton, chatInput);
+            }
+
+            console.log("Khởi tạo UI thành công.");
+        };
+
+        // --- LOGIC RIÊNG CỦA CHATBOT (ĐÃ NÂNG CẤP) ---
+
+        const CHATBOT_SYSTEM_PROMPT = `Bạn là Hat AI, một trợ lý tư vấn chuyên nghiệp, khiêm hạ. Bạn đang hỗ trợ một đối tác (thân chủ) xem xét kế hoạch marketing cho Nệm Vạn Thành.
+        PHONG CÁCH PHẢN HỒI:
+        1. Xưng Hô: Luôn gọi người dùng là "thân chủ" và xưng "Hat AI" hoặc "tôi". Giọng điệu luôn khiêm tốn, lễ phép, tư vấn (dạ, thưa, xin phép).
+        2. Bố Cục Rõ Ràng: Khi trả lời, hãy dùng Markdown để định dạng. Sử dụng **in đậm** cho tiêu đề, gạch đầu dòng ('-') cho danh sách, và xuống dòng hợp lý để câu trả lời rõ ràng, chuyên nghiệp và đẹp mắt.
+        3. Thái Độ: Luôn thể hiện sự chuyên nghiệp, khiêm hạ và "đón nhận sự góp ý xây dựng".
+        4. Thông Minh & Dẫn Dắt: Sau mỗi câu trả lời, hãy chủ động đặt 1 "câu hỏi thông minh" để dẫn dắt, gợi ý hoặc phản hồi lại (ví dụ: "Thân chủ có muốn tôi phân tích sâu hơn về mục...?", "Thân chủ đánh giá rủi ro của giải pháp MAP này như thế nào ạ?").
+        NỘI DUNG PHẢN HỒI:
+        - Trả lời các câu hỏi của "thân chủ" về bản kế hoạch (Bối cảnh: Loạn giá; Giải pháp: Tái định vị 'Bền Bỉ 1980', MAP, O2O, SEO Local).
+        - Nếu thông tin không có trong bối cảnh, hãy "tự tạo sinh theo bối cảnh" (dùng kiến thức marketing chung) để tư vấn, nhưng phải nói rõ đây là "gợi ý mở rộng".
+        - Luôn giữ thái độ hỗ trợ và không trả lời các chủ đề không liên quan đến kế hoạch marketing.`;
+
+        let chatHistory = [
+            { role: "user", parts: [{ text: "Bắt đầu cuộc trò chuyện" }] },
+            { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?" }] }
+        ];
+
+        /**
+         * (MỚI) Hàm phát âm thanh bằng trình duyệt (TTS)
+         */
+        const speakText = (textToSpeak) => {
+            synthesizer.cancel(); // Dừng bất cứ gì đang nói dở
+
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            
+            // Cố gắng tìm giọng Tiếng Việt
+            let vietnameseVoice = synthesizer.getVoices().find(voice => voice.lang === 'vi-VN');
+            
+            if (vietnameseVoice) {
+                utterance.voice = vietnameseVoice;
+            } else {
+                // Nếu không có giọng 'vi-VN' (ví dụ Firefox), dùng giọng mặc định
+                console.warn("Không tìm thấy giọng 'vi-VN'. Dùng giọng mặc định.");
+            }
+            
+            utterance.pitch = 1; // Giữ tông giọng
+            utterance.rate = 1;  // Tốc độ đọc
+            
+            synthesizer.speak(utterance);
+        };
+
+        const addMessageToChatUI = (message, sender) => {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
+            const thinking = chatMessages.querySelector('.thinking');
+            if (thinking) thinking.remove();
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            if (sender === 'model') {
+                let formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
+                formattedMessage = formattedMessage.replace(/\n/g, '<br>'); 
+                formattedMessage = formattedMessage.replace(/(\<br\>|^)\s*-\s/g, '<br>• '); 
+                formattedMessage = formattedMessage.replace(/^\s*-\s/g, '• ');
+                messageElement.innerHTML = formattedMessage;
+            } else {
+                messageElement.textContent = message; 
+            }
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight; 
+        };
+
+        const handleChatSend = () => {
+            synthesizer.cancel(); // Dừng giọng nói nếu đang nói
+            const chatInput = document.getElementById('chatInput');
+            if (!chatInput) return;
+            const userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+
+            addMessageToChatUI(userMessage, 'user'); 
+            chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+            chatInput.value = '';
+
+            const chatMessages = document.getElementById('chatMessages');
+            const thinkingElement = document.createElement('div');
+            thinkingElement.classList.add('chat-message', 'model', 'thinking');
+            thinkingElement.innerHTML = `<span class="loader-dots"></span><span class="loader-dots"></span><span class="loader-dots"></span>`;
+            chatMessages.appendChild(thinkingElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            callChatbotAPI(userMessage);
+        };
+
+        /**
+         * === HÀM CHATBOT ĐÃ NÂNG CẤP (GỌI TEXT + TỰ ĐỌC) ===
+         */
+        const callChatbotAPI = async (userMessage) => {
+            
+            const formData = new FormData();
+            formData.append('action', 'callChatbot');
+            formData.append('systemPrompt', CHATBOT_SYSTEM_PROMPT);
+            formData.append('chatHistory', JSON.stringify(chatHistory));
+
+            try {
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) throw new Error(`Lỗi máy chủ Apps Script: ${response.status}`);
+                const result = await response.json(); 
+
+                if (result.status === 'success') {
+                    const modelMessage = result.text;
+                    addMessageToChatUI(modelMessage, 'model'); 
+                    chatHistory.push({ role: "model", parts: [{ text: modelMessage }] });
+
+                    // (MỚI) Tự động đọc câu trả lời
+                    speakText(modelMessage);
+
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error('Lỗi gọi Apps Script (callChatbotAPI):', error);
+                const errorMsg = `Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố kết nối. ${error.message}. Xin thân chủ vui lòng thử lại sau ạ.`;
+                addMessageToChatUI(errorMsg, 'model');
+                speakText(errorMsg); // Đọc thông báo lỗi
+            }
+        };
+
+        /**
+         * === HÀM MỚI (CHO MICROPHONE - STT) ===
+         * Khởi tạo Web Speech API (STT)
+         */
+        const initializeSpeechRecognition = (micButton, inputElement) => {
+            // Kiểm tra xem trình duyệt có hỗ trợ không (chỉ Chrome/Edge)
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                console.warn("Trình duyệt này không hỗ trợ Web Speech API.");
+                micButton.style.display = 'none'; // Ẩn nút micro nếu không hỗ trợ
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = false; // Chỉ nghe 1 câu
+            recognition.lang = 'vi-VN';      // Nghe Tiếng Việt
+            recognition.interimResults = false; // Chỉ trả về kết quả cuối cùng
+
+            // Khi bắt đầu nghe
+            recognition.onstart = () => {
+                micButton.classList.add('recording');
+                micButton.title = "Đang nghe...";
+                synthesizer.cancel(); // Tắt loa nếu đang nói
+            };
+
+            // Khi có kết quả
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                inputElement.value = transcript; // Đưa kết quả vào ô chat
+                handleChatSend(); // Tự động gửi
+            };
+
+            // Khi kết thúc nghe (dù có kết quả hay không)
+            recognition.onend = () => {
+                micButton.classList.remove('recording');
+                micButton.title = "Nhấn để nói";
+            };
+
+            // Khi có lỗi
+            recognition.onerror = (event) => {
+                console.error("Lỗi nhận diện giọng nói:", event.error);
+                micButton.classList.remove('recording');
+                micButton.title = "Nhấn để nói";
+            };
+
+            // Gắn sự kiện click
+            micButton.addEventListener('click', () => {
+                if (micButton.classList.contains('recording')) {
+                    recognition.stop(); // Nhấn lần nữa để dừng
+                } else {
+                    recognition.start(); // Nhấn để bắt đầu nghe
+                }
+            });
+        };
+
+        // --- KHỞI CHẠY ---
+        // Phải tải danh sách giọng nói trước
+        synthesizer.getVoices(); 
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => synthesizer.getVoices();
+        }
+        
+        initializeUI();
+        
     </script>
 </body>
 </html>
