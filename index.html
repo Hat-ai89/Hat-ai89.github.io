@@ -1307,7 +1307,6 @@
 
             // (Lấy các phần tử UI)
             const modalCloseButton = document.getElementById('modalCloseButton');
-            const acc = document.getElementsByClassName("accordion");
             const aeoQueryInput = document.getElementById('aeoQueryInput');
             const aeoQueryButton = document.getElementById('aeoQueryButton');
             const aeoQueryResult = document.getElementById('aeoQueryResult');
@@ -1332,8 +1331,6 @@
             const chatClose = document.getElementById('chatClose');
             const chatInput = document.getElementById('chatInput');
             const chatSend = document.getElementById('chatSend');
-            
-            // (NÚT MỚI) Lấy nút micro
             const chatMicButton = document.getElementById('chatMic');
 
             // 1. Khởi tạo Modal
@@ -1341,6 +1338,135 @@
                 modalCloseButton.addEventListener('click', closeModal);
             }
 
+            // 2. Khởi tạo Accordion (BẢN SỬA LỖI FINAL CHO ĐIỆN THOẠI)
+            try {
+                const acc = document.getElementsByClassName("accordion");
+                
+                // Xử lý click mở rộng
+                const togglePanel = function() {
+                    this.classList.toggle("active");
+                    const panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = (panel.scrollHeight + 50) + "px";
+                    }
+                };
+
+                for (let i = 0; i < acc.length; i++) {
+                    // Xóa sự kiện cũ để tránh lỗi
+                    acc[i].replaceWith(acc[i].cloneNode(true));
+                }
+                
+                // Gán lại sự kiện click cho danh sách mới
+                const newAcc = document.getElementsByClassName("accordion");
+                for (let i = 0; i < newAcc.length; i++) {
+                    newAcc[i].addEventListener("click", togglePanel);
+                }
+                console.log("Accordion đã khởi tạo xong.");
+            } catch (e) { console.error("Lỗi khởi tạo Accordion:", e); }
+
+            // 3. Khởi tạo Biểu đồ
+            try {
+                const positioningCtx = document.getElementById('positioningChart');
+                if (positioningCtx) {
+                    new Chart(positioningCtx, {
+                        type: 'bubble',
+                        data: {
+                            datasets: [
+                                { label: 'Nệm Vạn Thành', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: '#003F5C' },
+                                { label: 'Kymdan', data: [{ x: 10, y: 10, r: 20 }], backgroundColor: '#D45087' },
+                                { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: '#665191' },
+                                { label: 'Kim Cương', data: [{ x: 6, y: 7, r: 10 }], backgroundColor: '#FFA600' },
+                                { label: 'Dunlopillo', data: [{ x: 9, y: 9, r: 8 }], backgroundColor: '#A05195' },
+                                { label: 'Everon', data: [{ x: 7, y: 6, r: 7 }], backgroundColor: '#F95D6A' }
+                            ]
+                        },
+                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { title: { display: true, text: 'Giá Bán (Thấp -> Cao)' }, min: 3, max: 11 }, y: { title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)' }, min: 4, max: 11 } }, plugins: { legend: { position: 'bottom' } } }
+                    });
+                }
+            } catch (e) { console.error("Lỗi tải Biểu đồ Định vị:", e); }
+            
+            try {
+                const productMixCtx = document.getElementById('productMixChart');
+                if (productMixCtx) {
+                    new Chart(productMixCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Cao su Thiên nhiên', 'Nệm Lò xo', 'Nệm Mouse (Foam)', 'Nệm Gòn'],
+                            datasets: [{
+                                label: 'Tỷ Trọng Sản Phẩm',
+                                data: [45, 30, 15, 10],
+                                backgroundColor: [ '#003F5C', '#665191', '#FFA600', '#D45087' ],
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: { maintainAspectRatio: false, responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } } }
+                    });
+                }
+            } catch (e) { console.error("Lỗi tải Biểu đồ Sản phẩm:", e); }
+    
+            try {
+                const channelStrategyCtx = document.getElementById('channelStrategyChart');
+                if (channelStrategyCtx) {
+                    new Chart(channelStrategyCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Hiện tại (Ước tính)', 'Mục tiêu (1 Năm)'],
+                            datasets: [
+                                { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: '#F95D6A', stack: 'strategy' },
+                                { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: '#003F5C', stack: 'strategy' },
+                                { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: '#FFA600', stack: 'strategy' },
+                                { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: '#665191', stack: 'strategy' }
+                            ]
+                        },
+                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Phân Bổ Nguồn Lực (%)' } } }, plugins: { legend: { position: 'bottom' } } }
+                    });
+                }
+            } catch (e) { console.error("Lỗi tải Biểu đồ Kênh:", e); }
+            
+            // 4. Khởi tạo Gắn Event Listeners cho các nút AI
+            if (aeoQueryButton) { aeoQueryButton.addEventListener('click', () => { const query = aeoQueryInput.value || "So sánh nệm Vạn Thành và Kymdan"; const systemPrompt = "Bạn là Hat Support. Trả lời ngắn gọn, dùng gạch đầu dòng."; const userPrompt = query; callGeminiAPI(systemPrompt, userPrompt, aeoQueryResult); }); }
+            if (generateContentButton) { generateContentButton.addEventListener('click', () => { const type = contentSelect.value; const systemPrompt = "Bạn là Hat Support. Trả lời ngắn gọn."; let userPrompt = type === 'tiktok' ? "3 ý tưởng TikTok cho nệm Vạn Thành." : "1 bài đăng Facebook Group về giấc ngủ."; callGeminiAPI(systemPrompt, userPrompt, contentResult); }); }
+            if (generateComboButton) { generateComboButton.addEventListener('click', () => { const comboType = comboTypeSelect.value; const systemPrompt = "Bạn là Hat Support. Phác thảo gói combo."; const userPrompt = `Phác thảo Gói Combo: "${comboType}".`; callGeminiAPI(systemPrompt, userPrompt, comboResultBox); }); }
+            if (generateSloganButton) { generateSloganButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support."; const userPrompt = "Tạo 5 slogan cho Nệm Vạn Thành: 'BỀN BỈ TỪ 1980'."; callGeminiAPI(systemPrompt, userPrompt, sloganResultBox); }); }
+            if (generateKPIReportButton) { generateKPIReportButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support."; const userPrompt = "Viết email báo cáo KPI marketing ngắn gọn."; callGeminiAPI(systemPrompt, userPrompt, kpiReportResultBox); }); }
+            if (generateProductDescButton) { generateProductDescButton.addEventListener('click', () => { const tier = document.getElementById('productTierSelect').value; const systemPrompt = "Bạn là Hat Support."; const userPrompt = `Viết mô tả sản phẩm nệm phân khúc ${tier} chuẩn SEO.`; callGeminiAPI(systemPrompt, userPrompt, productDescResult); }); }
+            if (generateMAPEmailButton) { generateMAPEmailButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support."; const userPrompt = "Viết email thông báo chính sách giá MAP cho đại lý."; callGeminiAPI(systemPrompt, userPrompt, mapEmailResult); }); }
+            
+            document.querySelectorAll('.brainstorm-button').forEach(button => { 
+                button.addEventListener('click', () => { 
+                    const sectionContent = button.dataset.sectionContent; 
+                    const resultElement = document.getElementById(`brainstormResult-${button.dataset.sectionId}`); 
+                    const systemPrompt = "Bạn là Hat Support. Đặt 3 câu hỏi chiến lược sắc sảo."; 
+                    const userPrompt = `Dựa trên: "${sectionContent}", hãy đặt 3 câu hỏi thảo luận.`; 
+                    callGeminiAPI(systemPrompt, userPrompt, resultElement); 
+                }); 
+            });
+
+            // 5. Khởi tạo Chatbot
+            if (chatFab) { chatFab.addEventListener('click', () => chatWindow.classList.toggle('visible')); }
+            if (chatClose) { chatClose.addEventListener('click', () => {
+                if (window.speechSynthesis) window.speechSynthesis.cancel();
+                chatWindow.classList.remove('visible'); 
+            }); }
+            if (chatSend) { chatSend.addEventListener('click', handleChatSend); }
+            if (chatInput) { chatInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatSend(); }); }
+            
+            // 6. Khởi tạo Form Góp Ý
+            try {
+                document.querySelectorAll('.feedback-form').forEach(form => {
+                    form.addEventListener('submit', handleFeedbackSubmit);
+                });
+            } catch (e) { console.error("Lỗi khởi tạo Form Góp Ý:", e); }
+
+            // 7. Khởi tạo Mic
+            if (chatMicButton) {
+                initializeSpeechRecognition(chatMicButton, chatInput);
+            }
+
+            console.log("Khởi tạo UI thành công.");
+        };
             // 2. Khởi tạo Accordion (BẢN SỬA LỖI FINAL - DÙNG CLICK CHUẨN)
             try {
                 const acc = document.getElementsByClassName("accordion");
@@ -1653,6 +1779,7 @@
     </script>
 </body>
 </html>
+
 
 
 
