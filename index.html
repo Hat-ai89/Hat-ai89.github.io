@@ -1190,14 +1190,14 @@
     </div>
     
 <script type="module">
-    // --- 1. CẤU HÌNH (QUAN TRỌNG NHẤT) ---
-    // Bạn hãy kiểm tra lại và dán URL Apps Script MỚI NHẤT của bạn vào đây
-    const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz2XhIExU1U-FHUrW6BpXeQqouMnms-LuybLDwanDcLV5nlfVqRNdyRE0_MNYwvntK6/exec";
+    // --- 1. CẤU HÌNH ---
+    // URL Script của bạn (Đã dùng getActiveSpreadsheet)
+    const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyc9NwDoPQ7q1RbKFoC2pZaSA3G6xlHPt2lWakkc5JSHFY1sY6XBhAr5GuouanFovE_/exec";
     
     // Biến toàn cục
     let recognition = null;
     let synthesizer = window.speechSynthesis;
-    let chatHistory = []; // Lưu lịch sử chat
+    let chatHistory = []; 
 
     // --- 2. CÁC HÀM TIỆN ÍCH ---
     const showModal = (message, isLoading = false) => {
@@ -1221,7 +1221,7 @@
         if (loadingModal) loadingModal.classList.remove('visible');
     };
 
-    // --- 3. HÀM GỌI AI (CHO CÁC NÚT BẤM) ---
+    // --- 3. HÀM GỌI AI ---
     const callGeminiAPI = async (systemPrompt, userPrompt, resultElement) => {
         showModal('Hat AI đang phân tích...', true);
         try {
@@ -1234,7 +1234,7 @@
             const result = await response.json();
             
             if (result.status === 'success') {
-                resultElement.innerHTML = result.text; // Hiển thị kết quả
+                resultElement.innerHTML = result.text; 
                 showModal('Đã có câu trả lời!', false);
             } else {
                 throw new Error(result.message);
@@ -1245,7 +1245,6 @@
         }
     };
 
-    // --- 4. HÀM GỬI GÓP Ý ---
     const handleFeedbackSubmit = async (event) => {
         event.preventDefault();
         const form = event.target;
@@ -1269,17 +1268,15 @@
         }
     };
 
-    // --- 5. LOGIC CHATBOT ---
+    // --- 4. LOGIC CHATBOT ---
     const handleChatSend = () => {
         const input = document.getElementById('chatInput');
         const msg = input.value.trim();
         if(!msg) return;
         
-        // Hiện tin nhắn người dùng
         addMessage(msg, 'user');
         input.value = '';
         
-        // Hiển thị đang gõ...
         const chatMsgs = document.getElementById('chatMessages');
         const thinking = document.createElement('div');
         thinking.className = 'chat-message model thinking';
@@ -1287,13 +1284,11 @@
         chatMsgs.appendChild(thinking);
         chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
-        // Gọi API
         const formData = new FormData();
         formData.append('action', 'callChatbot');
         formData.append('chatHistory', JSON.stringify(chatHistory));
         formData.append('systemPrompt', "Bạn là Hat AI, trợ lý chiến lược.");
         
-        // Thêm vào lịch sử tạm
         chatHistory.push({role: "user", parts: [{text: msg}]});
 
         fetch(GOOGLE_SHEET_WEB_APP_URL, { method: 'POST', body: formData })
@@ -1319,7 +1314,6 @@
         div.className = `chat-message ${sender}`;
         let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
         div.innerHTML = formatted;
-        
         const chatMsgs = document.getElementById('chatMessages');
         if(chatMsgs) {
             chatMsgs.appendChild(div);
@@ -1338,224 +1332,137 @@
     const initializeSpeechRecognition = (btn, input) => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if(!SpeechRecognition) { btn.style.display='none'; return; }
-        
         const recognition = new SpeechRecognition();
         recognition.lang = 'vi-VN';
-        
         recognition.onstart = () => btn.classList.add('recording');
         recognition.onend = () => btn.classList.remove('recording');
         recognition.onresult = (e) => {
             input.value = e.results[0][0].transcript;
             handleChatSend();
         };
-        
         btn.addEventListener('click', () => recognition.start());
     };
 
-    // --- 6. KHỞI TẠO GIAO DIỆN (CHẠY KHI WEB TẢI XONG) ---
+    // --- 5. KHỞI TẠO GIAO DIỆN (MAIN) ---
     const initializeUI = () => {
         console.log("Đang khởi tạo UI...");
 
-        // A. XỬ LÝ ACCORDION (FIX LỖI ĐIỆN THOẠI)
+        // A. XỬ LÝ ACCORDION (SỬA LỖI MOBILE)
         try {
             const acc = document.getElementsByClassName("accordion");
             for (let i = 0; i < acc.length; i++) {
-                // Sử dụng cloneNode để xóa sạch mọi listener cũ và đảm bảo click ăn
                 const newBtn = acc[i].cloneNode(true);
                 acc[i].parentNode.replaceChild(newBtn, acc[i]);
-                
                 newBtn.addEventListener("click", function() {
                     this.classList.toggle("active");
                     const panel = this.nextElementSibling;
                     if (panel.style.maxHeight) {
                         panel.style.maxHeight = null;
                     } else {
-                        panel.style.maxHeight = (panel.scrollHeight + 50) + "px"; // Thêm đệm
+                        panel.style.maxHeight = (panel.scrollHeight + 50) + "px";
                     }
                 });
             }
-            console.log("Accordion đã sẵn sàng.");
         } catch (e) { console.error("Lỗi Accordion:", e); }
 
-        // B. KẾT NỐI CÁC NÚT BẤM (HAT SUPPORT)
-        const bindBtn = (id, action) => {
-            const btn = document.getElementById(id);
-            if(btn) btn.addEventListener('click', action);
-        };
+        // B. VẼ BIỂU ĐỒ (ĐẸP HƠN)
+        try {
+            const ctx1 = document.getElementById('positioningChart');
+            if(ctx1 && typeof Chart !== 'undefined') {
+                new Chart(ctx1, {
+                    type: 'bubble',
+                    data: {
+                        datasets: [
+                            { label: 'Vạn Thành', data: [{x:5, y:7, r:15}], backgroundColor: 'rgba(0,63,92,0.8)' },
+                            { label: 'Kymdan', data: [{x:9, y:10, r:20}], backgroundColor: 'rgba(212,80,135,0.8)' },
+                            { label: 'Liên Á', data: [{x:7, y:8, r:12}], backgroundColor: 'rgba(102,81,145,0.8)' },
+                            { label: 'Kim Cương', data: [{x:6, y:6.5, r:10}], backgroundColor: 'rgba(255,166,0,0.8)' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+            
+            const ctx2 = document.getElementById('productMixChart');
+            if(ctx2 && typeof Chart !== 'undefined') {
+                new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Cao su', 'Lò xo', 'Foam', 'Gòn'],
+                        datasets: [{ data: [45, 30, 15, 10], backgroundColor: ['#2F4F4F', '#4682B4', '#DAA520', '#CD5C5C'] }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
 
-        // Hàm gán sự kiện cho các nút chức năng AI
+            const ctx3 = document.getElementById('channelStrategyChart');
+            if(ctx3 && typeof Chart !== 'undefined') {
+                new Chart(ctx3, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Hiện tại', 'Mục tiêu'],
+                        datasets: [
+                            { label: 'Social Ads', data: [60, 30], backgroundColor: '#F08080', stack: 's' },
+                            { label: 'SEO/Video', data: [10, 40], backgroundColor: '#6A5ACD', stack: 's' },
+                            { label: 'Affiliate', data: [20, 20], backgroundColor: '#FFD700', stack: 's' },
+                            { label: 'Branding', data: [10, 10], backgroundColor: '#3CB371', stack: 's' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        } catch(e) { console.log("Lỗi Chart: " + e.message); }
+
+        // C. KẾT NỐI CÁC NÚT BẤM
+        const bindBtn = (id, action) => { const b = document.getElementById(id); if(b) b.addEventListener('click', action); };
+
         document.querySelectorAll('.brainstorm-button').forEach(btn => {
             btn.addEventListener('click', () => {
-                const resultBox = document.getElementById(`brainstormResult-${btn.dataset.sectionId}`);
-                // System Prompt được nạp Context Memory ở phía Server
-                const prompt = `Dựa trên nội dung: "${btn.dataset.sectionContent}", hãy đặt 3 câu hỏi thảo luận sắc sảo.`;
-                callGeminiAPI("Bạn là Hat AI chuyên gia chiến lược.", prompt, resultBox);
+                const box = document.getElementById(`brainstormResult-${btn.dataset.sectionId}`);
+                const p = `Phân tích: "${btn.dataset.sectionContent}". Đặt 3 câu hỏi phản biện.`;
+                callGeminiAPI("Bạn là Hat AI.", p, box);
             });
         });
 
-        // (Bạn có thể thêm các nút chức năng khác tương tự như bản gốc ở đây nếu chúng bị mất)
+        bindBtn('aeoQueryButton', () => callGeminiAPI("So sánh.", document.getElementById('aeoQueryInput').value, document.getElementById('aeoQueryResult')));
+        bindBtn('generateContentButton', () => callGeminiAPI("Content Creator.", document.getElementById('contentSelect').value, document.getElementById('contentResult')));
+        bindBtn('generateComboButton', () => callGeminiAPI("Sales.", document.getElementById('comboTypeSelect').value, document.getElementById('comboResultBox')));
+        bindBtn('generateSloganButton', () => callGeminiAPI("Copywriter.", "5 Slogan.", document.getElementById('sloganResultBox')));
+        bindBtn('generateKPIReportButton', () => callGeminiAPI("CEO.", "Báo cáo KPI.", document.getElementById('kpiReportResult')));
+        bindBtn('generateProductDescButton', () => callGeminiAPI("SEO.", "Mô tả sp.", document.getElementById('productDescResult')));
+        bindBtn('generateMAPEmailButton', () => callGeminiAPI("Pháp chế.", "Email MAP.", document.getElementById('mapEmailResult')));
 
-        // C. XỬ LÝ CHATBOT & MODAL
-        const chatFab = document.getElementById('chatFab');
-        const chatWindow = document.getElementById('chatWindow');
-        const chatClose = document.getElementById('chatClose');
-        const chatSend = document.getElementById('chatSend');
-        const chatInput = document.getElementById('chatInput');
-        const chatMic = document.getElementById('chatMic');
-        const modalClose = document.getElementById('modalCloseButton');
+        // D. SỰ KIỆN CHATBOT & FORM
+        const fab = document.getElementById('chatFab');
+        const win = document.getElementById('chatWindow');
+        const close = document.getElementById('chatClose');
+        const send = document.getElementById('chatSend');
+        const inp = document.getElementById('chatInput');
+        const mic = document.getElementById('chatMic');
+        const mClose = document.getElementById('modalCloseButton');
 
-        if(chatFab) chatFab.addEventListener('click', () => chatWindow.classList.add('visible'));
-        if(chatClose) chatClose.addEventListener('click', () => chatWindow.classList.remove('visible'));
-        if(chatSend) chatSend.addEventListener('click', handleChatSend);
-        if(chatInput) chatInput.addEventListener('keyup', (e) => { if(e.key === 'Enter') handleChatSend(); });
-        if(chatMic) initializeSpeechRecognition(chatMic, chatInput);
-        if(modalClose) modalClose.addEventListener('click', closeModal);
+        if(fab) fab.addEventListener('click', () => win.classList.add('visible'));
+        if(close) close.addEventListener('click', () => win.classList.remove('visible'));
+        if(send) send.addEventListener('click', handleChatSend);
+        if(inp) inp.addEventListener('keyup', (e) => { if(e.key==='Enter') handleChatSend(); });
+        if(mic) initializeSpeechRecognition(mic, inp);
+        if(mClose) mClose.addEventListener('click', closeModal);
 
-        // D. XỬ LÝ FORM GÓP Ý
         document.querySelectorAll('.feedback-form').forEach(f => f.addEventListener('submit', handleFeedbackSubmit));
 
-        // E. VẼ BIỂU ĐỒ (Chart.js) - BẢN NÂNG CẤP ĐẸP HƠN
-        try {
-            // Chart 1: Biểu đồ Định vị Thị trường - Sơ đồ Điểm (Scatter Plot) Tương tác
-            const positioningCtx = document.getElementById('positioningChart');
-            if (positioningCtx) {
-                new Chart(positioningCtx, {
-                    type: 'bubble', // Vẫn là bubble, nhưng với màu sắc và tương tác tốt hơn
-                    data: {
-                        datasets: [
-                            { label: 'Nệm Vạn Thành (Hiện tại)', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: 'rgba(0, 63, 92, 0.8)', borderColor: '#003F5C', borderWidth: 2 },
-                            { label: 'Kymdan (Đối thủ chính)', data: [{ x: 9, y: 10, r: 20 }], backgroundColor: 'rgba(212, 80, 135, 0.8)', borderColor: '#D45087', borderWidth: 2 },
-                            { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: 'rgba(102, 81, 145, 0.8)', borderColor: '#665191', borderWidth: 2 },
-                            { label: 'Kim Cương', data: [{ x: 6, y: 6.5, r: 10 }], backgroundColor: 'rgba(255, 166, 0, 0.8)', borderColor: '#FFA600', borderWidth: 2 },
-                            { label: 'Dunlopillo', data: [{ x: 8, y: 9, r: 8 }], backgroundColor: 'rgba(160, 81, 149, 0.8)', borderColor: '#A05195', borderWidth: 2 },
-                            { label: 'Everon', data: [{ x: 7.5, y: 6, r: 7 }], backgroundColor: 'rgba(249, 93, 106, 0.8)', borderColor: '#F95D6A', borderWidth: 2 },
-                            { label: 'Vạn Thành (Mục tiêu 2025)', data: [{ x: 7, y: 8.5, r: 18 }], backgroundColor: 'rgba(0, 150, 136, 0.8)', borderColor: '#009688', borderWidth: 3, pointStyle: 'triangle', rotation: 0 } // Điểm mục tiêu
-                        ]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        responsive: true,
-                        plugins: {
-                            legend: { position: 'top', labels: { font: { size: 12 } } },
-                            tooltip: { // Cải thiện tooltip
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) label += ': ';
-                                        if (context.parsed.x !== null) label += `Giá: ${context.parsed.x} | Chất lượng: ${context.parsed.y}`;
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                title: { display: true, text: 'Giá Bán (Thấp -> Cao)', font: { size: 14, weight: 'bold' } },
-                                min: 3, max: 11,
-                                grid: { color: 'rgba(0,0,0,0.05)' }
-                            },
-                            y: {
-                                title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)', font: { size: 14, weight: 'bold' } },
-                                min: 4, max: 11,
-                                grid: { color: 'rgba(0,0,0,0.05)' }
-                            }
-                        }
-                    }
-                });
-            }
-        } catch (e) { console.error("Lỗi tải Biểu đồ Định vị:", e); }
-        
-        try {
-            // Chart 2: Biểu đồ Tỷ trọng Sản phẩm - Biểu đồ Bánh Đa cấp (Multi-level Doughnut)
-            const productMixCtx = document.getElementById('productMixChart');
-            if (productMixCtx) {
-                new Chart(productMixCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Cao su Thiên nhiên (45%)', 'Nệm Lò xo (30%)', 'Nệm Foam (15%)', 'Nệm Gòn (10%)'],
-                        datasets: [{
-                            label: 'Tỷ Trọng Sản Phẩm',
-                            data: [45, 30, 15, 10],
-                            backgroundColor: [ '#2F4F4F', '#4682B4', '#DAA520', '#CD5C5C' ], // Màu sắc sang trọng
-                            hoverOffset: 10,
-                            borderColor: 'white',
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        responsive: true,
-                        plugins: {
-                            legend: { position: 'top', labels: { font: { size: 12 } } },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        if (label) label += ': ';
-                                        if (context.parsed !== null) label += context.parsed + '%';
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        cutout: '70%', // Tạo hiệu ứng vòng tròn lớn
-                        hoverBorderColor: 'grey'
-                    }
-                });
-            }
-        } catch (e) { console.error("Lỗi tải Biểu đồ Sản phẩm:", e); }
+        console.log("UI Khởi tạo thành công!");
+    };
 
-        try {
-            // Chart 3: Biểu đồ Kênh Truyền Thông & Tối Ưu Hóa - Biểu đồ Cột Chồng Nổi bật
-            const channelStrategyCtx = document.getElementById('channelStrategyChart');
-            if (channelStrategyCtx) {
-                new Chart(channelStrategyCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Hiện tại', 'Mục tiêu (1 Năm)'],
-                        datasets: [
-                            { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: '#F08080', stack: 'strategy', borderWidth: 1, borderColor: '#CD5C5C' }, // Màu đỏ cam
-                            { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: '#6A5ACD', stack: 'strategy', borderWidth: 1, borderColor: '#483D8B' }, // Màu tím xanh
-                            { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: '#FFD700', stack: 'strategy', borderWidth: 1, borderColor: '#DAA520' }, // Màu vàng kim
-                            { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: '#3CB371', stack: 'strategy', borderWidth: 1, borderColor: '#2E8B57' }  // Màu xanh lá
-                        ]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        responsive: true,
-                        plugins: {
-                            legend: { position: 'top', labels: { font: { size: 12 } } },
-                            tooltip: {
-                                mode: 'index',
-                                intersect: false
-                            }
-                        },
-                        scales: {
-                            x: {
-                                stacked: true,
-                                title: { display: true, text: 'Giai Đoạn Chiến Lược', font: { size: 14, weight: 'bold' } },
-                                grid: { display: false }
-                            },
-                            y: {
-                                stacked: true,
-                                title: { display: true, text: 'Phân Bổ Nguồn Lực (%)', font: { size: 14, weight: 'bold' } },
-                                beginAtZero: true,
-                                max: 100,
-                                grid: { color: 'rgba(0,0,0,0.05)' }
-                            }
-                        }
-                    }
-                });
-            }
-        } catch (e) { console.error("Lỗi tải Biểu đồ Kênh:", e); }
-
-    // --- 7. KÍCH HOẠT ---
+    // --- 6. KÍCH HOẠT ---
     window.addEventListener('DOMContentLoaded', initializeUI);
+
+</script>
 
 </script>
 </script>
 </body>
 </html>
+
 
 
 
