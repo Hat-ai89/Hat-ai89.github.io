@@ -1190,160 +1190,183 @@
     </div>
     
 <script type="module">
-        // --- CÁC BIẾN TOÀN CỤC ---
-        
-        // ===== URL APPS SCRIPT MỚI CỦA BẠN ĐÃ ĐƯỢC DÁN VÀO ĐÂY =====
-        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_O2CB8gaByO1sLHhJIRkpbwCIWdXA-vTf39P_fFFG1rtRwYmBx_9qzQqxzv_SsfP2/exec;
-        
-        // Biến toàn cục cho giọng nói
-        let recognition = null;  // Giữ bộ nhận diện giọng nói (Tai)
-        let synthesizer = window.speechSynthesis; // Giữ bộ đọc (Loa)
+    // --- 1. CẤU HÌNH ---
+    // QUAN TRỌNG: Bạn hãy dán URL Google Apps Script MỚI NHẤT của bạn vào đây
+    const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyc9NwDoPQ7q1RbKFoC2pZaSA3G6xlHPt2lWakkc5JSHFY1sY6XBhAr5GuouanFovE_/exec";
+    
+    // Biến toàn cục
+    let recognition = null;
+    let synthesizer = window.speechSynthesis;
+    let chatHistory = []; // Lưu lịch sử chat
 
-        // --- HÀM TIỆN ÍCH ---
+    // --- 2. CÁC HÀM TIỆN ÍCH ---
+    const showModal = (message, isLoading = false) => {
+        const loadingModal = document.getElementById('loadingModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+        if (!loadingModal) return;
 
-        /**
-         * Hiển thị modal thông báo (loading hoặc lỗi)
-         */
-        const showModal = (message, isLoading = false) => {
-            const loadingModal = document.getElementById('loadingModal');
-            const modalContent = document.getElementById('modalContent');
-            const modalCloseButton = document.getElementById('modalCloseButton');
+        loadingModal.classList.add('visible');
+        if (isLoading) {
+            if(modalContent) modalContent.innerHTML = `<div class="loader"></div><div class="modal-message">${message}</div>`;
+            if(modalCloseButton) modalCloseButton.style.display = 'none';
+        } else {
+            if(modalContent) modalContent.innerHTML = `<div class="modal-message">${message}</div>`;
+            if(modalCloseButton) modalCloseButton.style.display = 'block';
+        }
+    };
 
-            if (!loadingModal || !modalContent || !modalCloseButton) return; // Bảo vệ
+    const closeModal = () => {
+        const loadingModal = document.getElementById('loadingModal');
+        if (loadingModal) loadingModal.classList.remove('visible');
+    };
 
-            loadingModal.classList.add('visible');
-            if (isLoading) {
-                modalContent.innerHTML = `<div class="loader"></div><div class="modal-message">${message}</div>`;
-                modalCloseButton.style.display = 'none';
-            } else {
-                modalContent.innerHTML = `<div class="modal-message" style="color: ${message.startsWith('Lỗi') ? '#D45087' : '#003F5C'};">${message}</div>`;
-                modalCloseButton.style.display = 'block';
-            }
-        };
-
-        /**
-         * Đóng modal
-         */
-        const closeModal = () => {
-            const loadingModal = document.getElementById('loadingModal');
-            if (loadingModal) loadingModal.classList.remove('visible');
-        };
-
-        /**
-         * === HÀM GỌI AI (CHO CÁC NÚT TRÊN TRANG) ===
-         * Gọi Apps Script (Groq), chỉ nhận về TEXT
-         */
-        const callGeminiAPI = async (systemPrompt, userPrompt, resultElement) => {
-            showModal('AI đang suy nghĩ...', true);
-            document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = true);
-            
+    // --- 3. HÀM GỌI AI (CHO CÁC NÚT BẤM) ---
+    const callGeminiAPI = async (systemPrompt, userPrompt, resultElement) => {
+        showModal('Hat AI đang phân tích...', true);
+        try {
             const formData = new FormData();
-            formData.append('action', 'callGemini'); // Gọi action chỉ-text
+            formData.append('action', 'callGemini');
             formData.append('systemPrompt', systemPrompt);
             formData.append('userPrompt', userPrompt);
 
-            try {
-                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                    method: 'POST',
-                    body: formData
-                });
-                if (!response.ok) throw new Error(`Lỗi máy chủ Apps Script: ${response.status}`);
-                const result = await response.json();
-                if (result.status === 'success') {
-                    resultElement.innerHTML = result.text;
-                    showModal('Đã nhận được phản hồi!', false);
-                } else {
-                    throw new Error(result.message);
-                }
-            } catch (error) {
-                console.error('Lỗi gọi Apps Script (callGeminiAPI):', error);
-                resultElement.textContent = 'Đã xảy ra lỗi khi gọi AI. Vui lòng thử lại.';
-                showModal(`Lỗi: ${error.message}`, false);
-            } finally {
-                document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = false);
-            }
-        };
-
-        /**
-         * === HÀM GỬI GÓP Ý ===
-         * Gọi Apps Script, action 'feedback'
-         */
-        const handleFeedbackSubmit = async (event) => {
-            event.preventDefault(); 
-            const form = event.target;
-            const button = form.querySelector('.feedback-button');
+            const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, { method: 'POST', body: formData });
+            const result = await response.json();
             
-            button.disabled = true;
-            showModal('Đang gửi góp ý...', true);
+            if (result.status === 'success') {
+                resultElement.innerHTML = result.text; // Hiển thị kết quả
+                showModal('Đã có câu trả lời!', false);
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error(error);
+            showModal(`Lỗi kết nối: ${error.message}`, false);
+        }
+    };
 
-            try {
-                const formData = new FormData(form);
-                formData.append('action', 'feedback'); 
+    // --- 4. HÀM GỬI GÓP Ý ---
+    const handleFeedbackSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const button = form.querySelector('.feedback-button');
+        if(button) button.disabled = true;
+        showModal('Đang gửi góp ý...', true);
 
-                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                    method: 'POST',
-                    body: formData
-                });
-                if (!response.ok) throw new Error('Phản hồi từ máy chủ không hợp lệ.');
-                const result = await response.json(); 
-                if (result.status === 'success') {
-                    showModal('Cảm ơn bạn đã góp ý! Góp ý của bạn đã được ghi nhận.', false);
-                    form.reset(); 
+        try {
+            const formData = new FormData(form);
+            formData.append('action', 'feedback');
+            const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, { method: 'POST', body: formData });
+            const result = await response.json();
+            if (result.status === 'success') {
+                showModal('Cảm ơn bạn đã góp ý!', false);
+                form.reset();
+            } else throw new Error(result.message);
+        } catch (error) {
+            showModal(`Lỗi gửi: ${error.message}`, false);
+        } finally {
+            if(button) button.disabled = false;
+        }
+    };
+
+    // --- 5. LOGIC CHATBOT ---
+    const handleChatSend = () => {
+        const input = document.getElementById('chatInput');
+        const msg = input.value.trim();
+        if(!msg) return;
+        
+        // Hiện tin nhắn người dùng
+        addMessage(msg, 'user');
+        input.value = '';
+        
+        // Hiển thị đang gõ...
+        const chatMsgs = document.getElementById('chatMessages');
+        const thinking = document.createElement('div');
+        thinking.className = 'chat-message model thinking';
+        thinking.innerHTML = '<div class="loader-dots"></div> Đang suy nghĩ...';
+        chatMsgs.appendChild(thinking);
+        chatMsgs.scrollTop = chatMsgs.scrollHeight;
+
+        // Gọi API
+        const formData = new FormData();
+        formData.append('action', 'callChatbot');
+        formData.append('chatHistory', JSON.stringify(chatHistory));
+        formData.append('systemPrompt', "Bạn là Hat AI, trợ lý chiến lược.");
+        
+        // Thêm vào lịch sử tạm
+        chatHistory.push({role: "user", parts: [{text: msg}]});
+
+        fetch(GOOGLE_SHEET_WEB_APP_URL, { method: 'POST', body: formData })
+            .then(r => r.json())
+            .then(data => {
+                thinking.remove();
+                if(data.status === 'success') {
+                    addMessage(data.text, 'model');
+                    chatHistory.push({role: "model", parts: [{text: data.text}]});
+                    speakText(data.text);
                 } else {
-                    throw new Error(result.message || 'Lỗi không xác định từ Apps Script.');
+                    addMessage("Lỗi từ Server: " + data.message, 'model');
                 }
-            } catch (error) {
-                console.error('Lỗi gửi góp ý:', error);
-                showModal(`Lỗi: ${error.message}. Không thể gửi góp ý. Xin vui lòng thử lại.`, false);
-            } finally {
-                button.disabled = false;
-            }
+            })
+            .catch(e => {
+                thinking.remove();
+                addMessage("Lỗi kết nối mạng.", 'model');
+            });
+    };
+
+    const addMessage = (text, sender) => {
+        const div = document.createElement('div');
+        div.className = `chat-message ${sender}`;
+        // Xử lý xuống dòng và in đậm đơn giản
+        let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        div.innerHTML = formatted;
+        
+        const chatMsgs = document.getElementById('chatMessages');
+        if(chatMsgs) {
+            chatMsgs.appendChild(div);
+            chatMsgs.scrollTop = chatMsgs.scrollHeight;
+        }
+    };
+
+    const speakText = (text) => {
+        if(!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'vi-VN';
+        window.speechSynthesis.speak(u);
+    };
+
+    const initializeSpeechRecognition = (btn, input) => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if(!SpeechRecognition) { btn.style.display='none'; return; }
+        
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'vi-VN';
+        
+        recognition.onstart = () => btn.classList.add('recording');
+        recognition.onend = () => btn.classList.remove('recording');
+        recognition.onresult = (e) => {
+            input.value = e.results[0][0].transcript;
+            handleChatSend();
         };
+        
+        btn.addEventListener('click', () => recognition.start());
+    };
 
-        // --- HÀM KHỞI TẠO CHÍNH ---
+    // --- 6. KHỞI TẠO GIAO DIỆN (CHẠY KHI WEB TẢI XONG) ---
+    const initializeUI = () => {
+        console.log("Đang khởi tạo UI...");
 
-        const initializeUI = () => {
-            console.log("Bắt đầu khởi tạo UI...");
-
-            // (Lấy các phần tử UI)
-            const modalCloseButton = document.getElementById('modalCloseButton');
-            const aeoQueryInput = document.getElementById('aeoQueryInput');
-            const aeoQueryButton = document.getElementById('aeoQueryButton');
-            const aeoQueryResult = document.getElementById('aeoQueryResult');
-            const contentSelect = document.getElementById('contentSelect');
-            const generateContentButton = document.getElementById('generateContentButton');
-            const contentResult = document.getElementById('contentResult');
-            const comboTypeSelect = document.getElementById('comboTypeSelect');
-            const generateComboButton = document.getElementById('generateComboButton');
-            const comboResultBox = document.getElementById('comboResultBox');
-            const generateSloganButton = document.getElementById('generateSloganButton');
-            const sloganResultBox = document.getElementById('sloganResultBox');
-            const generateKPIReportButton = document.getElementById('generateKPIReportButton');
-            const kpiReportResultBox = document.getElementById('kpiReportResult');
-            const generateProductDescButton = document.getElementById('generateProductDescButton');
-            const productDescResult = document.getElementById('productDescResult');
-            const generateMAPEmailButton = document.getElementById('generateMAPEmailButton');
-            const mapEmailResult = document.getElementById('mapEmailResult');
-            
-            // --- Lấy các phần tử UI (Chatbot) ---
-            const chatFab = document.getElementById('chatFab');
-            const chatWindow = document.getElementById('chatWindow');
-            const chatClose = document.getElementById('chatClose');
-            const chatInput = document.getElementById('chatInput');
-            const chatSend = document.getElementById('chatSend');
-            const chatMicButton = document.getElementById('chatMic');
-
-            // 1. Khởi tạo Modal
-            if (modalCloseButton) {
-                modalCloseButton.addEventListener('click', closeModal);
-            }
-
-            // 2. Khởi tạo Accordion (BẢN SỬA LỖI FINAL CHO ĐIỆN THOẠI)
-            try {
-                const acc = document.getElementsByClassName("accordion");
+        // A. XỬ LÝ ACCORDION (FIX LỖI ĐIỆN THOẠI - CÁCH MẠNH NHẤT)
+        try {
+            const acc = document.getElementsByClassName("accordion");
+            // Clone node để xóa sạch mọi sự kiện rác cũ
+            for (let i = 0; i < acc.length; i++) {
+                const newBtn = acc[i].cloneNode(true);
+                acc[i].parentNode.replaceChild(newBtn, acc[i]);
                 
-                // Xử lý click mở rộng
-                const togglePanel = function() {
+                // Gắn sự kiện CLICK (Hoạt động tốt nhất trên cả Mobile/PC)
+                newBtn.addEventListener("click", function() {
                     this.classList.toggle("active");
                     const panel = this.nextElementSibling;
                     if (panel.style.maxHeight) {
@@ -1351,434 +1374,112 @@
                     } else {
                         panel.style.maxHeight = (panel.scrollHeight + 50) + "px";
                     }
-                };
+                });
+            }
+            console.log("Accordion đã sẵn sàng.");
+        } catch (e) { console.error("Lỗi Accordion:", e); }
 
-                for (let i = 0; i < acc.length; i++) {
-                    // Xóa sự kiện cũ để tránh lỗi
-                    acc[i].replaceWith(acc[i].cloneNode(true));
-                }
-                
-                // Gán lại sự kiện click cho danh sách mới
-                const newAcc = document.getElementsByClassName("accordion");
-                for (let i = 0; i < newAcc.length; i++) {
-                    newAcc[i].addEventListener("click", togglePanel);
-                }
-                console.log("Accordion đã khởi tạo xong.");
-            } catch (e) { console.error("Lỗi khởi tạo Accordion:", e); }
+        // B. KẾT NỐI CÁC NÚT BẤM (HAT SUPPORT)
+        // Hàm gán sự kiện nhanh
+        const bindBtn = (id, action) => {
+            const btn = document.getElementById(id);
+            if(btn) btn.addEventListener('click', action);
+        };
 
-            // 3. Khởi tạo Biểu đồ
-            try {
-                const positioningCtx = document.getElementById('positioningChart');
-                if (positioningCtx) {
-                    new Chart(positioningCtx, {
-                        type: 'bubble',
-                        data: {
-                            datasets: [
-                                { label: 'Nệm Vạn Thành', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: '#003F5C' },
-                                { label: 'Kymdan', data: [{ x: 10, y: 10, r: 20 }], backgroundColor: '#D45087' },
-                                { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: '#665191' },
-                                { label: 'Kim Cương', data: [{ x: 6, y: 7, r: 10 }], backgroundColor: '#FFA600' },
-                                { label: 'Dunlopillo', data: [{ x: 9, y: 9, r: 8 }], backgroundColor: '#A05195' },
-                                { label: 'Everon', data: [{ x: 7, y: 6, r: 7 }], backgroundColor: '#F95D6A' }
-                            ]
-                        },
-                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { title: { display: true, text: 'Giá Bán (Thấp -> Cao)' }, min: 3, max: 11 }, y: { title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)' }, min: 4, max: 11 } }, plugins: { legend: { position: 'bottom' } } }
-                    });
-                }
-            } catch (e) { console.error("Lỗi tải Biểu đồ Định vị:", e); }
-            
-            try {
-                const productMixCtx = document.getElementById('productMixChart');
-                if (productMixCtx) {
-                    new Chart(productMixCtx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: ['Cao su Thiên nhiên', 'Nệm Lò xo', 'Nệm Mouse (Foam)', 'Nệm Gòn'],
-                            datasets: [{
-                                label: 'Tỷ Trọng Sản Phẩm',
-                                data: [45, 30, 15, 10],
-                                backgroundColor: [ '#003F5C', '#665191', '#FFA600', '#D45087' ],
-                                hoverOffset: 4
-                            }]
-                        },
-                        options: { maintainAspectRatio: false, responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } } }
-                    });
-                }
-            } catch (e) { console.error("Lỗi tải Biểu đồ Sản phẩm:", e); }
-    
-            try {
-                const channelStrategyCtx = document.getElementById('channelStrategyChart');
-                if (channelStrategyCtx) {
-                    new Chart(channelStrategyCtx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Hiện tại (Ước tính)', 'Mục tiêu (1 Năm)'],
-                            datasets: [
-                                { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: '#F95D6A', stack: 'strategy' },
-                                { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: '#003F5C', stack: 'strategy' },
-                                { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: '#FFA600', stack: 'strategy' },
-                                { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: '#665191', stack: 'strategy' }
-                            ]
-                        },
-                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Phân Bổ Nguồn Lực (%)' } } }, plugins: { legend: { position: 'bottom' } } }
-                    });
-                }
-            } catch (e) { console.error("Lỗi tải Biểu đồ Kênh:", e); }
-            
-            // 4. Khởi tạo Gắn Event Listeners cho các nút AI
-            if (aeoQueryButton) { aeoQueryButton.addEventListener('click', () => { const query = aeoQueryInput.value || "So sánh nệm Vạn Thành và Kymdan"; const systemPrompt = "Bạn là Hat Support. Trả lời ngắn gọn, dùng gạch đầu dòng."; const userPrompt = query; callGeminiAPI(systemPrompt, userPrompt, aeoQueryResult); }); }
-            if (generateContentButton) { generateContentButton.addEventListener('click', () => { const type = contentSelect.value; const systemPrompt = "Bạn là Hat Support. Trả lời ngắn gọn."; let userPrompt = type === 'tiktok' ? "3 ý tưởng TikTok cho nệm Vạn Thành." : "1 bài đăng Facebook Group về giấc ngủ."; callGeminiAPI(systemPrompt, userPrompt, contentResult); }); }
-            if (generateComboButton) { generateComboButton.addEventListener('click', () => { const comboType = comboTypeSelect.value; const systemPrompt = "Bạn là Hat Support. Phác thảo gói combo."; const userPrompt = `Phác thảo Gói Combo: "${comboType}".`; callGeminiAPI(systemPrompt, userPrompt, comboResultBox); }); }
-            if (generateSloganButton) { generateSloganButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support."; const userPrompt = "Tạo 5 slogan cho Nệm Vạn Thành: 'BỀN BỈ TỪ 1980'."; callGeminiAPI(systemPrompt, userPrompt, sloganResultBox); }); }
-            if (generateKPIReportButton) { generateKPIReportButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support."; const userPrompt = "Viết email báo cáo KPI marketing ngắn gọn."; callGeminiAPI(systemPrompt, userPrompt, kpiReportResultBox); }); }
-            if (generateProductDescButton) { generateProductDescButton.addEventListener('click', () => { const tier = document.getElementById('productTierSelect').value; const systemPrompt = "Bạn là Hat Support."; const userPrompt = `Viết mô tả sản phẩm nệm phân khúc ${tier} chuẩn SEO.`; callGeminiAPI(systemPrompt, userPrompt, productDescResult); }); }
-            if (generateMAPEmailButton) { generateMAPEmailButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support."; const userPrompt = "Viết email thông báo chính sách giá MAP cho đại lý."; callGeminiAPI(systemPrompt, userPrompt, mapEmailResult); }); }
-            
-            document.querySelectorAll('.brainstorm-button').forEach(button => { 
-                button.addEventListener('click', () => { 
-                    const sectionContent = button.dataset.sectionContent; 
-                    const resultElement = document.getElementById(`brainstormResult-${button.dataset.sectionId}`); 
-                    const systemPrompt = "Bạn là Hat Support. Đặt 3 câu hỏi chiến lược sắc sảo."; 
-                    const userPrompt = `Dựa trên: "${sectionContent}", hãy đặt 3 câu hỏi thảo luận.`; 
-                    callGeminiAPI(systemPrompt, userPrompt, resultElement); 
-                }); 
+        // Nút Brainstorm (Gợi ý câu hỏi)
+        document.querySelectorAll('.brainstorm-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const resultBox = document.getElementById(`brainstormResult-${btn.dataset.sectionId}`);
+                const prompt = `Dựa trên nội dung: "${btn.dataset.sectionContent}", hãy đặt 3 câu hỏi thảo luận sắc sảo.`;
+                callGeminiAPI("Bạn là Hat AI chuyên gia chiến lược.", prompt, resultBox);
             });
+        });
 
-            // 5. Khởi tạo Chatbot
-            if (chatFab) { chatFab.addEventListener('click', () => chatWindow.classList.toggle('visible')); }
-            if (chatClose) { chatClose.addEventListener('click', () => {
-                if (window.speechSynthesis) window.speechSynthesis.cancel();
-                chatWindow.classList.remove('visible'); 
-            }); }
-            if (chatSend) { chatSend.addEventListener('click', handleChatSend); }
-            if (chatInput) { chatInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatSend(); }); }
-            
-            // 6. Khởi tạo Form Góp Ý
-            try {
-                document.querySelectorAll('.feedback-form').forEach(form => {
-                    form.addEventListener('submit', handleFeedbackSubmit);
-                });
-            } catch (e) { console.error("Lỗi khởi tạo Form Góp Ý:", e); }
+        // Nút AEO
+        bindBtn('aeoQueryButton', () => {
+            const inp = document.getElementById('aeoQueryInput');
+            const out = document.getElementById('aeoQueryResult');
+            callGeminiAPI("Bạn là chuyên gia so sánh.", inp.value || "So sánh Vạn Thành vs Kymdan", out);
+        });
 
-            // 7. Khởi tạo Mic
-            if (chatMicButton) {
-                initializeSpeechRecognition(chatMicButton, chatInput);
-            }
-
-            console.log("Khởi tạo UI thành công.");
-        };
-            // 2. Khởi tạo Accordion (BẢN SỬA LỖI FINAL - DÙNG CLICK CHUẨN)
-            try {
-                const acc = document.getElementsByClassName("accordion");
-                
-                for (let i = 0; i < acc.length; i++) {
-                    // Xóa sạch các sự kiện cũ để tránh lỗi
-                    acc[i].replaceWith(acc[i].cloneNode(true));
-                }
-
-                // Lấy lại danh sách sau khi clone (để sạch sự kiện)
-                const newAcc = document.getElementsByClassName("accordion");
-
-                for (let i = 0; i < newAcc.length; i++) {
-                    newAcc[i].addEventListener("click", function() {
-                        // Toggle class active
-                        this.classList.toggle("active");
-                        
-                        // Xử lý đóng mở panel
-                        const panel = this.nextElementSibling;
-                        if (panel.style.maxHeight) {
-                            panel.style.maxHeight = null;
-                        } else {
-                            // Tự động tính toán chiều cao + 50px dư
-                            panel.style.maxHeight = (panel.scrollHeight + 50) + "px";
-                        }
-                    });
-                }
-                console.log("Accordion đã được khởi tạo lại thành công.");
-            } catch (e) { console.error("Lỗi khởi tạo Accordion:", e); }
-
-            // 3. Khởi tạo Biểu đồ (Code không đổi)
-            try {
-                const positioningCtx = document.getElementById('positioningChart');
-                if (positioningCtx) {
-                    new Chart(positioningCtx, {
-                        type: 'bubble',
-                        data: {
-                            datasets: [
-                                { label: 'Nệm Vạn Thành', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: '#003F5C' },
-                                { label: 'Kymdan', data: [{ x: 10, y: 10, r: 20 }], backgroundColor: '#D45087' },
-                                { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: '#665191' },
-                                { label: 'Kim Cương', data: [{ x: 6, y: 7, r: 10 }], backgroundColor: '#FFA600' },
-                                { label: 'Dunlopillo', data: [{ x: 9, y: 9, r: 8 }], backgroundColor: '#A05195' },
-                                { label: 'Everon', data: [{ x: 7, y: 6, r: 7 }], backgroundColor: '#F95D6A' }
-                            ]
-                        },
-                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { title: { display: true, text: 'Giá Bán (Thấp -> Cao)' }, min: 3, max: 11 }, y: { title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)' }, min: 4, max: 11 } }, plugins: { legend: { position: 'bottom' } } }
-                    });
-                }
-            } catch (e) { console.error("Lỗi tải Biểu đồ Định vị:", e); }
-            
-            try {
-                const productMixCtx = document.getElementById('productMixChart');
-                if (productMixCtx) {
-                    new Chart(productMixCtx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: ['Cao su Thiên nhiên', 'Nệm Lò xo', 'Nệm Mouse (Foam)', 'Nệm Gòn'],
-                            datasets: [{
-                                label: 'Tỷ Trọng Sản Phẩm',
-                                data: [45, 30, 15, 10],
-                                backgroundColor: [ '#003F5C', '#665191', '#FFA600', '#D45087' ],
-                                hoverOffset: 4
-                            }]
-                        },
-                        options: { maintainAspectRatio: false, responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } } }
-                    });
-                }
-            } catch (e) { console.error("Lỗi tải Biểu đồ Sản phẩm:", e); }
-    
-            try {
-                const channelStrategyCtx = document.getElementById('channelStrategyChart');
-                if (channelStrategyCtx) {
-                    new Chart(channelStrategyCtx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Hiện tại (Ước tính)', 'Mục tiêu (1 Năm)'],
-                            datasets: [
-                                { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: '#F95D6A', stack: 'strategy' },
-                                { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: '#003F5C', stack: 'strategy' },
-                                { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: '#FFA600', stack: 'strategy' },
-                                { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: '#665191', stack: 'strategy' }
-                            ]
-                        },
-                        options: { maintainAspectRatio: false, responsive: true, scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Phân Bổ Nguồn Lực (%)' } } }, plugins: { legend: { position: 'bottom' } } }
-                    });
-                }
-            } catch (e) { console.error("Lỗi tải Biểu đồ Kênh:", e); }
-            
-    
-            // 4. Khởi tạo Gắn Event Listeners cho các nút AI (Không đổi)
-            if (aeoQueryButton) { aeoQueryButton.addEventListener('click', () => { const query = aeoQueryInput.value || "So sánh nệm Vạn Thành và Kymdan"; const systemPrompt = "Bạn là Hat Support, một chuyên gia phân tích khiêm hạ. Hãy trả lời câu hỏi của người dùng. **Trình bày kết quả** một cách rõ ràng, dùng **in đậm** và gạch đầu dòng để so sánh điểm mạnh/yếu khách quan. Luôn thể hiện sự khiêm hạ."; const userPrompt = query; callGeminiAPI(systemPrompt, userPrompt, aeoQueryResult); }); }
-            if (generateContentButton) { generateContentButton.addEventListener('click', () => { const type = contentSelect.value; const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo nội dung khiêm hạ. **Trình bày ý tưởng** dưới dạng danh sách, dùng **in đậm** cho tiêu đề kịch bản/bài đăng. Giọng điệu khiêm tốn."; let userPrompt = ''; if (type === 'tiktok') { userPrompt = "Tạo 3 ý tưởng kịch bản TikTok (dưới 30 giây) để thể hiện độ bền hoặc sự êm ái của nệm Vạn Thành. Định dạng: **[Ý Tưởng 1]**, [Cảnh Quay], [Thông Điệp]."; } else { userPrompt = "Tạo 1 bài đăng cho Facebook Group 'Hội Yêu Giấc Ngủ Việt' với mục tiêu thu thập khảo sát (Zero-Party Data) về thói quen ngủ của người dùng. Bài đăng phải thân thiện, đặt câu hỏi tương tác."; } callGeminiAPI(systemPrompt, userPrompt, contentResult); }); }
-            if (generateComboButton) { generateComboButton.addEventListener('click', () => { const comboType = comboTypeSelect.value; const systemPrompt = "Bạn là Hat Support, một trợ lý phát triển sản phẩm khiêm hạ. **Trình bày phác thảo** một cách rõ ràng, chuyên nghiệp, dùng **in đậm** cho các đề mục (Tên Gói, Đối Tượng...)."; const userPrompt = `Hãy phác thảo Gói Combo: "${comboType}". Nêu rõ: \n1. **Tên Gói Hấp Dẫn:** \n2. **Đối Tượng Khách Hàng:** \n3. **Các Sản Phẩm Bao Gồm (Nệm Vạn Thành + 2-3 sản phẩm khác):** \n4. **Thông Điệp Marketing Chính:**`; callGeminiAPI(systemPrompt, userPrompt, comboResultBox); }); }
-            if (generateSloganButton) { generateSloganButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý sáng tạo khiêm hạ. Hãy tạo ra 5 slogan. **Trình bày kết quả** dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt."; const userPrompt = "Tạo 5 slogan cho Nệm Vạn Thành dựa trên định vị cốt lõi: 'BỀN BỈ TỪ 1980'. Các slogan phải gợi lên sự tin cậy, chất lượng vượt thời gian và di sản."; callGeminiAPI(systemPrompt, userPrompt, sloganResultBox); }); }
-            if (generateKPIReportButton) { generateKPIReportButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý phân tích khiêm hạ. Hãy soạn thảo một email báo cáo. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, dùng gạch đầu dòng cho các KPI."; const userPrompt = "Soạn thảo một email báo cáo tiến độ (dạng gạch đầu dòng) dựa trên các KPI giả định sau: \n- **Tỷ lệ vi phạm MAP:** Giảm 90% (Thành công). \n- **Số leads O2O:** Tăng 150% (Vượt mong đợi). \n- **Doanh thu Affiliate:** Đang xây dựng (Cần theo dõi). \n- **Hành động tiếp theo:** Triển khai GMB cho 100 đại lý tiếp theo."; callGeminiAPI(systemPrompt, userPrompt, kpiReportResultBox); }); }
-            if (generateProductDescButton) { generateProductDescButton.addEventListener('click', () => { const tier = document.getElementById('productTierSelect').value; const systemPrompt = "Bạn là Hat Support, một trợ lý copywriter khiêm hạ. **Trình bày kết quả** rõ ràng, chuyên nghiệp, có thể dùng **in đậm** cho tiêu đề và gạch đầu dòng cho lợi ích."; let userPrompt = `Viết một mô tả sản phẩm (khoảng 100 từ) cho website Nệm Vạn Thành, phân khúc ${tier}.`; if (tier === 'GOOD') { userPrompt += " Tập trung vào: 'giá rẻ', 'tiết kiệm', 'bền bỉ', 'gấp 3 tiện lợi'."; } else if (tier === 'BETTER') { userPrompt += " Tập trung vào: 'cân bằng', 'nâng đỡ', 'êm ái', 'cao su thiên nhiên', 'lò xo túi'."; } else { userPrompt += " Tập trung vào: 'cao cấp', 'sang trọng', 'di sản', 'nguyên liệu tinh khiết', 'giấc ngủ chuyên sâu'."; } callGeminiAPI(systemPrompt, userPrompt, productDescResult); }); }
-            if (generateMAPEmailButton) { generateMAPEmailButton.addEventListener('click', () => { const systemPrompt = "Bạn là Hat Support, một trợ lý truyền thông khiêm hạ. **Trình bày kết quả** dưới dạng một email chuyên nghiệp, rõ ràng, có tiêu đề, nội dung và kết thư. Giọng điệu vừa nghiêm túc (về chế tài) vừa mang tính hợp tác (vì lợi ích chung)."; const userPrompt = "Soạn thảo một email trang trọng gửi toàn bộ 1000 đại lý của Nệm Vạn Thành, thông báo về việc áp dụng 'Chính Sách Giá Quảng Cáo Tối Thiểu (MAP)' từ tháng tới. Nêu rõ: \n1. **Lý do:** Bảo vệ giá trị thương hiệu và sự công bằng cho đại lý. \n2. **Quy định:** Cấm quảng cáo chiết khấu X% (ví dụ: 15%) trên mọi kênh online. \n3. **Chế tài:** Nêu rõ 3 cấp độ (Cảnh cáo, Cắt chiết khấu, Ngừng cung cấp). \n4. **Kêu gọi hợp tác:** vì mục tiêu chung."; callGeminiAPI(systemPrompt, userPrompt, mapEmailResult); }); }
-            document.querySelectorAll('.brainstorm-button').forEach(button => { button.addEventListener('click', () => { const sectionId = button.dataset.sectionId; const sectionContent = button.dataset.sectionContent; const resultElement = document.getElementById(`brainstormResult-${sectionId}`); const systemPrompt = "Bạn là Hat Support, một trợ lý tư vấn chiến lược khiêm hạ. Nhiệm vụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này.\n**Yêu cầu:**\n1. **Định dạng:** Trình bày 3 câu hỏi dưới dạng danh sách gạch đầu dòng (`-`) rõ ràng, đẹp mắt.\n2. **Giọng điệu:** Chuyên nghiệp, khiêm tốn.\n3. **Chất lượng:** Đừng hỏi câu hỏi 'có/không'. Hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'."; const userPrompt = `Dựa trên nội dung của mục này: "${sectionContent}", hãy tạo ra 3 câu hỏi/vấn đề thảo luận mở rộng.`; callGeminiAPI(systemPrompt, userPrompt, resultElement); }); });
-
-            // 5. Khởi tạo Chatbot
-            if (chatFab) { chatFab.addEventListener('click', () => chatWindow.classList.toggle('visible')); }
-            if (chatClose) { chatClose.addEventListener('click', () => {
-                synthesizer.cancel(); // Tắt giọng nói khi đóng chat
-                chatWindow.classList.remove('visible'); 
-            }); }
-            if (chatSend) { chatSend.addEventListener('click', handleChatSend); }
-            if (chatInput) { chatInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatSend(); }); }
-            
-            // 6. Khởi tạo Gắn Event Listeners cho các Form Góp Ý
-            try {
-                document.querySelectorAll('.feedback-form').forEach(form => {
-                    form.addEventListener('submit', handleFeedbackSubmit);
-                });
-                console.log("Khởi tạo Form Góp Ý thành công.");
-            } catch (e) { console.error("Lỗi khởi tạo Form Góp Ý:", e); }
-
-            // 7. (MỚI) Khởi tạo Nhận diện Giọng nói (Micro)
-            if (chatMicButton) {
-                initializeSpeechRecognition(chatMicButton, chatInput);
-            }
-
-            console.log("Khởi tạo UI thành công.");
-        };
-
-        // --- LOGIC RIÊNG CỦA CHATBOT (ĐÃ NÂNG CẤP) ---
-
-        const CHATBOT_SYSTEM_PROMPT = `Bạn là Hat AI, một trợ lý tư vấn chuyên nghiệp, khiêm hạ. Bạn đang hỗ trợ một đối tác (thân chủ) xem xét kế hoạch marketing cho Nệm Vạn Thành.
-        PHONG CÁCH PHẢN HỒI:
-        1. Xưng Hô: Luôn gọi người dùng là "thân chủ" và xưng "Hat AI" hoặc "tôi". Giọng điệu luôn khiêm tốn, lễ phép, tư vấn (dạ, thưa, xin phép).
-        2. Bố Cục Rõ Ràng: Khi trả lời, hãy dùng Markdown để định dạng. Sử dụng **in đậm** cho tiêu đề, gạch đầu dòng ('-') cho danh sách, và xuống dòng hợp lý để câu trả lời rõ ràng, chuyên nghiệp và đẹp mắt.
-        3. Thái Độ: Luôn thể hiện sự chuyên nghiệp, khiêm hạ và "đón nhận sự góp ý xây dựng".
-        4. Thông Minh & Dẫn Dắt: Sau mỗi câu trả lời, hãy chủ động đặt 1 "câu hỏi thông minh" để dẫn dắt, gợi ý hoặc phản hồi lại (ví dụ: "Thân chủ có muốn tôi phân tích sâu hơn về mục...?", "Thân chủ đánh giá rủi ro của giải pháp MAP này như thế nào ạ?").
-        NỘI DUNG PHẢN HỒI:
-        - Trả lời các câu hỏi của "thân chủ" về bản kế hoạch (Bối cảnh: Loạn giá; Giải pháp: Tái định vị 'Bền Bỉ 1980', MAP, O2O, SEO Local).
-        - Nếu thông tin không có trong bối cảnh, hãy "tự tạo sinh theo bối cảnh" (dùng kiến thức marketing chung) để tư vấn, nhưng phải nói rõ đây là "gợi ý mở rộng".
-        - Luôn giữ thái độ hỗ trợ và không trả lời các chủ đề không liên quan đến kế hoạch marketing.`;
-
-        let chatHistory = [
-            { role: "user", parts: [{ text: "Bắt đầu cuộc trò chuyện" }] },
-            { role: "model", parts: [{ text: "Dạ, Hat AI xin chào thân chủ. Thân chủ cần tôi hỗ trợ tư vấn gì về kế hoạch này ạ?" }] }
-        ];
-
-        /**
-         * (MỚI) Hàm phát âm thanh bằng trình duyệt (TTS)
-         */
-        const speakText = (textToSpeak) => {
-            synthesizer.cancel(); // Dừng bất cứ gì đang nói dở
-
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            
-            // Cố gắng tìm giọng Tiếng Việt
-            let vietnameseVoice = synthesizer.getVoices().find(voice => voice.lang === 'vi-VN');
-            
-            if (vietnameseVoice) {
-                utterance.voice = vietnameseVoice;
-            } else {
-                // Nếu không có giọng 'vi-VN' (ví dụ Firefox), dùng giọng mặc định
-                console.warn("Không tìm thấy giọng 'vi-VN'. Dùng giọng mặc định.");
-            }
-            
-            utterance.pitch = 1; // Giữ tông giọng
-            utterance.rate = 1;  // Tốc độ đọc
-            
-            synthesizer.speak(utterance);
-        };
-
-        const addMessageToChatUI = (message, sender) => {
-            const chatMessages = document.getElementById('chatMessages');
-            if (!chatMessages) return;
-            const thinking = chatMessages.querySelector('.thinking');
-            if (thinking) thinking.remove();
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('chat-message', sender);
-            if (sender === 'model') {
-                let formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
-                formattedMessage = formattedMessage.replace(/\n/g, '<br>'); 
-                formattedMessage = formattedMessage.replace(/(\<br\>|^)\s*-\s/g, '<br>• '); 
-                formattedMessage = formattedMessage.replace(/^\s*-\s/g, '• ');
-                messageElement.innerHTML = formattedMessage;
-            } else {
-                messageElement.textContent = message; 
-            }
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight; 
-        };
-
-        const handleChatSend = () => {
-            synthesizer.cancel(); // Dừng giọng nói nếu đang nói
-            const chatInput = document.getElementById('chatInput');
-            if (!chatInput) return;
-            const userMessage = chatInput.value.trim();
-            if (!userMessage) return;
-
-            addMessageToChatUI(userMessage, 'user'); 
-            chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
-            chatInput.value = '';
-
-            const chatMessages = document.getElementById('chatMessages');
-            const thinkingElement = document.createElement('div');
-            thinkingElement.classList.add('chat-message', 'model', 'thinking');
-            thinkingElement.innerHTML = `<span class="loader-dots"></span><span class="loader-dots"></span><span class="loader-dots"></span>`;
-            chatMessages.appendChild(thinkingElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            callChatbotAPI(userMessage);
-        };
-
-        /**
-         * === HÀM CHATBOT ĐÃ NÂNG CẤP (GỌI TEXT + TỰ ĐỌC) ===
-         */
-        const callChatbotAPI = async (userMessage) => {
-            
-            const formData = new FormData();
-            formData.append('action', 'callChatbot');
-            formData.append('systemPrompt', CHATBOT_SYSTEM_PROMPT);
-            formData.append('chatHistory', JSON.stringify(chatHistory));
-
-            try {
-                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-                    method: 'POST',
-                    body: formData
-                });
-                if (!response.ok) throw new Error(`Lỗi máy chủ Apps Script: ${response.status}`);
-                const result = await response.json(); 
-
-                if (result.status === 'success') {
-                    const modelMessage = result.text;
-                    addMessageToChatUI(modelMessage, 'model'); 
-                    chatHistory.push({ role: "model", parts: [{ text: modelMessage }] });
-
-                    // (MỚI) Tự động đọc câu trả lời
-                    speakText(modelMessage);
-
-                } else {
-                    throw new Error(result.message);
-                }
-            } catch (error) {
-                console.error('Lỗi gọi Apps Script (callChatbotAPI):', error);
-                const errorMsg = `Dạ thưa thân chủ, Hat AI đang gặp một chút sự cố kết nối. ${error.message}. Xin thân chủ vui lòng thử lại sau ạ.`;
-                addMessageToChatUI(errorMsg, 'model');
-                speakText(errorMsg); // Đọc thông báo lỗi
-            }
-        };
-
-        /**
-         * === HÀM MỚI (CHO MICROPHONE - STT) ===
-         * Khởi tạo Web Speech API (STT)
-         */
-        const initializeSpeechRecognition = (micButton, inputElement) => {
-            // Kiểm tra xem trình duyệt có hỗ trợ không (chỉ Chrome/Edge)
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                console.warn("Trình duyệt này không hỗ trợ Web Speech API.");
-                micButton.style.display = 'none'; // Ẩn nút micro nếu không hỗ trợ
-                return;
-            }
-
-            recognition = new SpeechRecognition();
-            recognition.continuous = false; // Chỉ nghe 1 câu
-            recognition.lang = 'vi-VN';      // Nghe Tiếng Việt
-            recognition.interimResults = false; // Chỉ trả về kết quả cuối cùng
-
-            // Khi bắt đầu nghe
-            recognition.onstart = () => {
-                micButton.classList.add('recording');
-                micButton.title = "Đang nghe...";
-                synthesizer.cancel(); // Tắt loa nếu đang nói
-            };
-
-            // Khi có kết quả
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                inputElement.value = transcript; // Đưa kết quả vào ô chat
-                handleChatSend(); // Tự động gửi
-            };
-
-            // Khi kết thúc nghe (dù có kết quả hay không)
-            recognition.onend = () => {
-                micButton.classList.remove('recording');
-                micButton.title = "Nhấn để nói";
-            };
-
-            // Khi có lỗi
-            recognition.onerror = (event) => {
-                console.error("Lỗi nhận diện giọng nói:", event.error);
-                micButton.classList.remove('recording');
-                micButton.title = "Nhấn để nói";
-            };
-
-            // Gắn sự kiện click
-            micButton.addEventListener('click', () => {
-                if (micButton.classList.contains('recording')) {
-                    recognition.stop(); // Nhấn lần nữa để dừng
-                } else {
-                    recognition.start(); // Nhấn để bắt đầu nghe
-                }
-            });
-        };
-
-        // --- KHỞI CHẠY ---
-        // Phải tải danh sách giọng nói trước
-        synthesizer.getVoices(); 
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = () => synthesizer.getVoices();
-        }
+        // Nút Content
+        bindBtn('generateContentButton', () => {
+            const type = document.getElementById('contentSelect').value;
+            const out = document.getElementById('contentResult');
+            const prompt = type === 'tiktok' ? "Viết 3 kịch bản TikTok ngắn." : "Viết 1 bài đăng Facebook Group.";
+            callGeminiAPI("Bạn là Content Creator.", prompt, out);
+        });
         
-        initializeUI();
+        // Nút Combo
+        bindBtn('generateComboButton', () => {
+            const type = document.getElementById('comboTypeSelect').value;
+            const out = document.getElementById('comboResultBox');
+            callGeminiAPI("Bạn là Sales Manager.", `Tạo gói combo: ${type}`, out);
+        });
+
+        // Nút Slogan
+        bindBtn('generateSloganButton', () => {
+            callGeminiAPI("Bạn là Copywriter.", "Viết 5 slogan 'Bền Bỉ Từ 1980'.", document.getElementById('sloganResultBox'));
+        });
+
+        // Nút KPI
+        bindBtn('generateKPIReportButton', () => {
+            callGeminiAPI("Bạn là CEO.", "Viết báo cáo KPI marketing.", document.getElementById('kpiReportResult'));
+        });
+
+        // Nút Mô tả sản phẩm
+        bindBtn('generateProductDescButton', () => {
+            const tier = document.getElementById('productTierSelect').value;
+            callGeminiAPI("Bạn là SEO Writer.", `Viết mô tả nệm phân khúc ${tier}.`, document.getElementById('productDescResult'));
+        });
+
+        // Nút Email MAP
+        bindBtn('generateMAPEmailButton', () => {
+            callGeminiAPI("Bạn là Pháp chế.", "Viết email cảnh cáo phá giá MAP.", document.getElementById('mapEmailResult'));
+        });
+
+        // C. XỬ LÝ CHATBOT & MODAL
+        const chatFab = document.getElementById('chatFab');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatSend = document.getElementById('chatSend');
+        const chatInput = document.getElementById('chatInput');
+        const chatMic = document.getElementById('chatMic');
+        const modalClose = document.getElementById('modalCloseButton');
+
+        if(chatFab) chatFab.addEventListener('click', () => chatWindow.classList.add('visible'));
+        if(chatClose) chatClose.addEventListener('click', () => chatWindow.classList.remove('visible'));
+        if(chatSend) chatSend.addEventListener('click', handleChatSend);
+        if(chatInput) chatInput.addEventListener('keyup', (e) => { if(e.key === 'Enter') handleChatSend(); });
+        if(chatMic) initializeSpeechRecognition(chatMic, chatInput);
+        if(modalClose) modalClose.addEventListener('click', closeModal);
+
+        // D. XỬ LÝ FORM GÓP Ý
+        document.querySelectorAll('.feedback-form').forEach(f => f.addEventListener('submit', handleFeedbackSubmit));
+
+        // E. VẼ BIỂU ĐỒ (NẾU CÓ)
+        try {
+            if(typeof Chart !== 'undefined') {
+                const ctx1 = document.getElementById('positioningChart');
+                if(ctx1) new Chart(ctx1, {
+                    type: 'bubble',
+                    data: { datasets: [{ label: 'Vạn Thành', data: [{x:5, y:7, r:15}], backgroundColor: '#003F5C' }] },
+                    options: { responsive: true }
+                });
+                // (Thêm các biểu đồ khác nếu cần)
+            }
+        } catch(e) { console.log("Chart warning: " + e.message); }
         
-    </script>
+        console.log("UI đã sẵn sàng!");
+    };
+
+    // --- 7. KÍCH HOẠT ---
+    window.addEventListener('DOMContentLoaded', initializeUI);
+
+</script>
 </body>
 </html>
+
 
 
 
