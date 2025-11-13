@@ -1341,39 +1341,34 @@
                 modalCloseButton.addEventListener('click', closeModal);
             }
 
-            /// 2. Khởi tạo Accordion (ĐÃ SỬA ĐỂ CHẠY TỐT TRÊN ĐIỆN THOẠI)
+            // 2. Khởi tạo Accordion (BẢN SỬA LỖI FINAL - DÙNG CLICK CHUẨN)
             try {
-                // Lấy lại danh sách các nút accordion để chắc chắn
-                const accList = document.getElementsByClassName("accordion");
+                const acc = document.getElementsByClassName("accordion");
                 
-                // Hàm xử lý đóng mở (dùng chung cho cả Click và Chạm)
-                const togglePanel = function(event) {
-                    // Ngăn chặn hành vi mặc định của cảm ứng để tránh lỗi nhảy trang
-                    if (event.type === 'touchstart') {
-                       // event.preventDefault(); // Nếu bị lỗi không cuộn được trang thì xóa dòng này đi
-                    }
-                    
-                    this.classList.toggle("active");
-                    const panel = this.nextElementSibling;
-                    
-                    if (panel.style.maxHeight) {
-                        panel.style.maxHeight = null;
-                    } else {
-                        // Thêm 50px khoảng dư để nội dung không bị cắt
-                        panel.style.maxHeight = (panel.scrollHeight + 50) + "px";
-                    }
-                };
-
-                for (let i = 0; i < accList.length; i++) {
-                    // Xóa các sự kiện cũ (nếu có) để tránh trùng lặp
-                    accList[i].removeEventListener("click", togglePanel);
-                    accList[i].removeEventListener("touchstart", togglePanel);
-
-                    // Gắn sự kiện Click (cho Máy tính)
-                    accList[i].addEventListener("click", togglePanel);
-                    // Gắn sự kiện Chạm (cho Điện thoại) - Quan trọng!
-                    accList[i].addEventListener("touchstart", togglePanel, {passive: true}); 
+                for (let i = 0; i < acc.length; i++) {
+                    // Xóa sạch các sự kiện cũ để tránh lỗi
+                    acc[i].replaceWith(acc[i].cloneNode(true));
                 }
+
+                // Lấy lại danh sách sau khi clone (để sạch sự kiện)
+                const newAcc = document.getElementsByClassName("accordion");
+
+                for (let i = 0; i < newAcc.length; i++) {
+                    newAcc[i].addEventListener("click", function() {
+                        // Toggle class active
+                        this.classList.toggle("active");
+                        
+                        // Xử lý đóng mở panel
+                        const panel = this.nextElementSibling;
+                        if (panel.style.maxHeight) {
+                            panel.style.maxHeight = null;
+                        } else {
+                            // Tự động tính toán chiều cao + 50px dư
+                            panel.style.maxHeight = (panel.scrollHeight + 50) + "px";
+                        }
+                    });
+                }
+                console.log("Accordion đã được khởi tạo lại thành công.");
             } catch (e) { console.error("Lỗi khởi tạo Accordion:", e); }
 
             // 3. Khởi tạo Biểu đồ (Code không đổi)
@@ -1658,6 +1653,7 @@
     </script>
 </body>
 </html>
+
 
 
 
